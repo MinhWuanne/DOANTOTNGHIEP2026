@@ -1,0 +1,907 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Person {
+  id        BigInt        @id @default(autoincrement())
+  fullName  String        @db.VarChar(150)
+  email     String?       @db.VarChar(255)
+  phone     String?       @db.VarChar(20)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  addresses Address[]
+  accounts  UserAccount[]
+
+  @@index([fullName])
+  @@index([phone])
+  @@index([email])
+  @@map("persons")
+}
+
+model UserAccount {
+  id                     BigInt                  @id @default(autoincrement())
+  personId               BigInt
+  platform               AccountPlatform
+  email                  String?                 @db.VarChar(255)
+  phone                  String?                 @db.VarChar(20)
+  passwordHash           String                  @db.VarChar(255)
+  status                 UserStatus              @default(ACTIVE)
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  cart                   Cart?
+  commissionTransactions CommissionTransaction[]
+  franchiseProfile       FranchiseProfile?
+  memberProfile          MemberProfile?
+  orders                 Order[]
+  paymentInstructions    PaymentInstruction[]
+  referralsGiven         ReferralRelationship[]  @relation("ReferralSource")
+  referralReceived       ReferralRelationship?   @relation("ReferralTarget")
+  person                 Person                  @relation(fields: [personId], references: [id])
+  wallet                 Wallet?
+  financialAdjustments   FinancialAdjustment[]   @relation("FinancialAdjustmentRecipient")
+  complaints             Complaint[]             @relation("ComplaintOwner")
+  complaintMessages      ComplaintMessage[]      @relation("ComplaintMessageAccountSender")
+  complaintHistory       ComplaintHistory[]      @relation("ComplaintHistoryAccountActor")
+
+  @@unique([personId, platform])
+  @@unique([platform, email])
+  @@unique([platform, phone])
+  @@index([personId])
+  @@index([platform])
+  @@index([status])
+  @@map("user_accounts")
+}
+
+model MemberProfile {
+  id           BigInt      @id @default(autoincrement())
+  accountId    BigInt      @unique
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  referralCode String      @unique @db.VarChar(50)
+  account      UserAccount @relation(fields: [accountId], references: [id])
+
+  @@map("member_profiles")
+}
+
+model FranchiseProfile {
+  id            BigInt          @id @default(autoincrement())
+  accountId     BigInt          @unique
+  franchiseCode String          @unique @db.VarChar(50)
+  status        FranchiseStatus @default(ACTIVE)
+  joinedAt      DateTime        @default(now())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  account       UserAccount     @relation(fields: [accountId], references: [id])
+
+  @@index([status])
+  @@map("franchise_profiles")
+}
+
+model ReferralRelationship {
+  id              BigInt             @id @default(autoincrement())
+  targetAccountId BigInt             @unique
+  sourceAccountId BigInt?
+  sourceType      ReferralSourceType @default(NONE)
+  createdAt       DateTime           @default(now())
+  sourceAccount   UserAccount?       @relation("ReferralSource", fields: [sourceAccountId], references: [id], onDelete: Restrict)
+  targetAccount   UserAccount        @relation("ReferralTarget", fields: [targetAccountId], references: [id])
+
+  @@index([sourceAccountId])
+  @@index([sourceType])
+  @@map("referral_relationships")
+}
+
+model Category {
+  id          BigInt    @id @default(autoincrement())
+  name        String    @unique @db.VarChar(150)
+  slug        String    @unique @db.VarChar(180)
+  description String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          BigInt           @id @default(autoincrement())
+  categoryId  BigInt
+  name        String           @db.VarChar(255)
+  slug        String           @unique @db.VarChar(280)
+  description String?          @db.Text
+  status      ProductStatus    @default(ACTIVE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  variants    ProductVariant[]
+  category    Category         @relation(fields: [categoryId], references: [id])
+  images      ProductImage[]
+
+  @@index([categoryId])
+  @@index([status])
+  @@index([name])
+  @@map("products")
+}
+
+model ProductImage {
+  id        BigInt   @id @default(autoincrement())
+  productId BigInt
+  url       String   @db.VarChar(500)
+  sortOrder Int      @default(0)
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
+  @@map("product_images")
+}
+
+model ProductVariant {
+  id                    BigInt                 @id @default(autoincrement())
+  productId             BigInt
+  sku                   String                 @unique @db.VarChar(100)
+  name                  String?                @db.VarChar(150)
+  price                 Decimal                @db.Decimal(15, 2)
+  compareAtPrice        Decimal?               @db.Decimal(15, 2)
+  status                ProductStatus          @default(ACTIVE)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  cartItems             CartItem[]
+  inventory             Inventory?
+  orderItems            OrderItem[]
+  inventoryReceiptItems InventoryReceiptItem[]
+  inventoryIssueItems   InventoryIssueItem[]
+  product               Product                @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@index([status])
+  @@map("product_variants")
+}
+
+model Inventory {
+  id          BigInt         @id @default(autoincrement())
+  variantId   BigInt         @unique
+  quantity    Int            @default(0)
+  reservedQty Int            @default(0)
+  updatedAt   DateTime       @updatedAt
+  variant     ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@map("inventories")
+}
+
+model InventoryReceipt {
+  id            BigInt                 @id @default(autoincrement())
+  receiptNumber String                 @unique @db.VarChar(50)
+  status        InventoryReceiptStatus @default(DRAFT)
+  note          String?                @db.VarChar(500)
+  createdById   BigInt
+  confirmedAt   DateTime?
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+
+  createdBy AdminAccount           @relation("InventoryReceiptCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  items     InventoryReceiptItem[]
+
+  @@index([createdById])
+  @@index([status])
+  @@index([createdAt])
+  @@map("inventory_receipts")
+}
+
+model InventoryReceiptItem {
+  id        BigInt @id @default(autoincrement())
+  receiptId BigInt
+  variantId BigInt
+  quantity  Int
+
+  receipt InventoryReceipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+  variant ProductVariant   @relation(fields: [variantId], references: [id])
+
+  @@index([receiptId])
+  @@index([variantId])
+  @@map("inventory_receipt_items")
+}
+
+model InventoryIssue {
+  id          BigInt               @id @default(autoincrement())
+  issueNumber String               @unique @db.VarChar(50)
+  orderId     BigInt               @unique
+  status      InventoryIssueStatus @default(COMPLETED)
+  createdAt   DateTime             @default(now())
+
+  order Order                @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  items InventoryIssueItem[]
+
+  @@index([orderId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("inventory_issues")
+}
+
+model InventoryIssueItem {
+  id          BigInt @id @default(autoincrement())
+  issueId     BigInt
+  variantId   BigInt
+  productName String @db.VarChar(255)
+  sku         String @db.VarChar(100)
+  quantity    Int
+
+  issue   InventoryIssue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@index([issueId])
+  @@index([variantId])
+  @@map("inventory_issue_items")
+}
+
+model Address {
+  id           BigInt      @id @default(autoincrement())
+  personId     BigInt
+  type         AddressType @default(HOME)
+  receiverName String      @db.VarChar(150)
+  phone        String      @db.VarChar(20)
+  addressLine  String      @db.VarChar(255)
+  ward         String?     @db.VarChar(100)
+  district     String?     @db.VarChar(100)
+  province     String      @db.VarChar(100)
+  isDefault    Boolean     @default(false)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  person       Person      @relation(fields: [personId], references: [id])
+  orders       Order[]
+
+  @@index([personId])
+  @@map("addresses")
+}
+
+model Cart {
+  id        BigInt      @id @default(autoincrement())
+  accountId BigInt      @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     CartItem[]
+  account   UserAccount @relation(fields: [accountId], references: [id])
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        BigInt         @id @default(autoincrement())
+  cartId    BigInt
+  variantId BigInt
+  quantity  Int
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@unique([cartId, variantId])
+  @@index([variantId])
+  @@map("cart_items")
+}
+
+model Order {
+  id                     BigInt                 @id @default(autoincrement())
+  accountId              BigInt
+  addressId              BigInt?
+  orderNumber            String                 @unique @db.VarChar(50)
+  platform               AccountPlatform
+  status                 OrderStatus            @default(PENDING)
+  paymentStatus          PaymentStatus          @default(UNPAID)
+  paymentMethod          PaymentMethod          @default(COD)
+  subtotal               Decimal                @db.Decimal(15, 2)
+  shippingFee            Decimal                @default(0.00) @db.Decimal(15, 2)
+  discount               Decimal                @default(0.00) @db.Decimal(15, 2)
+  totalAmount            Decimal                @db.Decimal(15, 2)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  processingAt           DateTime?
+  shippingAt             DateTime?
+  commissionEligibleAt   DateTime?
+  deliveredAt            DateTime?
+  customerReceivedAt     DateTime?
+  estimatedDeliveryAt    DateTime?
+  shippedAt              DateTime?
+  commissionTransactions CommissionTransaction?
+  items                  OrderItem[]
+  account                UserAccount            @relation(fields: [accountId], references: [id])
+  address                Address?               @relation(fields: [addressId], references: [id], onDelete: Restrict)
+  paymentInstructions    PaymentInstruction[]
+  returnRequest          ReturnRequest?
+  inventoryIssue         InventoryIssue?
+
+  @@index([accountId])
+  @@index([platform])
+  @@index([status])
+  @@index([paymentStatus])
+  @@index([createdAt])
+  @@index([addressId], map: "orders_addressId_fkey")
+  @@map("orders")
+}
+
+model OrderItem {
+  id          BigInt         @id @default(autoincrement())
+  orderId     BigInt
+  variantId   BigInt
+  productName String         @db.VarChar(255)
+  sku         String         @db.VarChar(100)
+  quantity    Int
+  unitPrice   Decimal        @db.Decimal(15, 2)
+  subtotal    Decimal        @db.Decimal(15, 2)
+  order       Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant     ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@index([variantId])
+  @@map("order_items")
+}
+
+model ReturnRequest {
+  id          BigInt       @id @default(autoincrement())
+  orderId     BigInt       @unique
+  status      ReturnStatus @default(PENDING)
+  requestedAt DateTime     @default(now())
+  approvedAt  DateTime?
+  refundedAt  DateTime?
+  note        String?      @db.VarChar(255)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  order       Order        @relation(fields: [orderId], references: [id])
+
+  @@index([status])
+  @@index([requestedAt])
+  @@map("return_requests")
+}
+
+model CommissionRule {
+  id                     BigInt                  @id @default(autoincrement())
+  name                   String                  @db.VarChar(150)
+  platform               AccountPlatform
+  percentage             Decimal                 @db.Decimal(5, 2)
+  isActive               Boolean                 @default(true)
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  thresholdAmount        Decimal                 @db.Decimal(15, 2)
+  commissionTransactions CommissionTransaction[]
+
+  @@index([platform])
+  @@index([isActive])
+  @@map("commission_rules")
+}
+
+model CommissionTransaction {
+  id             BigInt               @id @default(autoincrement())
+  orderId        BigInt               @unique
+  accountId      BigInt
+  ruleId         BigInt?
+  platform       AccountPlatform
+  sourceType     CommissionSourceType
+  commissionBase Decimal              @db.Decimal(15, 2)
+  percentage     Decimal              @db.Decimal(5, 2)
+  amount         Decimal              @db.Decimal(15, 2)
+  status         CommissionStatus     @default(PENDING)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  account        UserAccount          @relation(fields: [accountId], references: [id])
+  order          Order                @relation(fields: [orderId], references: [id])
+  rule           CommissionRule?      @relation(fields: [ruleId], references: [id], onDelete: Restrict)
+
+  @@index([orderId])
+  @@index([accountId])
+  @@index([platform])
+  @@index([status])
+  @@index([createdAt])
+  @@index([ruleId], map: "commission_transactions_ruleId_fkey")
+  @@map("commission_transactions")
+}
+
+model AdminAccount {
+  id                           BigInt               @id @default(autoincrement())
+  username                     String               @unique @db.VarChar(100)
+  email                        String               @unique @db.VarChar(255)
+  passwordHash                 String               @db.VarChar(255)
+  role                         AdminRole            @default(ADMIN)
+  status                       AdminStatus          @default(ACTIVE)
+  createdById                  BigInt?
+  createdAt                    DateTime             @default(now())
+  updatedAt                    DateTime             @updatedAt
+  createdBy                    AdminAccount?        @relation("AdminCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  createdAdmins                AdminAccount[]       @relation("AdminCreatedBy")
+  processedPaymentInstructions PaymentInstruction[] @relation("PaymentInstructionProcessedBy")
+  inventoryReceipts            InventoryReceipt[]   @relation("InventoryReceiptCreatedBy")
+
+  financialAdjustmentsCreated   FinancialAdjustment[] @relation("FinancialAdjustmentCreatedBy")
+  financialAdjustmentsConfirmed FinancialAdjustment[] @relation("FinancialAdjustmentConfirmedBy")
+
+  complaintMessages        ComplaintMessage[]    @relation("ComplaintMessageAdminSender")
+  complaintMessagesDeleted ComplaintMessage[]    @relation("ComplaintMessageDeletedByAdmin")
+  complaintAssignments     ComplaintAssignment[]
+  complaintHistory         ComplaintHistory[]    @relation("ComplaintHistoryAdminActor")
+
+  @@index([role])
+  @@index([status])
+  @@index([createdById])
+  @@map("admin_accounts")
+}
+
+model Wallet {
+  id              BigInt              @id @default(autoincrement())
+  accountId       BigInt              @unique
+  balance         Decimal             @default(0.00) @db.Decimal(15, 2)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  reservedBalance Decimal             @default(0.00) @db.Decimal(15, 2)
+  transactions    WalletTransaction[]
+  account         UserAccount         @relation(fields: [accountId], references: [id])
+  withdrawals     WithdrawalRequest[]
+
+  @@index([accountId])
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id                  BigInt                @id @default(autoincrement())
+  walletId            BigInt
+  type                WalletTransactionType
+  amount              Decimal               @db.Decimal(15, 2)
+  balanceBefore       Decimal               @db.Decimal(15, 2)
+  balanceAfter        Decimal               @db.Decimal(15, 2)
+  description         String?               @db.VarChar(255)
+  createdAt           DateTime              @default(now())
+  wallet              Wallet                @relation(fields: [walletId], references: [id])
+  financialAdjustment FinancialAdjustment?
+
+  @@index([walletId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("wallet_transactions")
+}
+
+enum FinancialAdjustmentDirection {
+  CREDIT
+  DEBIT
+}
+
+enum FinancialAdjustmentStatus {
+  PENDING
+  COMPLETED
+  EXPIRED
+}
+
+enum FinancialAdjustmentReason {
+  LATE_BANK_TRANSFER
+  MEMBER_COMPLAINT
+  FRANCHISE_COMPLAINT
+  COMPENSATION
+  TRANSACTION_CORRECTION
+  OTHER
+}
+
+model FinancialAdjustment {
+  id                  BigInt                       @id @default(autoincrement())
+  ticketCode          String                       @unique @db.VarChar(64)
+  recipientAccountId  BigInt
+  createdByAdminId    BigInt
+  confirmedByAdminId  BigInt?
+  walletTransactionId BigInt?                      @unique
+  direction           FinancialAdjustmentDirection
+  amount              Decimal                      @db.Decimal(15, 2)
+  reason              FinancialAdjustmentReason
+  note                String?                      @db.VarChar(500)
+  status              FinancialAdjustmentStatus    @default(PENDING)
+  expiresAt           DateTime                     @db.DateTime(3)
+  completedAt         DateTime?                    @db.DateTime(3)
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
+
+  recipient         UserAccount        @relation("FinancialAdjustmentRecipient", fields: [recipientAccountId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdBy         AdminAccount       @relation("FinancialAdjustmentCreatedBy", fields: [createdByAdminId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  confirmedBy       AdminAccount?      @relation("FinancialAdjustmentConfirmedBy", fields: [confirmedByAdminId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  walletTransaction WalletTransaction? @relation(fields: [walletTransactionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([recipientAccountId, createdAt])
+  @@index([createdByAdminId, createdAt])
+  @@index([confirmedByAdminId])
+  @@index([status, expiresAt])
+  @@index([createdAt])
+  @@map("financial_adjustments")
+}
+
+model WithdrawalRequest {
+  id            BigInt           @id @default(autoincrement())
+  walletId      BigInt
+  amount        Decimal          @db.Decimal(15, 2)
+  status        WithdrawalStatus @default(PENDING)
+  note          String?          @db.VarChar(255)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  bankAccountId BigInt?
+  bankAccount   BankAccount?     @relation(fields: [bankAccountId], references: [id])
+  wallet        Wallet           @relation(fields: [walletId], references: [id])
+
+  @@index([walletId])
+  @@index([bankAccountId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("withdrawal_requests")
+}
+
+model BankAccount {
+  id                  BigInt               @id @default(autoincrement())
+  accountNumber       String               @unique @db.VarChar(50)
+  ownerAccountId      BigInt?              @unique
+  ownerType           BankAccountOwnerType
+  balance             Decimal              @default(0.00) @db.Decimal(15, 2)
+  status              BankAccountStatus    @default(ACTIVE)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  transactionsFrom    BankTransaction[]    @relation("BankTransactionFrom")
+  transactionsTo      BankTransaction[]    @relation("BankTransactionTo")
+  paymentInstructions PaymentInstruction[]
+  withdrawalRequests  WithdrawalRequest[]
+
+  @@index([ownerType])
+  @@index([status])
+  @@map("bank_accounts")
+}
+
+model BankTransaction {
+  id                   BigInt              @id @default(autoincrement())
+  fromBankAccountId    BigInt?
+  toBankAccountId      BigInt?
+  type                 BankTransactionType
+  amount               Decimal             @db.Decimal(15, 2)
+  description          String?             @db.VarChar(255)
+  createdAt            DateTime            @default(now())
+  paymentInstructionId BigInt?
+  fromBankAccount      BankAccount?        @relation("BankTransactionFrom", fields: [fromBankAccountId], references: [id])
+  paymentInstruction   PaymentInstruction? @relation(fields: [paymentInstructionId], references: [id])
+  toBankAccount        BankAccount?        @relation("BankTransactionTo", fields: [toBankAccountId], references: [id])
+
+  @@index([fromBankAccountId])
+  @@index([toBankAccountId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([paymentInstructionId])
+  @@map("bank_transactions")
+}
+
+model PaymentInstruction {
+  id                 BigInt                   @id @default(autoincrement())
+  accountId          BigInt
+  orderId            BigInt?
+  bankAccountId      BigInt
+  type               PaymentInstructionType
+  status             PaymentInstructionStatus @default(WAITING)
+  expectedAmount     Decimal                  @db.Decimal(15, 2)
+  receivedAmount     Decimal                  @default(0.00) @db.Decimal(15, 2)
+  transferContent    String                   @db.VarChar(255)
+  createdAt          DateTime                 @default(now())
+  expiresAt          DateTime
+  completedAt        DateTime?
+  processedByAdminId BigInt?
+  adminNote          String?                  @db.VarChar(500)
+  bankTransactions   BankTransaction[]
+  account            UserAccount              @relation(fields: [accountId], references: [id])
+  bankAccount        BankAccount              @relation(fields: [bankAccountId], references: [id])
+  order              Order?                   @relation(fields: [orderId], references: [id])
+  processedByAdmin   AdminAccount?            @relation("PaymentInstructionProcessedBy", fields: [processedByAdminId], references: [id])
+
+  @@index([accountId])
+  @@index([orderId])
+  @@index([bankAccountId])
+  @@index([status])
+  @@index([expiresAt])
+  @@index([processedByAdminId])
+  @@map("payment_instructions")
+}
+
+model DemoClockState {
+  id          Int      @id @default(1)
+  simulatedAt DateTime @db.DateTime(3)
+  realTimeAt  DateTime @db.DateTime(3)
+  updatedAt   DateTime @updatedAt @db.DateTime(3)
+
+  @@map("demo_clock_state")
+}
+
+enum AccountPlatform {
+  MEMBER
+  FRANCHISE
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  LOCKED
+}
+
+enum FranchiseStatus {
+  ACTIVE
+  SUSPENDED
+  LOCKED
+  TERMINATED
+}
+
+enum ReferralSourceType {
+  NONE
+  MEMBER
+  FRANCHISE
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  OUT_OF_STOCK
+  DISCONTINUED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPING
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  COD
+  BANK_TRANSFER
+  ONLINE
+  WALLET
+}
+
+enum PaymentInstructionType {
+  ORDER_PAYMENT
+  WALLET_TOP_UP
+}
+
+enum PaymentInstructionStatus {
+  WAITING
+  PARTIALLY_PAID
+  COMPLETED
+  OVERPAID
+  MANUAL_APPROVED
+  EXPIRED
+  CANCELLED
+}
+
+enum CommissionStatus {
+  PENDING
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+enum CommissionSourceType {
+  MEMBER_ORDER
+  FRANCHISE_ORDER
+}
+
+enum AddressType {
+  HOME
+  OFFICE
+  OTHER
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum AdminStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum WalletTransactionType {
+  TOP_UP
+  COMMISSION
+  ORDER_PAYMENT
+  WITHDRAWAL
+  REFUND
+  ADJUSTMENT
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum BankAccountOwnerType {
+  USER
+  SHOP
+}
+
+enum BankAccountStatus {
+  ACTIVE
+  LOCKED
+}
+
+enum BankTransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  TRANSFER
+}
+
+enum ReturnStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+}
+
+enum InventoryReceiptStatus {
+  DRAFT
+  CONFIRMED
+  CANCELLED
+}
+
+enum InventoryIssueStatus {
+  COMPLETED
+}
+
+model Complaint {
+  id         BigInt @id @default(autoincrement())
+  ticketCode String @unique @db.VarChar(30)
+  accountId  BigInt
+
+  category         ComplaintCategory
+  subject          String            @db.VarChar(200)
+  status           ComplaintStatus   @default(PENDING)
+  resolutionReason String?           @db.Text
+
+  firstResponseAt     DateTime?
+  lastMemberMessageAt DateTime?
+  lastAdminReplyAt    DateTime?
+  responseDueAt       DateTime?
+  responsePending     Boolean   @default(true)
+
+  closedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  account UserAccount @relation("ComplaintOwner", fields: [accountId], references: [id], onDelete: Restrict)
+
+  messages    ComplaintMessage[]
+  assignments ComplaintAssignment[]
+  histories   ComplaintHistory[]
+
+  @@index([accountId, createdAt])
+  @@index([status, createdAt])
+  @@index([category, createdAt])
+  @@index([responsePending, responseDueAt])
+  @@map("complaints")
+}
+
+model ComplaintMessage {
+  id          BigInt @id @default(autoincrement())
+  complaintId BigInt
+
+  senderType      ComplaintActorType
+  senderAccountId BigInt?
+  senderAdminId   BigInt?
+
+  messageType ComplaintMessageType @default(MESSAGE)
+  content     String               @db.Text
+
+  deletedAt        DateTime?
+  deletedByAdminId BigInt?
+
+  createdAt DateTime @default(now())
+
+  complaint      Complaint     @relation(fields: [complaintId], references: [id], onDelete: Restrict)
+  senderAccount  UserAccount?  @relation("ComplaintMessageAccountSender", fields: [senderAccountId], references: [id], onDelete: Restrict)
+  senderAdmin    AdminAccount? @relation("ComplaintMessageAdminSender", fields: [senderAdminId], references: [id], onDelete: Restrict)
+  deletedByAdmin AdminAccount? @relation("ComplaintMessageDeletedByAdmin", fields: [deletedByAdminId], references: [id], onDelete: Restrict)
+
+  attachments ComplaintAttachment[]
+
+  @@index([complaintId, createdAt])
+  @@index([senderAccountId])
+  @@index([senderAdminId])
+  @@index([messageType, createdAt])
+  @@map("complaint_messages")
+}
+
+model ComplaintAttachment {
+  id        BigInt @id @default(autoincrement())
+  messageId BigInt
+
+  originalName String @db.VarChar(255)
+  storageKey   String @unique @db.VarChar(100)
+  mimeType     String @db.VarChar(100)
+  sizeBytes    Int
+
+  createdAt DateTime @default(now())
+
+  message ComplaintMessage @relation(fields: [messageId], references: [id], onDelete: Restrict)
+
+  @@index([messageId])
+  @@map("complaint_attachments")
+}
+
+model ComplaintAssignment {
+  id          BigInt   @id @default(autoincrement())
+  complaintId BigInt
+  adminId     BigInt
+  assignedAt  DateTime @default(now())
+
+  complaint Complaint    @relation(fields: [complaintId], references: [id], onDelete: Restrict)
+  admin     AdminAccount @relation(fields: [adminId], references: [id], onDelete: Restrict)
+
+  @@unique([complaintId, adminId])
+  @@index([adminId, assignedAt])
+  @@map("complaint_assignments")
+}
+
+model ComplaintHistory {
+  id          BigInt @id @default(autoincrement())
+  complaintId BigInt
+
+  actorType      ComplaintActorType
+  actorAccountId BigInt?
+  actorAdminId   BigInt?
+
+  action   String  @db.VarChar(50)
+  oldValue String? @db.Text
+  newValue String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  complaint    Complaint     @relation(fields: [complaintId], references: [id], onDelete: Restrict)
+  actorAccount UserAccount?  @relation("ComplaintHistoryAccountActor", fields: [actorAccountId], references: [id], onDelete: Restrict)
+  actorAdmin   AdminAccount? @relation("ComplaintHistoryAdminActor", fields: [actorAdminId], references: [id], onDelete: Restrict)
+
+  @@index([complaintId, createdAt])
+  @@index([actorAccountId])
+  @@index([actorAdminId])
+  @@map("complaint_histories")
+}
+
+enum ComplaintCategory {
+  ORDER
+  PAYMENT
+  RETURN
+  WALLET
+  COMMISSION
+  WITHDRAWAL
+  ACCOUNT
+  FEEDBACK
+  REF
+  OTHER
+}
+
+enum ComplaintStatus {
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+}
+
+enum ComplaintMessageType {
+  MESSAGE
+  INTERNAL_NOTE
+}
+
+enum ComplaintActorType {
+  ACCOUNT
+  ADMIN
+}

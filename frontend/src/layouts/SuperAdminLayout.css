@@ -1,0 +1,383 @@
+.sadmin-shell {
+    min-height: 100vh;
+    display: flex;
+    background: #f4f6f8;
+    color: #17202a;
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sadmin-sidebar {
+    width: 270px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #111923;
+    color: #ffffff;
+    border-right: 1px solid #202b38;
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 20;
+}
+
+.sadmin-brand {
+    height: 82px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border-bottom: 1px solid #26313d;
+}
+
+.sadmin-brand-mark {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #111923;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.sadmin-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sadmin-brand-text strong {
+    font-size: 15px;
+    line-height: 1;
+    letter-spacing: 0.12em;
+}
+
+.sadmin-brand-text span {
+    color: #8f9baa;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.sadmin-section-label {
+    padding: 30px 24px 10px;
+    color: #697583;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.sadmin-nav {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sadmin-nav-item {
+    min-height: 46px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #aeb8c4;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition:
+        background 160ms ease,
+        color 160ms ease;
+}
+
+.sadmin-nav-item:hover {
+    background: #1b2632;
+    color: #ffffff;
+}
+
+.sadmin-nav-item.active {
+    background: #263442;
+    color: #ffffff;
+    box-shadow: inset 3px 0 0 #ffffff;
+}
+
+.sadmin-nav-icon {
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 20px;
+}
+
+.sadmin-nav-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================
+   SIDEBAR BOTTOM
+   ========================= */
+
+.sadmin-sidebar-bottom {
+    margin-top: auto;
+    padding: 16px 14px 18px;
+}
+
+.sadmin-security-card {
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #283542;
+    border-radius: 9px;
+    background: #17212c;
+}
+
+.sadmin-security-icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 7px;
+    background: #22303d;
+    color: #ffffff;
+    flex: 0 0 32px;
+}
+
+.sadmin-security-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
+.sadmin-security-card div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sadmin-security-card strong {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.sadmin-security-card span {
+    color: #7f8c99;
+    font-size: 9px;
+}
+
+.sadmin-logout {
+    width: 100%;
+    height: 43px;
+    margin-top: 10px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #9da8b4;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.sadmin-logout:hover {
+    background: #1b2632;
+    color: #ffffff;
+}
+
+.sadmin-logout svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================
+   MAIN
+   ========================= */
+
+.sadmin-main {
+    min-width: 0;
+    min-height: 100vh;
+    flex: 1;
+    margin-left: 270px;
+}
+
+.sadmin-header {
+    min-height: 82px;
+    padding: 0 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-bottom: 1px solid #e3e7eb;
+}
+
+.sadmin-header-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #8b96a2;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.sadmin-header h2 {
+    margin: 0;
+    color: #18232e;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.sadmin-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.sadmin-profile-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 7px;
+    color: #65717d;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.sadmin-profile-status span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3c8b62;
+}
+
+.sadmin-avatar {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #1c2733;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.sadmin-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sadmin-profile-info strong {
+    color: #27333e;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.sadmin-profile-info span {
+    color: #8a949e;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+/* =========================
+   CONTENT
+   ========================= */
+
+.sadmin-content {
+    padding: 32px 34px 48px;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+    .sadmin-sidebar {
+        width: 220px;
+    }
+
+    .sadmin-main {
+        margin-left: 220px;
+    }
+
+    .sadmin-header {
+        padding: 0 24px;
+    }
+
+    .sadmin-content {
+        padding: 26px 24px 40px;
+    }
+
+    .sadmin-profile-info,
+    .sadmin-profile-status {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .sadmin-sidebar {
+        width: 68px;
+    }
+
+    .sadmin-main {
+        margin-left: 68px;
+    }
+
+    .sadmin-brand {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sadmin-brand-text,
+    .sadmin-section-label,
+    .sadmin-nav-item span:last-child,
+    .sadmin-security-card,
+    .sadmin-logout span {
+        display: none;
+    }
+
+    .sadmin-nav {
+        padding: 0 9px;
+    }
+
+    .sadmin-nav-item {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sadmin-nav-item.active {
+        box-shadow: inset 3px 0 0 #ffffff;
+    }
+
+    .sadmin-sidebar-bottom {
+        padding: 10px 9px;
+    }
+
+    .sadmin-logout {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sadmin-header {
+        min-height: 70px;
+        padding: 0 16px;
+    }
+
+    .sadmin-header h2 {
+        font-size: 14px;
+    }
+
+    .sadmin-content {
+        padding: 22px 16px 32px;
+    }
+}

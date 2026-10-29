@@ -1,0 +1,702 @@
+
+/* =========================================================
+   ICONDENIM — FRANCHISE LOGIN
+   Design: Premium Denim / Editorial / Partner Portal
+========================================================= */
+
+.franchise-login-page {
+  --franchise-ink: #20211e;
+  --franchise-muted: #777870;
+  --franchise-paper: #f5f4ef;
+  --franchise-white: #ffffff;
+  --franchise-line: #e5e4dc;
+  --franchise-indigo: #273c50;
+
+  min-height: 100vh;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(39, 60, 80, 0.07),
+      transparent 38%
+    ),
+    #eeede7;
+  color: var(--franchise-ink);
+  font-family: inherit;
+}
+
+.franchise-login-page *,
+.franchise-login-loading * {
+  box-sizing: border-box;
+}
+
+.franchise-login-shell {
+  width: 100%;
+  max-width: 1240px;
+  min-height: 720px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  overflow: hidden;
+  background: var(--franchise-white);
+  border: 1px solid rgba(32, 33, 30, 0.07);
+  box-shadow: 0 28px 90px rgba(32, 33, 30, 0.09);
+}
+
+/* Brand Panel */
+
+.franchise-login-brand {
+  position: relative;
+  min-width: 0;
+  min-height: 720px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #293b4a;
+  color: #ffffff;
+}
+
+.franchise-login-brand-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.franchise-login-brand-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 22, 28, 0.36) 0%,
+      rgba(15, 22, 28, 0.1) 30%,
+      rgba(15, 22, 28, 0.4) 58%,
+      rgba(15, 22, 28, 0.88) 100%
+    );
+}
+
+.franchise-login-logo {
+  position: absolute;
+  top: 42px;
+  left: 44px;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.07em;
+}
+
+.franchise-login-logo span {
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+.franchise-login-brand-copy {
+  position: absolute;
+  right: 44px;
+  bottom: 40px;
+  left: 44px;
+}
+
+.franchise-login-eyebrow {
+  margin: 0;
+  color: #8b8d82;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  line-height: 1.7;
+}
+
+.franchise-login-brand-copy .franchise-login-eyebrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.franchise-login-brand-copy h1 {
+  margin: 23px 0 19px;
+  color: #ffffff;
+  font-size: clamp(38px, 4.2vw, 58px);
+  font-weight: 750;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+.franchise-login-brand-copy h1 span {
+  color: #d6d5c9;
+}
+
+.franchise-login-brand-copy > p:not(.franchise-login-eyebrow) {
+  max-width: 390px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.79);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.franchise-login-brand-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 34px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+/* Login Panel */
+
+.franchise-login-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--franchise-white);
+}
+
+.franchise-login-panel-top {
+  min-height: 90px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid #f0efe9;
+}
+
+.franchise-login-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #66675f;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  transition: color 180ms ease;
+}
+
+.franchise-login-back span {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.franchise-login-back:hover {
+  color: var(--franchise-indigo);
+}
+
+.franchise-login-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #777870;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.franchise-login-status > span {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #687d65;
+}
+
+.franchise-login-form-wrapper {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  padding: 48px 30px;
+}
+
+.franchise-login-form-wrapper > h2 {
+  margin: 13px 0 12px;
+  color: var(--franchise-ink);
+  font-size: clamp(29px, 3vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.2;
+}
+
+.franchise-login-subtitle {
+  max-width: 380px;
+  margin: 0;
+  color: var(--franchise-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* Form */
+
+.franchise-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  margin-top: 35px;
+}
+
+.franchise-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.franchise-login-field > label,
+.franchise-login-label-row > label {
+  color: #34352f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+}
+
+.franchise-login-field > input,
+.franchise-login-password-wrap > input {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  border: 1px solid #e1e1d9;
+  border-radius: 0;
+  outline: none;
+  background: #ffffff;
+  color: var(--franchise-ink);
+  font: inherit;
+  font-size: 12px;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.franchise-login-field > input::placeholder,
+.franchise-login-password-wrap > input::placeholder {
+  color: #a0a097;
+  opacity: 1;
+}
+
+.franchise-login-field > input:hover,
+.franchise-login-password-wrap > input:hover {
+  border-color: #b7b8ad;
+}
+
+.franchise-login-field > input:focus,
+.franchise-login-password-wrap > input:focus {
+  border-color: var(--franchise-indigo);
+  box-shadow: 0 0 0 3px rgba(39, 60, 80, 0.08);
+}
+
+.franchise-login-field > input:disabled,
+.franchise-login-password-wrap > input:disabled {
+  cursor: not-allowed;
+  background: #f5f5f1;
+  opacity: 0.75;
+}
+
+.franchise-login-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.franchise-login-password-wrap > input {
+  padding-right: 66px;
+}
+
+.franchise-login-password-toggle {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 0 8px 8px;
+  border: 0;
+  background: transparent;
+  color: #777870;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.franchise-login-password-toggle:hover {
+  color: var(--franchise-indigo);
+}
+
+.franchise-login-password-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Error */
+
+.franchise-login-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 13px 14px;
+  border: 1px solid #edd6d2;
+  background: #fff8f6;
+  color: #8f3d35;
+}
+
+.franchise-login-error-icon {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c87c72;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.franchise-login-error strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.franchise-login-error p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+/* Submit */
+
+.franchise-login-submit {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid var(--franchise-indigo);
+  border-radius: 0;
+  background: var(--franchise-indigo);
+  color: #ffffff;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.franchise-login-submit:hover:not(:disabled) {
+  border-color: #1b2c3c;
+  background: #1b2c3c;
+}
+
+.franchise-login-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.franchise-login-submit:focus-visible,
+.franchise-login-password-toggle:focus-visible,
+.franchise-login-back:focus-visible,
+.franchise-login-logo:focus-visible {
+  outline: 2px solid #778da0;
+  outline-offset: 4px;
+}
+
+.franchise-login-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.franchise-login-submit-arrow {
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.franchise-login-button-spinner,
+.franchise-login-spinner {
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: franchise-login-spin 700ms linear infinite;
+}
+
+@keyframes franchise-login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Security Note */
+
+.franchise-login-security {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 28px;
+  padding-top: 19px;
+  border-top: 1px solid #efeee8;
+}
+
+.franchise-login-security > span {
+  color: #77816f;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.franchise-login-security p {
+  margin: 0;
+  color: #898a81;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+/* Footer */
+
+.franchise-login-footer {
+  min-height: 62px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #f0efe9;
+  color: #898a81;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+/* Session Loading */
+
+.franchise-login-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--franchise-paper, #f5f4ef);
+  color: #777870;
+}
+
+.franchise-login-loading .franchise-login-spinner {
+  width: 25px;
+  height: 25px;
+  border-color: rgba(39, 60, 80, 0.18);
+  border-top-color: #273c50;
+}
+
+.franchise-login-loading p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+  .franchise-login-page {
+    padding: 22px;
+  }
+
+  .franchise-login-shell {
+    max-width: 760px;
+    min-height: 660px;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  }
+
+  .franchise-login-brand {
+    min-height: 660px;
+  }
+
+  .franchise-login-logo {
+    top: 30px;
+    left: 28px;
+    font-size: 19px;
+  }
+
+  .franchise-login-brand-copy {
+    right: 28px;
+    bottom: 30px;
+    left: 28px;
+  }
+
+  .franchise-login-brand-copy h1 {
+    font-size: clamp(34px, 4.5vw, 45px);
+  }
+
+  .franchise-login-panel-top {
+    min-height: 76px;
+    padding: 0 26px;
+  }
+
+  .franchise-login-form-wrapper {
+    padding: 38px 25px;
+  }
+
+  .franchise-login-footer {
+    padding: 0 26px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 680px) {
+  .franchise-login-page {
+    min-height: 100vh;
+    padding: 0;
+    display: block;
+    background: #ffffff;
+  }
+
+  .franchise-login-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .franchise-login-brand {
+    min-height: 300px;
+    flex: 0 0 auto;
+  }
+
+  .franchise-login-brand-image {
+    object-position: center 45%;
+  }
+
+  .franchise-login-logo {
+    top: 25px;
+    left: 23px;
+    font-size: 19px;
+  }
+
+  .franchise-login-brand-copy {
+    right: 23px;
+    bottom: 23px;
+    left: 23px;
+  }
+
+  .franchise-login-brand-copy .franchise-login-eyebrow {
+    font-size: 9px;
+  }
+
+  .franchise-login-brand-copy h1 {
+    margin: 12px 0 10px;
+    font-size: clamp(31px, 8vw, 42px);
+  }
+
+  .franchise-login-brand-copy > p:not(.franchise-login-eyebrow) {
+    max-width: 350px;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .franchise-login-brand-footer {
+    margin-top: 17px;
+    padding-top: 12px;
+    font-size: 8px;
+  }
+
+  .franchise-login-panel {
+    flex: 1 0 auto;
+  }
+
+  .franchise-login-panel-top {
+    min-height: 64px;
+    padding: 0 22px;
+  }
+
+  .franchise-login-status {
+    font-size: 8px;
+  }
+
+  .franchise-login-form-wrapper {
+    max-width: none;
+    margin: 0;
+    padding: 38px 24px 35px;
+  }
+
+  .franchise-login-form-wrapper > h2 {
+    font-size: 31px;
+  }
+
+  .franchise-login-subtitle {
+    font-size: 12px;
+  }
+
+  .franchise-login-form {
+    margin-top: 28px;
+    gap: 20px;
+  }
+
+  .franchise-login-field > input,
+  .franchise-login-password-wrap > input {
+    height: 50px;
+  }
+
+  .franchise-login-security {
+    margin-top: 23px;
+  }
+
+  .franchise-login-footer {
+    min-height: 54px;
+    padding: 0 24px;
+  }
+}
+
+/* Small Mobile */
+
+@media (max-width: 360px) {
+  .franchise-login-brand {
+    min-height: 280px;
+  }
+
+  .franchise-login-panel-top {
+    padding: 0 16px;
+  }
+
+  .franchise-login-form-wrapper {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .franchise-login-footer {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .franchise-login-status {
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .franchise-login-page *,
+  .franchise-login-loading * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

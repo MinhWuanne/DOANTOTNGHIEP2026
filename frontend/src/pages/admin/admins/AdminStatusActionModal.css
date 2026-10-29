@@ -1,0 +1,371 @@
+.admin-status-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(20 28 36 / 38%);
+}
+
+.admin-status-modal {
+  width: min(520px, 100%);
+  max-height: min(620px, calc(100vh - 48px));
+  overflow: auto;
+  border: 1px solid #dfe4e8;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow:
+    0 20px 50px rgb(25 35 45 / 16%),
+    0 4px 14px rgb(25 35 45 / 8%);
+}
+
+.admin-status-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.admin-status-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  color: #8a949d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.admin-status-title {
+  margin: 0;
+  color: #202b36;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.admin-status-description {
+  max-width: 410px;
+  margin: 7px 0 0;
+  color: #7d8892;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.admin-status-close {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e1e5e8;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #7d8892;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.admin-status-close:hover:not(:disabled) {
+  border-color: #cfd6dc;
+  background: #f5f7f8;
+  color: #26323d;
+}
+
+.admin-status-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.admin-status-content {
+  padding: 22px 24px 20px;
+}
+
+.admin-status-account {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px;
+  border: 1px solid #edf0f2;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.admin-status-avatar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #dce2e6;
+  border-radius: 7px;
+  background: #f2f4f6;
+  color: #596672;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.admin-status-account-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-status-account-info strong {
+  display: block;
+  overflow: hidden;
+  color: #27333e;
+  font-size: 11px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-status-account-info span {
+  display: block;
+  overflow: hidden;
+  margin-top: 3px;
+  color: #a0a8b0;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-status-badge {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border-radius: 5px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.admin-status-badge.is-active {
+  border: 1px solid #d7e9dd;
+  background: #f5fbf7;
+  color: #397052;
+}
+
+.admin-status-badge.is-disabled {
+  border: 1px solid #ead7d7;
+  background: #fffafa;
+  color: #7c4a4a;
+}
+
+.admin-status-warning {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+  padding: 12px 13px;
+  border: 1px solid #edf0f2;
+  border-radius: 7px;
+  background: #fafbfc;
+}
+
+.admin-status-warning strong {
+  color: #46535f;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.admin-status-warning span {
+  color: #89939d;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.admin-status-warning.is-disable {
+  border-color: #ead7d7;
+  background: #fffafa;
+}
+
+.admin-status-warning.is-disable strong {
+  color: #7c4a4a;
+}
+
+.admin-status-warning.is-enable {
+  border-color: #d7e9dd;
+  background: #f5fbf7;
+}
+
+.admin-status-warning.is-enable strong {
+  color: #397052;
+}
+
+.admin-status-form-error {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid #ead7d7;
+  border-radius: 7px;
+  background: #fffafa;
+  color: #7c4a4a;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.admin-status-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid #edf0f2;
+}
+
+.admin-status-cancel-button,
+.admin-status-confirm-button {
+  min-height: 38px;
+  padding: 0 15px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.admin-status-cancel-button {
+  border: 1px solid #dfe4e8;
+  background: #ffffff;
+  color: #596672;
+}
+
+.admin-status-cancel-button:hover:not(:disabled) {
+  border-color: #cfd6dc;
+  background: #f5f7f8;
+  color: #26323d;
+}
+
+.admin-status-confirm-button {
+  color: #ffffff;
+}
+
+.admin-status-confirm-button.is-disable {
+  border: 1px solid #7c4a4a;
+  background: #7c4a4a;
+}
+
+.admin-status-confirm-button.is-disable:hover:not(:disabled) {
+  border-color: #693f3f;
+  background: #693f3f;
+}
+
+.admin-status-confirm-button.is-enable {
+  border: 1px solid #397052;
+  background: #397052;
+}
+
+.admin-status-confirm-button.is-enable:hover:not(:disabled) {
+  border-color: #2f5f45;
+  background: #2f5f45;
+}
+
+.admin-status-cancel-button:disabled,
+.admin-status-confirm-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.admin-status-state {
+  display: flex;
+  min-height: 280px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  color: #7d8892;
+  text-align: center;
+}
+
+.admin-status-state p {
+  margin: 0;
+  font-size: 11px;
+}
+
+.admin-status-state strong {
+  color: #46535f;
+  font-size: 12px;
+}
+
+.admin-status-error-state button {
+  min-height: 34px;
+  margin-top: 4px;
+  padding: 0 13px;
+  border: 1px solid #dfe4e8;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #46535f;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-status-error-state button:hover {
+  background: #f5f7f8;
+}
+
+.admin-status-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e1e5e8;
+  border-top-color: #46535f;
+  border-radius: 50%;
+  animation: admin-status-spin 0.75s linear infinite;
+}
+
+@keyframes admin-status-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-status-overlay {
+    padding: 12px;
+  }
+
+  .admin-status-modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .admin-status-header {
+    padding: 18px;
+  }
+
+  .admin-status-content {
+    padding: 18px;
+  }
+
+  .admin-status-account {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .admin-status-badge {
+    margin-left: 49px;
+  }
+
+  .admin-status-footer {
+    flex-direction: column-reverse;
+  }
+
+  .admin-status-cancel-button,
+  .admin-status-confirm-button {
+    width: 100%;
+  }
+}

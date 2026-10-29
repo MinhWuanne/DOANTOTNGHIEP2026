@@ -1,0 +1,117 @@
+﻿[
+    {
+        "name":  "Áo Nam",
+        "slug":  "ao",
+        "description":  "Danh mục áo nam."
+    },
+    {
+        "name":  "Áo thun",
+        "slug":  "ao-thun",
+        "description":  "Áo thun nam."
+    },
+    {
+        "name":  "Áo polo",
+        "slug":  "ao-polo",
+        "description":  "Áo polo nam."
+    },
+    {
+        "name":  "Áo sơ mi",
+        "slug":  "ao-somi",
+        "description":  "Áo sơ mi nam."
+    },
+    {
+        "name":  "Áo khoác",
+        "slug":  "ao-khoac",
+        "description":  "Áo khoác nam."
+    },
+    {
+        "name":  "Áo nỉ",
+        "slug":  "ao-ni",
+        "description":  "Áo nỉ nam."
+    },
+    {
+        "name":  "Hoodies",
+        "slug":  "hoodies",
+        "description":  "Hoodie nam."
+    },
+    {
+        "name":  "Tank top / Áo ba lỗ",
+        "slug":  "tank-top-ao-ba-lo",
+        "description":  "Áo ba lỗ nam."
+    },
+    {
+        "name":  "Set quần áo",
+        "slug":  "set-quan-ao",
+        "description":  "Bộ quần áo nam."
+    },
+    {
+        "name":  "Quần Nam",
+        "slug":  "quan",
+        "description":  "Danh mục quần nam."
+    },
+    {
+        "name":  "Quần jean",
+        "slug":  "quan-jean",
+        "description":  "Quần jean nam."
+    },
+    {
+        "name":  "Quần short",
+        "slug":  "quan-short",
+        "description":  "Quần short nam."
+    },
+    {
+        "name":  "Quần kaki",
+        "slug":  "quan-kaki",
+        "description":  "Quần kaki nam."
+    },
+    {
+        "name":  "Jogger",
+        "slug":  "jogger",
+        "description":  "Quần jogger nam."
+    },
+    {
+        "name":  "Quần tây",
+        "slug":  "quan-tay",
+        "description":  "Quần tây nam."
+    },
+    {
+        "name":  "Quần boxer",
+        "slug":  "quan-boxer",
+        "description":  "Quần boxer nam."
+    },
+    {
+        "name":  "Giày",
+        "slug":  "phu-kien",
+        "description":  "Danh mục giày và phụ kiện."
+    },
+    {
+        "name":  "Nhóm giày",
+        "slug":  "nhom-giay",
+        "description":  "Giày nam."
+    },
+    {
+        "name":  "Túi ví balo",
+        "slug":  "tui-vi-balo",
+        "description":  "Túi, ví và balo."
+    },
+    {
+        "name":  "Nón",
+        "slug":  "non",
+        "description":  "Nón nam."
+    },
+    {
+        "name":  "Thắt lưng",
+        "slug":  "that-lung",
+        "description":  "Thắt lưng nam."
+    },
+    {
+        "name":  "Vớ",
+        "slug":  "vo",
+        "description":  "Vớ nam."
+    },
+    {
+        "name":  "Mắt kính",
+        "slug":  "mat-kinh",
+        "description":  "Mắt kính."
+    }
+]

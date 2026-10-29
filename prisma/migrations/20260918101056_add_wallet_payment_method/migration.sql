@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `orders` MODIFY `paymentMethod` ENUM('COD', 'BANK_TRANSFER', 'ONLINE', 'WALLET') NOT NULL DEFAULT 'COD';

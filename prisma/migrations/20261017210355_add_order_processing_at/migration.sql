@@ -1,0 +1,2 @@
+ALTER TABLE `orders`
+ADD COLUMN `processingAt` DATETIME(3) NULL;

@@ -1,0 +1,426 @@
+/* =========================================================
+   INVENTORY ISSUE PRINT
+   ========================================================= */
+
+.inventory-issue-print {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f1f5f9;
+}
+
+.inventory-issue-print-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 18mm 16mm;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+  color: #111827;
+
+  box-shadow:
+    0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.inventory-issue-print-header {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+
+  padding-bottom: 18px;
+  border-bottom: 2px solid #111827;
+
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.inventory-issue-print-company {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inventory-issue-print-company strong {
+  color: #111827;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.inventory-issue-print-company span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.inventory-issue-print-title {
+  text-align: right;
+}
+
+.inventory-issue-print-title h1 {
+  margin: 0;
+
+  color: #111827;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.inventory-issue-print-meta {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.inventory-issue-print-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inventory-issue-print-meta span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.inventory-issue-print-meta strong {
+  color: #111827;
+  font-size: 12px;
+}
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.inventory-issue-print-information {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+
+  margin: 20px 0;
+}
+
+.inventory-issue-print-information-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  min-height: 22px;
+
+  font-size: 12px;
+}
+
+.inventory-issue-print-information-row .label {
+  color: #64748b;
+}
+
+.inventory-issue-print-information-row strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.inventory-issue-print-table-section {
+  margin-top: 18px;
+}
+
+.inventory-issue-print-table {
+  width: 100%;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  font-size: 11px;
+}
+
+.inventory-issue-print-table th,
+.inventory-issue-print-table td {
+  padding: 9px 8px;
+
+  border: 1px solid #cbd5e1;
+
+  vertical-align: middle;
+}
+
+.inventory-issue-print-table th {
+  color: #111827;
+  background: #f8fafc;
+
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.inventory-issue-print-table .col-index {
+  width: 9%;
+}
+
+.inventory-issue-print-table .col-product {
+  width: 43%;
+}
+
+.inventory-issue-print-table .col-sku {
+  width: 18%;
+}
+
+.inventory-issue-print-table .col-unit {
+  width: 12%;
+}
+
+.inventory-issue-print-table .col-quantity {
+  width: 18%;
+}
+
+.inventory-issue-print-product {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inventory-issue-print-product strong {
+  color: #111827;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.inventory-issue-print-total-row td {
+  background: #f8fafc;
+}
+
+.inventory-issue-print-total-row strong {
+  font-weight: 700;
+}
+
+/* =========================================================
+   TEXT ALIGNMENT
+   ========================================================= */
+
+.inventory-issue-print .text-center {
+  text-align: center;
+}
+
+.inventory-issue-print .text-right {
+  text-align: right;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.inventory-issue-print-footer {
+  margin-top: 36px;
+}
+
+.inventory-issue-print-footer-date {
+  margin-bottom: 26px;
+
+  color: #334155;
+  font-size: 11px;
+  text-align: right;
+}
+
+.inventory-issue-print-signatures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  text-align: center;
+}
+
+.inventory-issue-print-signatures>div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-height: 110px;
+}
+
+.inventory-issue-print-signatures strong {
+  color: #111827;
+  font-size: 11px;
+}
+
+.inventory-issue-print-signatures span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+/* =========================================================
+   PRINT ACTIONS
+   ========================================================= */
+
+.inventory-issue-print-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.inventory-issue-print-back-button,
+.inventory-issue-print-button {
+  min-width: 130px;
+  height: 40px;
+  padding: 0 18px;
+
+  border: 0;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.inventory-issue-print-back-button {
+  color: #334155;
+  background: #e2e8f0;
+}
+
+.inventory-issue-print-button {
+  color: #ffffff;
+  background: #0f172a;
+}
+
+.inventory-issue-print-back-button:hover {
+  background: #cbd5e1;
+}
+
+.inventory-issue-print-button:hover {
+  background: #1e293b;
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .admin-header {
+    display: none !important;
+  }
+
+  .inventory-issue-print {
+    min-height: auto;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background: #ffffff;
+  }
+
+  .inventory-issue-print-sheet {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0;
+    padding: 15mm 14mm;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .inventory-issue-print-header {
+    display: grid;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .inventory-issue-print-actions {
+    display: none !important;
+  }
+
+  .inventory-issue-print-table {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .inventory-issue-print-footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* =========================================================
+   SCREEN RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .inventory-issue-print {
+    padding: 16px;
+  }
+
+  .inventory-issue-print-sheet {
+    width: 100%;
+    min-height: auto;
+
+    padding: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .inventory-issue-print-sheet {
+    padding: 22px;
+  }
+
+  .inventory-issue-print-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .inventory-issue-print-title {
+    text-align: left;
+  }
+
+  .inventory-issue-print-meta {
+    justify-content: flex-start;
+  }
+
+  .inventory-issue-print-information {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-issue-print-table {
+    font-size: 10px;
+  }
+
+  .inventory-issue-print-table th,
+  .inventory-issue-print-table td {
+    padding: 7px 5px;
+  }
+
+  .inventory-issue-print-signatures {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

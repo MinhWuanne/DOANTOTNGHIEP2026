@@ -1,0 +1,2 @@
+ALTER TABLE `orders`
+ADD COLUMN `shippingAt` DATETIME(3) NULL;

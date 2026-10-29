@@ -1,0 +1,506 @@
+.admin-commissions-page {
+  width: 100%;
+  min-width: 0;
+  color: var(--admin-text);
+}
+
+.admin-commissions-page .admin-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-commissions-page .admin-page-header h1 {
+  margin: 0;
+  color: var(--admin-text);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.admin-commissions-page .admin-page-header p {
+  margin: 8px 0 0;
+  color: var(--admin-text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.admin-commission-refresh-button,
+.admin-commission-reset-button,
+.admin-commission-error button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 9px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-small);
+  background: #fff;
+  color: var(--admin-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.admin-commission-refresh-button:hover,
+.admin-commission-reset-button:hover,
+.admin-commission-error button:hover {
+  border-color: var(--admin-primary, #2563eb);
+  background: #f8fafc;
+  color: var(--admin-primary, #2563eb);
+}
+
+.admin-commission-refresh-button:disabled,
+.admin-commission-error button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.admin-commission-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border: 1px solid #fecaca;
+  border-radius: var(--admin-radius-small);
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.admin-commission-error button {
+  flex-shrink: 0;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.admin-commission-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-commission-stat-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 3%);
+}
+
+.admin-commission-stat-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--admin-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.admin-commission-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f3f4f6;
+  color: #475569;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.admin-commission-stat-card.total .admin-commission-stat-icon {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.admin-commission-stat-card.pending .admin-commission-stat-icon {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.admin-commission-stat-card.approved .admin-commission-stat-icon {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.admin-commission-stat-card.paid .admin-commission-stat-icon {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.admin-commission-stat-card > strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--admin-text);
+  font-size: clamp(19px, 1.6vw, 25px);
+  font-weight: 700;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-commission-stat-caption {
+  display: block;
+  margin-top: 10px;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.admin-commission-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 18px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+}
+
+.admin-commission-search {
+  position: relative;
+  width: 100%;
+}
+
+.admin-commission-search::before {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  color: var(--admin-text-secondary);
+  content: "⌕";
+  font-size: 21px;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(-55%);
+}
+
+.admin-commission-search input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-small);
+  outline: none;
+  background: #fff;
+  color: var(--admin-text);
+  font: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-commission-search input::placeholder {
+  color: #9ca3af;
+}
+
+.admin-commission-search input:focus {
+  border-color: var(--admin-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 10%);
+}
+
+.admin-commission-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-commission-filters select {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 9px 32px 9px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-small);
+  outline: none;
+  background-color: #fff;
+  color: var(--admin-text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.admin-commission-filters select:focus {
+  border-color: var(--admin-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 10%);
+}
+
+.admin-commission-reset-button {
+  align-self: flex-start;
+}
+
+.admin-commission-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+}
+
+.admin-commission-results strong {
+  color: var(--admin-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-commission-empty {
+  padding: 40px 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+  color: var(--admin-text-secondary);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-commission-empty > div {
+  margin-top: 14px;
+}
+
+.admin-commission-table-wrapper {
+  overflow: auto;
+  max-width: 100%;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+}
+
+.admin-commission-table {
+  width: 100%;
+  min-width: 1500px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.admin-commission-table th,
+.admin-commission-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--admin-border);
+  text-align: left;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.admin-commission-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f9fafb;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-commission-table td {
+  color: var(--admin-text);
+  vertical-align: middle;
+}
+
+.admin-commission-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.admin-commission-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.admin-commission-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-commission-table td strong {
+  font-weight: 600;
+}
+
+.admin-commission-table td:nth-child(5),
+.admin-commission-table td:nth-child(6),
+.admin-commission-table td:nth-child(7) {
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-commission-table td:nth-child(7) strong {
+  color: var(--admin-text);
+  font-weight: 700;
+}
+
+.admin-commission-secondary {
+  margin-top: 4px;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+}
+
+.admin-commission-status,
+.admin-commission-payment-status,
+.admin-commission-order-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.admin-commission-status.pending {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.admin-commission-status.approved {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.admin-commission-status.paid {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.admin-commission-payment-status.unpaid {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+  color: #4b5563;
+}
+
+.admin-commission-payment-status.pending {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.admin-commission-payment-status.paid {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.admin-commission-payment-status.failed {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.admin-commission-payment-status.refunded {
+  border-color: #ddd6fe;
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.admin-commission-order-status {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+  color: #4b5563;
+}
+
+@media (max-width: 1200px) {
+  .admin-commission-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-commission-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-commissions-page .admin-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-commissions-page .admin-page-header h1 {
+    font-size: 23px;
+  }
+
+  .admin-commission-refresh-button {
+    align-self: flex-start;
+  }
+
+  .admin-commission-stats {
+    gap: 12px;
+  }
+
+  .admin-commission-stat-card {
+    padding: 15px;
+  }
+
+  .admin-commission-stat-heading {
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .admin-commission-stat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .admin-commission-stat-card > strong {
+    font-size: 19px;
+  }
+
+  .admin-commission-toolbar {
+    padding: 14px;
+  }
+
+  .admin-commission-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-commission-results {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-commission-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-commission-table th,
+  .admin-commission-table td {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .admin-commission-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-commission-stat-card {
+    padding: 16px;
+  }
+
+  .admin-commission-stat-card > strong {
+    font-size: 22px;
+  }
+}

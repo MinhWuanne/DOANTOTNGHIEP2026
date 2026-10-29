@@ -1,0 +1,677 @@
+
+.mockbank-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f4f6fa;
+  color: #172033;
+  font-family: Inter, "Segoe UI", sans-serif;
+}
+
+.mockbank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1440px;
+  margin: 0 auto 24px;
+}
+
+.mockbank-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mockbank-brand-mark {
+  display: grid;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 18px;
+  background: #123f78;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  box-shadow: 0 8px 22px rgb(18 63 120 / 18%);
+}
+
+.mockbank-eyebrow {
+  margin: 0 0 6px;
+  color: #718096;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.mockbank-brand h1 {
+  margin: 0;
+  color: #123f78;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.mockbank-subtitle {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.mockbank-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 1440px;
+  margin: 0 auto 24px;
+  padding: 16px 18px;
+  border: 1px solid #f1d7a4;
+  border-radius: 12px;
+  background: #fff9eb;
+  color: #79531a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.mockbank-warning strong {
+  flex-shrink: 0;
+}
+
+.mockbank-alert {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1440px;
+  margin: 0 auto 16px;
+  padding: 13px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.mockbank-alert button {
+  flex-shrink: 0;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.mockbank-alert-error {
+  border-color: #fecaca;
+  background: #fff1f2;
+  color: #b42318;
+}
+
+.mockbank-alert-success {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.mockbank-stats,
+.mockbank-tabs,
+.mockbank-content-grid,
+.mockbank-panel,
+.mockbank-footer,
+.mockbank-loading {
+  max-width: 1440px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mockbank-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mockbank-stat-card {
+  display: flex;
+  min-height: 130px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px;
+  border: 1px solid #e5eaf1;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgb(15 23 42 / 3%);
+}
+
+.mockbank-stat-primary {
+  border-color: #123f78;
+  background: #123f78;
+  color: #fff;
+}
+
+.mockbank-stat-label {
+  color: #718096;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mockbank-stat-primary .mockbank-stat-label,
+.mockbank-stat-primary .mockbank-stat-note {
+  color: #c7d9f1;
+}
+
+.mockbank-stat-card > strong {
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  overflow-wrap: anywhere;
+}
+
+.mockbank-stat-note {
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.mockbank-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 6px;
+  border: 1px solid #e6eaf0;
+  border-radius: 13px;
+  background: #e9edf4;
+}
+
+.mockbank-tab {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mockbank-tab:hover {
+  color: #123f78;
+}
+
+.mockbank-tab.active {
+  background: #fff;
+  color: #123f78;
+  box-shadow: 0 2px 5px rgb(15 23 42 / 7%);
+}
+
+.mockbank-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.mockbank-panel {
+  min-width: 0;
+  margin-bottom: 20px;
+  padding: 24px;
+  border: 1px solid #e5eaf1;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgb(15 23 42 / 3%);
+}
+
+.mockbank-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.mockbank-panel-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.mockbank-panel-heading p:not(.mockbank-eyebrow) {
+  margin: 7px 0 0;
+  color: #718096;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.mockbank-count {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #edf4ff;
+  color: #245c9a;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.mockbank-account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mockbank-account-card {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid #e6eaf0;
+  border-radius: 12px;
+  background: #fff;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.mockbank-account-card:hover {
+  border-color: #9db9de;
+  background: #f8fbff;
+}
+
+.mockbank-account-card.selected {
+  border-color: #326db1;
+  background: #f2f7ff;
+  box-shadow: inset 3px 0 #326db1;
+}
+
+.mockbank-account-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 12px;
+  background: #e7effb;
+  color: #174c89;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.mockbank-account-info,
+.mockbank-account-balance {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mockbank-account-info {
+  flex: 1;
+}
+
+.mockbank-account-info strong {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+.mockbank-account-info small,
+.mockbank-account-balance small {
+  color: #8390a4;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.mockbank-account-balance {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.mockbank-account-balance strong {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+.status-active {
+  color: #059669 !important;
+  font-weight: 800;
+}
+
+.status-locked {
+  color: #dc2626 !important;
+  font-weight: 800;
+}
+
+.mockbank-selected-account {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f6f8fb;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.mockbank-selected-account strong {
+  color: #123f78;
+  font-size: 16px;
+}
+
+.mockbank-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mockbank-form label,
+.mockbank-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mockbank-form input,
+.mockbank-form select,
+.mockbank-filter select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #d8e0eb;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mockbank-form input:focus,
+.mockbank-form select:focus,
+.mockbank-filter select:focus {
+  border-color: #3976bb;
+  box-shadow: 0 0 0 3px rgb(57 118 187 / 12%);
+}
+
+.mockbank-form label small {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.mockbank-button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.mockbank-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.mockbank-button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.mockbank-button-primary {
+  background: #123f78;
+  color: #fff;
+}
+
+.mockbank-button-primary:not(:disabled):hover {
+  background: #0c315f;
+}
+
+.mockbank-button-secondary {
+  flex-shrink: 0;
+  border-color: #dbe3ed;
+  background: #fff;
+  color: #344054;
+}
+
+.mockbank-button-secondary:not(:disabled):hover {
+  background: #f8fafc;
+}
+
+.mockbank-form-panel {
+  max-width: 760px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mockbank-form-panel .mockbank-form {
+  max-width: 580px;
+}
+
+.mockbank-inline-note {
+  margin: -4px 0 0;
+  color: #9a6700;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.mockbank-history-heading {
+  align-items: flex-end;
+}
+
+.mockbank-filter {
+  width: min(280px, 100%);
+  flex-shrink: 0;
+}
+
+.mockbank-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mockbank-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.mockbank-table th {
+  padding: 13px 14px;
+  border-bottom: 1px solid #e6eaf0;
+  background: #f8fafc;
+  color: #718096;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mockbank-table td {
+  padding: 15px 14px;
+  border-bottom: 1px solid #edf0f5;
+  color: #475569;
+  font-size: 12px;
+}
+
+.mockbank-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.mockbank-amount {
+  color: #172033 !important;
+  font-weight: 800;
+}
+
+.mockbank-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.type-deposit {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.type-transfer {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.type-withdrawal {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.mockbank-empty,
+.mockbank-loading {
+  padding: 32px 18px;
+  border: 1px dashed #d7e0eb;
+  border-radius: 12px;
+  color: #8390a4;
+  font-size: 13px;
+  text-align: center;
+}
+
+.mockbank-loading {
+  border: 0;
+}
+
+.mockbank-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 8px;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .mockbank-page {
+    padding: 24px;
+  }
+
+  .mockbank-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mockbank-content-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .mockbank-page {
+    padding: 16px;
+  }
+
+  .mockbank-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mockbank-brand-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .mockbank-brand h1 {
+    font-size: 25px;
+  }
+
+  .mockbank-subtitle {
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
+  .mockbank-warning {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mockbank-stats {
+    gap: 10px;
+  }
+
+  .mockbank-stat-card {
+    min-height: 112px;
+    padding: 14px;
+  }
+
+  .mockbank-stat-card > strong {
+    font-size: 20px;
+  }
+
+  .mockbank-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mockbank-tab {
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .mockbank-panel {
+    padding: 17px;
+  }
+
+  .mockbank-panel-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mockbank-account-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .mockbank-account-info {
+    width: calc(100% - 60px);
+    flex: initial;
+  }
+
+  .mockbank-account-balance {
+    width: 100%;
+    align-items: flex-start;
+    padding-left: 54px;
+    text-align: left;
+  }
+
+  .mockbank-history-heading {
+    align-items: stretch;
+  }
+
+  .mockbank-filter {
+    width: 100%;
+  }
+
+  .mockbank-footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

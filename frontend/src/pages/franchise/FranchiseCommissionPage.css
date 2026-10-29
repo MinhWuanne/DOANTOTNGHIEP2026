@@ -1,0 +1,699 @@
+
+/* =========================================================
+   ICONDENIM — FRANCHISE COMMISSION
+   Design: Premium Finance / Editorial / Responsive
+========================================================= */
+
+.franchise-commission-page {
+    --commission-ink: #20211e;
+    --commission-ink-soft: #393a35;
+    --commission-muted: #777870;
+    --commission-muted-light: #999a92;
+    --commission-bg: #f7f7f4;
+    --commission-surface: #ffffff;
+    --commission-surface-soft: #f1f2ed;
+    --commission-border: #e6e7e0;
+    --commission-border-strong: #d8d9d0;
+    --commission-accent: #536b4d;
+    --commission-accent-dark: #3e5439;
+    --commission-accent-soft: #edf2e9;
+    --commission-success: #34734b;
+    --commission-success-bg: #eaf5ed;
+    --commission-warning: #a46c19;
+    --commission-warning-bg: #fff5df;
+    --commission-danger: #a6423a;
+    --commission-danger-bg: #fbecea;
+
+    min-height: 100%;
+    padding: 32px;
+    background: var(--commission-bg);
+    color: var(--commission-ink);
+    font-family: inherit;
+}
+
+.franchise-commission-page *,
+.franchise-commission-page *::before,
+.franchise-commission-page *::after {
+    box-sizing: border-box;
+}
+
+.franchise-commission-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.franchise-commission-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.franchise-commission-heading > div {
+    min-width: 0;
+}
+
+.franchise-commission-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: var(--commission-accent);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+}
+
+.franchise-commission-heading h1 {
+    margin: 0;
+    color: var(--commission-ink);
+    font-size: clamp(27px, 3vw, 36px);
+    font-weight: 750;
+    letter-spacing: -0.045em;
+    line-height: 1.2;
+}
+
+.franchise-commission-heading p {
+    max-width: 680px;
+    margin: 12px 0 0;
+    color: var(--commission-muted);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.franchise-commission-refresh,
+.franchise-commission-apply {
+    display: inline-flex;
+    min-height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: 1px solid var(--commission-border-strong);
+    border-radius: 8px;
+    background: var(--commission-surface);
+    color: var(--commission-ink);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        transform 160ms ease;
+}
+
+.franchise-commission-refresh:hover:not(:disabled) {
+    border-color: var(--commission-accent);
+    background: var(--commission-accent-soft);
+    color: var(--commission-accent-dark);
+}
+
+.franchise-commission-refresh:active:not(:disabled),
+.franchise-commission-apply:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.franchise-commission-refresh:disabled,
+.franchise-commission-apply:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.franchise-commission-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 20px;
+    border: 1px solid var(--commission-border);
+    border-radius: 12px;
+    background: var(--commission-surface);
+}
+
+.franchise-commission-filters label {
+    display: flex;
+    min-width: 190px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.franchise-commission-filters label span {
+    color: var(--commission-ink-soft);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.franchise-commission-filters select,
+.franchise-commission-filters input {
+    width: 100%;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--commission-border-strong);
+    border-radius: 7px;
+    outline: none;
+    background: #fff;
+    color: var(--commission-ink);
+    font-family: inherit;
+    font-size: 13px;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.franchise-commission-filters select:focus,
+.franchise-commission-filters input:focus {
+    border-color: var(--commission-accent);
+    box-shadow: 0 0 0 3px rgb(83 107 77 / 10%);
+}
+
+.franchise-commission-apply {
+    min-width: 104px;
+    border-color: var(--commission-accent);
+    background: var(--commission-accent);
+    color: #fff;
+}
+
+.franchise-commission-apply:hover:not(:disabled) {
+    border-color: var(--commission-accent-dark);
+    background: var(--commission-accent-dark);
+}
+
+/* =========================================================
+   ALERT AND DATE RANGE
+========================================================= */
+
+.franchise-commission-alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid #efc9c5;
+    border-radius: 9px;
+    background: var(--commission-danger-bg);
+    color: var(--commission-danger);
+}
+
+.franchise-commission-alert p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.franchise-commission-alert button {
+    flex-shrink: 0;
+    padding: 7px 11px;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.franchise-commission-date-range {
+    margin: 0 0 18px;
+    color: var(--commission-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.franchise-commission-date-range strong {
+    color: var(--commission-ink-soft);
+    font-weight: 650;
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.franchise-commission-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.franchise-commission-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 154px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid var(--commission-border);
+    border-radius: 12px;
+    background: var(--commission-surface);
+    box-shadow: 0 2px 8px rgb(32 33 30 / 2%);
+}
+
+.franchise-commission-card > span {
+    margin-bottom: 17px;
+    color: var(--commission-muted);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.franchise-commission-card > strong {
+    max-width: 100%;
+    color: var(--commission-ink);
+    font-size: clamp(19px, 1.7vw, 25px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+.franchise-commission-card > p {
+    margin: auto 0 0;
+    padding-top: 12px;
+    color: var(--commission-muted-light);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.franchise-commission-card-primary {
+    border-color: var(--commission-accent);
+    background: var(--commission-accent);
+}
+
+.franchise-commission-card-primary > span,
+.franchise-commission-card-primary > p {
+    color: rgb(255 255 255 / 78%);
+}
+
+.franchise-commission-card-primary > strong {
+    color: #fff;
+}
+
+/* =========================================================
+   SHARED SECTION HEADINGS
+========================================================= */
+
+.franchise-commission-chart-section,
+.franchise-commission-history {
+    margin-bottom: 24px;
+    padding: 26px;
+    border: 1px solid var(--commission-border);
+    border-radius: 12px;
+    background: var(--commission-surface);
+    box-shadow: 0 2px 8px rgb(32 33 30 / 2%);
+}
+
+.franchise-commission-section-heading,
+.franchise-commission-history-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.franchise-commission-section-heading h2,
+.franchise-commission-history-heading h2 {
+    margin: 0;
+    color: var(--commission-ink);
+    font-size: 21px;
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    line-height: 1.35;
+}
+
+.franchise-commission-section-heading p,
+.franchise-commission-history-heading p {
+    margin: 9px 0 0;
+    color: var(--commission-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   CHART
+========================================================= */
+
+.franchise-commission-chart {
+    width: 100%;
+    height: 320px;
+    margin-top: 24px;
+}
+
+.franchise-commission-chart .recharts-cartesian-grid-horizontal line {
+    stroke: #e9eae4;
+}
+
+.franchise-commission-chart .recharts-cartesian-axis-line,
+.franchise-commission-chart .recharts-cartesian-axis-tick-line {
+    stroke: #dedfd8;
+}
+
+.franchise-commission-chart .recharts-cartesian-axis-tick-value {
+    fill: var(--commission-muted);
+}
+
+.franchise-commission-chart .recharts-tooltip-wrapper {
+    outline: none;
+}
+
+.franchise-commission-chart .recharts-default-tooltip {
+    padding: 12px 14px !important;
+    border: 1px solid var(--commission-border) !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    box-shadow: 0 8px 24px rgb(32 33 30 / 8%);
+}
+
+.franchise-commission-empty {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: var(--commission-muted);
+    font-size: 13px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* =========================================================
+   HISTORY TABLE
+========================================================= */
+
+.franchise-commission-history-heading {
+    margin-bottom: 22px;
+}
+
+.franchise-commission-count {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0 11px;
+    border: 1px solid var(--commission-border);
+    border-radius: 999px;
+    background: var(--commission-surface-soft);
+    color: var(--commission-ink-soft);
+    font-size: 11px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.franchise-commission-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--commission-border);
+    border-radius: 9px;
+}
+
+.franchise-commission-table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.franchise-commission-table thead {
+    background: #f6f7f3;
+}
+
+.franchise-commission-table th {
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--commission-border);
+    color: var(--commission-muted);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.035em;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.franchise-commission-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #edeee8;
+    color: var(--commission-ink-soft);
+    font-size: 12px;
+    line-height: 1.6;
+    vertical-align: middle;
+}
+
+.franchise-commission-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.franchise-commission-table tbody tr {
+    transition: background 140ms ease;
+}
+
+.franchise-commission-table tbody tr:hover {
+    background: #fafbf8;
+}
+
+.franchise-commission-table td strong {
+    color: var(--commission-ink);
+    font-size: 12px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.franchise-commission-table td.franchise-commission-amount {
+    color: var(--commission-accent-dark);
+    font-size: 13px;
+    font-weight: 750;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.franchise-commission-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 4px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.franchise-commission-status-pending {
+    border-color: #f0dfb7;
+    background: var(--commission-warning-bg);
+    color: var(--commission-warning);
+}
+
+.franchise-commission-status-approved {
+    border-color: #d7e2d1;
+    background: var(--commission-accent-soft);
+    color: var(--commission-accent-dark);
+}
+
+.franchise-commission-status-paid {
+    border-color: #cde7d3;
+    background: var(--commission-success-bg);
+    color: var(--commission-success);
+}
+
+.franchise-commission-status-cancelled {
+    border-color: #efcfcc;
+    background: var(--commission-danger-bg);
+    color: var(--commission-danger);
+}
+
+.franchise-commission-status-default {
+    border-color: var(--commission-border);
+    background: var(--commission-surface-soft);
+    color: var(--commission-muted);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.franchise-commission-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 4px 2px 12px;
+    color: var(--commission-muted-light);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+.franchise-commission-footer span:first-child {
+    color: var(--commission-ink-soft);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+    .franchise-commission-page {
+        padding: 24px;
+    }
+
+    .franchise-commission-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .franchise-commission-card {
+        min-height: 145px;
+    }
+
+    .franchise-commission-chart-section,
+    .franchise-commission-history {
+        padding: 22px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+    .franchise-commission-page {
+        padding: 16px 12px 24px;
+    }
+
+    .franchise-commission-heading {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        margin-bottom: 22px;
+    }
+
+    .franchise-commission-heading h1 {
+        font-size: 27px;
+    }
+
+    .franchise-commission-heading p {
+        font-size: 13px;
+    }
+
+    .franchise-commission-refresh {
+        width: 100%;
+    }
+
+    .franchise-commission-filters {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .franchise-commission-filters label {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .franchise-commission-apply {
+        width: 100%;
+    }
+
+    .franchise-commission-summary {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .franchise-commission-card {
+        min-height: 130px;
+        padding: 19px;
+    }
+
+    .franchise-commission-card > span {
+        margin-bottom: 12px;
+    }
+
+    .franchise-commission-card > strong {
+        font-size: 24px;
+    }
+
+    .franchise-commission-chart-section,
+    .franchise-commission-history {
+        margin-bottom: 16px;
+        padding: 18px 14px;
+        border-radius: 10px;
+    }
+
+    .franchise-commission-section-heading h2,
+    .franchise-commission-history-heading h2 {
+        font-size: 19px;
+    }
+
+    .franchise-commission-section-heading p,
+    .franchise-commission-history-heading p {
+        font-size: 12px;
+    }
+
+    .franchise-commission-chart {
+        height: 260px;
+        margin-top: 18px;
+        margin-left: -6px;
+    }
+
+    .franchise-commission-history-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .franchise-commission-alert {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .franchise-commission-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 4px;
+    }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.franchise-commission-page button:focus-visible,
+.franchise-commission-page input:focus-visible,
+.franchise-commission-page select:focus-visible {
+    outline: 2px solid var(--commission-accent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .franchise-commission-page *,
+    .franchise-commission-page *::before,
+    .franchise-commission-page *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

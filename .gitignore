@@ -1,0 +1,104 @@
+﻿# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+.next/
+.vite/
+
+# Environment variables and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Prisma generated files
+/generated/prisma/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Local IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Local database files and backups
+*.ibd
+*.ibdata*
+*.MYD
+*.MYI
+*.MAI
+*.MAD
+
+# Temporary files
+*.tmp
+*.bak
+
+# Private user-uploaded files
+/private-uploads/
+
+# Local SQL investigation and database dumps at project root
+/*.sql
+
+# Local database backups
+*.sql.gz
+*.dump
+*.bak
+
+
+# Test files and test directories
+**/tests/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/test-*.ts
+**/test-*.mjs
+**/*-test.ts
+
+# Temporary debugging and test-data scripts at project root
+/check-*.ts
+/clear-all-data.ts
+/cleanup-*.ts
+/create-test-*.ts
+/create-franchise-test.mjs
+/restore-shop-bank.ts
+/test-withdrawal-approve.ts
+/src/temp-check-members.ts
+
+# Backup files
+*.backup
+/prisma/schema.backup.prisma
+/prisma/schema.prisma.financial-adjustment-backup
+
+
+# Prisma backup and local investigation scripts
+/prisma/schema.backup.prisma
+/scripts/check-integration-test-data.ts
+
+
+# Local investigation and destructive maintenance scripts
+/clear-admin-category.ts
+/clear-all-data.ts
+/check-*.ts
+/cleanup-*.ts
+/create-*-test.*
+/restore-shop-bank.ts
+/test-*.ts
+
+# Local Prisma investigation and backup files
+/prisma/relation-test.prisma
+/prisma/schema.prisma.financial-adjustment-backup
+/prisma/financial-adjustment-preview.sql

@@ -1,0 +1,792 @@
+/* =========================================================
+   INVENTORY RECEIPT PRINT
+   ========================================================= */
+
+.inventory-receipt-print {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f1f5f9;
+}
+
+.inventory-receipt-print-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 18mm 16mm;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+  color: #111827;
+
+  box-shadow:
+    0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.inventory-receipt-print-header {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+
+  padding-bottom: 18px;
+  border-bottom: 2px solid #111827;
+
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.inventory-receipt-print-company {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inventory-receipt-print-company strong {
+  color: #111827;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.inventory-receipt-print-company span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.inventory-receipt-print-title {
+  text-align: right;
+}
+
+.inventory-receipt-print-title h1 {
+  margin: 0;
+
+  color: #111827;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.inventory-receipt-print-meta {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+
+  margin-top: 10px;
+}
+
+.inventory-receipt-print-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inventory-receipt-print-meta span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.inventory-receipt-print-meta strong {
+  color: #111827;
+  font-size: 12px;
+}
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.inventory-receipt-print-information {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+
+  margin: 20px 0;
+}
+
+.inventory-receipt-print-information-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  min-height: 22px;
+
+  font-size: 12px;
+}
+
+.inventory-receipt-print-information-row .label {
+  color: #64748b;
+}
+
+.inventory-receipt-print-information-row strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.inventory-receipt-print-table-section {
+  margin-top: 18px;
+}
+
+.inventory-receipt-print-table {
+  width: 100%;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  font-size: 11px;
+}
+
+.inventory-receipt-print-table th,
+.inventory-receipt-print-table td {
+  padding: 9px 8px;
+
+  border: 1px solid #cbd5e1;
+
+  vertical-align: middle;
+}
+
+.inventory-receipt-print-table th {
+  color: #111827;
+  background: #f8fafc;
+
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.inventory-receipt-print-table .col-index {
+  width: 9%;
+}
+
+.inventory-receipt-print-table .col-product {
+  width: 43%;
+}
+
+.inventory-receipt-print-table .col-sku {
+  width: 18%;
+}
+
+.inventory-receipt-print-table .col-unit {
+  width: 12%;
+}
+
+.inventory-receipt-print-table .col-quantity {
+  width: 18%;
+}
+
+.inventory-receipt-print-product {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inventory-receipt-print-product strong {
+  color: #111827;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.inventory-receipt-print-product span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.inventory-receipt-print-total-row td {
+  background: #f8fafc;
+}
+
+.inventory-receipt-print-total-row strong {
+  font-weight: 700;
+}
+
+/* =========================================================
+   TEXT ALIGNMENT
+   ========================================================= */
+
+.inventory-receipt-print .text-center {
+  text-align: center;
+}
+
+.inventory-receipt-print .text-right {
+  text-align: right;
+}
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.inventory-receipt-print-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  margin-top: 18px;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.inventory-receipt-print-note strong {
+  flex-shrink: 0;
+}
+
+.inventory-receipt-print-note span {
+  color: #334155;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.inventory-receipt-print-footer {
+  margin-top: 36px;
+}
+
+.inventory-receipt-print-footer-date {
+  margin-bottom: 26px;
+
+  color: #334155;
+  font-size: 11px;
+  text-align: right;
+}
+
+.inventory-receipt-print-signatures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  text-align: center;
+}
+
+.inventory-receipt-print-signatures>div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-height: 110px;
+}
+
+.inventory-receipt-print-signatures strong {
+  color: #111827;
+  font-size: 11px;
+}
+
+.inventory-receipt-print-signatures span {
+  color: #64748b;
+  font-size: 10px;
+}
+
+/* =========================================================
+   PRINT ACTIONS
+   ========================================================= */
+
+.inventory-receipt-print-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 32px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.inventory-receipt-print-back-button,
+.inventory-receipt-print-button {
+  min-width: 140px;
+  height: 40px;
+  padding: 0 20px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.inventory-receipt-print-back-button {
+  color: #334155;
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+}
+
+.inventory-receipt-print-button {
+  color: #ffffff;
+  background: #111827;
+
+  border: 1px solid #111827;
+
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.inventory-receipt-print-back-button:hover {
+  background: #cbd5e1;
+}
+
+.inventory-receipt-print-button:hover {
+  background: #1f2937;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.16);
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .admin-header {
+    display: none !important;
+  }
+
+  .inventory-receipt-print {
+    min-height: auto;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background: #ffffff;
+  }
+
+  .inventory-receipt-print-sheet {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0;
+    padding: 15mm 14mm;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .inventory-receipt-print-header {
+    display: grid;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .inventory-receipt-print-actions {
+    display: none !important;
+  }
+
+  .inventory-receipt-print-table {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .inventory-receipt-print-footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* =========================================================
+   SCREEN RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .inventory-receipt-print {
+    padding: 16px;
+  }
+
+  .inventory-receipt-print-sheet {
+    width: 100%;
+    min-height: auto;
+
+    padding: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .inventory-receipt-print-sheet {
+    padding: 22px;
+  }
+
+  .inventory-receipt-print-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .inventory-receipt-print-title {
+    text-align: left;
+  }
+
+  .inventory-receipt-print-meta {
+    justify-content: flex-start;
+  }
+
+  .inventory-receipt-print-information {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-receipt-print-table {
+    font-size: 10px;
+  }
+
+  .inventory-receipt-print-table th,
+  .inventory-receipt-print-table td {
+    padding: 7px 5px;
+  }
+
+  .inventory-receipt-print-signatures {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* =========================================================
+   RETURNS-STYLE OVERRIDES — INVENTORY RECEIPT
+   ========================================================= */
+
+.admin-inventory-receipt-page {
+  color: #172033;
+}
+
+/* HEADER */
+.admin-inventory-receipt-eyebrow {
+  color: #778196;
+  letter-spacing: 0.1em;
+}
+
+.admin-inventory-receipt-header h1 {
+  color: #172033;
+  font-size: 26px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.admin-inventory-receipt-header p {
+  color: #778196;
+  line-height: 1.65;
+}
+
+/* STATISTICS */
+.admin-inventory-receipt-stats {
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-inventory-receipt-stat-card {
+  min-height: 104px;
+  padding: 18px 20px;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #e9edf4;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgb(25 42 70 / 3%);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-inventory-receipt-stat-card:hover {
+  border-color: #dce3ef;
+  box-shadow: 0 5px 16px rgb(25 42 70 / 5%);
+}
+
+.admin-inventory-receipt-stat-card span {
+  color: #778196;
+  font-size: 12px;
+}
+
+.admin-inventory-receipt-stat-card strong {
+  color: #172033;
+  font-size: 26px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+/* MAIN CONTENT */
+.admin-inventory-receipt-content {
+  background: #ffffff;
+  border: 1px solid #e9edf4;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgb(25 42 70 / 3%);
+}
+
+/* TOOLBAR */
+.admin-inventory-receipt-toolbar {
+  gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.admin-inventory-receipt-search .admin-input,
+.admin-inventory-receipt-toolbar .admin-select {
+  height: 39px;
+  min-height: 39px;
+  border: 1px solid #dfe5ee;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #344054;
+  font-size: 13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-inventory-receipt-search .admin-input:focus,
+.admin-inventory-receipt-toolbar .admin-select:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 10%);
+}
+
+/* TABLE STATE */
+.admin-inventory-receipt-state {
+  color: #778196;
+}
+
+.admin-inventory-receipt-state strong {
+  color: #344054;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.admin-inventory-receipt-state span {
+  color: #98a2b3;
+}
+
+/* STATUS */
+.admin-inventory-receipt-status.draft {
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.admin-inventory-receipt-status.confirmed {
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.admin-inventory-receipt-status.cancelled {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+/* CREATE MODAL */
+.admin-inventory-receipt-create-modal {
+  border-radius: 16px;
+  border: 1px solid #e9edf4;
+  box-shadow: 0 18px 50px rgb(25 42 70 / 16%);
+}
+
+.admin-inventory-receipt-create-modal .admin-modal-body {
+  scrollbar-color: #d5dce8 transparent;
+  scrollbar-width: thin;
+}
+
+.admin-inventory-receipt-note {
+  border-color: #dfe5ee;
+  border-radius: 8px;
+  color: #344054;
+}
+
+.admin-inventory-receipt-note:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 10%);
+}
+
+/* ADD ITEM */
+.admin-inventory-receipt-add-item {
+  gap: 10px;
+}
+
+.admin-inventory-receipt-add-button {
+  min-height: 39px;
+  border-radius: 8px;
+}
+
+/* DRAFT ITEMS */
+.admin-inventory-receipt-items {
+  border-color: #e9edf4;
+  border-radius: 10px;
+}
+
+.admin-inventory-receipt-items-header {
+  background: #f8fafd;
+  border-bottom-color: #edf0f5;
+}
+
+.admin-inventory-receipt-items-header strong {
+  color: #172033;
+  font-weight: 650;
+}
+
+.admin-inventory-receipt-items-header span {
+  color: #778196;
+}
+
+.admin-inventory-receipt-empty-items {
+  color: #98a2b3;
+}
+
+.admin-inventory-receipt-draft-row {
+  border-bottom-color: #edf0f5;
+  transition: background 0.15s ease;
+}
+
+.admin-inventory-receipt-draft-row:hover {
+  background: #fbfcff;
+}
+
+.admin-inventory-receipt-draft-row strong {
+  color: #172033;
+  font-weight: 650;
+}
+
+.admin-inventory-receipt-draft-row span {
+  color: #778196;
+}
+
+/* DETAIL DRAWER */
+.admin-inventory-receipt-drawer {
+  background: #ffffff;
+}
+
+.admin-inventory-receipt-detail-grid > div {
+  background: #f8fafd;
+  border-color: #e9edf4;
+  border-radius: 10px;
+}
+
+.admin-inventory-receipt-detail-grid span {
+  color: #778196;
+}
+
+.admin-inventory-receipt-detail-grid strong {
+  color: #344054;
+  font-weight: 650;
+}
+
+.admin-inventory-receipt-detail-items h3 {
+  color: #172033;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-inventory-receipt-detail-list {
+  border-color: #e9edf4;
+  border-radius: 10px;
+}
+
+.admin-inventory-receipt-detail-row {
+  border-bottom-color: #edf0f5;
+  transition: background 0.15s ease;
+}
+
+.admin-inventory-receipt-detail-row:hover {
+  background: #fbfcff;
+}
+
+.admin-inventory-receipt-detail-row strong {
+  color: #172033;
+  font-weight: 650;
+}
+
+.admin-inventory-receipt-detail-row span {
+  color: #778196;
+}
+
+/* DRAWER ACTIONS */
+.admin-inventory-receipt-drawer-actions {
+  border-top-color: #e9edf4;
+}
+
+.admin-inventory-receipt-drawer .admin-drawer-footer {
+  border-top-color: #e9edf4;
+}
+
+/* PAGINATION */
+.admin-inventory-receipt-pagination {
+  border-top-color: #edf0f5;
+  border-radius: 0 0 14px 14px;
+}
+
+.admin-inventory-receipt-pagination-info {
+  color: #778196;
+  font-size: 12px;
+}
+
+.admin-inventory-receipt-pagination-info strong {
+  color: #344054;
+}
+
+.admin-inventory-receipt-page-size,
+.admin-inventory-receipt-pagination-info select.admin-inventory-receipt-page-size {
+  border-color: #dfe5ee;
+  border-radius: 8px;
+  color: #344054;
+  background-color: #ffffff;
+}
+
+.admin-inventory-receipt-page-size:focus,
+.admin-inventory-receipt-pagination-info select.admin-inventory-receipt-page-size:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 10%);
+}
+
+.admin-inventory-receipt-pagination-controls > span {
+  color: #596579;
+  font-size: 12px;
+}
+
+.admin-inventory-receipt-pagination-controls .admin-button {
+  border: 1px solid #e1e7f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #596579;
+}
+
+.admin-inventory-receipt-pagination-controls .admin-button:hover:not(:disabled) {
+  border-color: #c7d2fe;
+  background: #f5f7ff;
+  color: #4f46e5;
+}
+
+.admin-inventory-receipt-pagination-controls .admin-button:disabled {
+  background: #f8fafd;
+  color: #b6bfce;
+  opacity: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .admin-inventory-receipt-toolbar {
+    padding: 14px;
+  }
+
+  .admin-inventory-receipt-pagination {
+    border-radius: 0 0 14px 14px;
+  }
+}

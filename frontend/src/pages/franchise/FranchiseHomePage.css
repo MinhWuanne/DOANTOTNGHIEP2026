@@ -1,0 +1,459 @@
+
+.franchise-dashboard {
+  --franchise-ink: #20211e;
+  --franchise-muted: #777870;
+  --franchise-border: #e7e7e1;
+  --franchise-bg: #f7f7f4;
+  --franchise-surface: #ffffff;
+  --franchise-accent: #b6e36a;
+  --franchise-danger: #b42318;
+
+  min-height: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+
+  background: var(--franchise-bg);
+  color: var(--franchise-ink);
+}
+
+.franchise-dashboard * {
+  box-sizing: border-box;
+}
+
+.franchise-dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.franchise-eyebrow {
+  margin-bottom: 10px;
+  color: var(--franchise-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.franchise-dashboard-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+}
+
+.franchise-dashboard-header > div > p {
+  max-width: 620px;
+  margin: 10px 0 0;
+  color: var(--franchise-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.franchise-refresh-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  min-height: 42px;
+  padding: 0 15px;
+
+  border: 1px solid #d9d9d1;
+  border-radius: 8px;
+
+  background: #fff;
+  color: var(--franchise-ink);
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.franchise-refresh-button:hover:not(:disabled) {
+  border-color: #a4a59b;
+  background: #f0f0e9;
+}
+
+.franchise-refresh-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.franchise-refresh-button span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.franchise-welcome {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  overflow: hidden;
+
+  min-height: 190px;
+  padding: 32px 36px;
+  margin-bottom: 34px;
+
+  border-radius: 12px;
+  background: #24251f;
+  color: #fff;
+}
+
+.franchise-welcome::after {
+  position: absolute;
+  right: 90px;
+  bottom: -125px;
+
+  width: 300px;
+  height: 300px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+
+  content: "";
+  pointer-events: none;
+}
+
+.franchise-welcome-label {
+  color: var(--franchise-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+}
+
+.franchise-welcome h2 {
+  margin: 13px 0 8px;
+  font-size: clamp(23px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.franchise-welcome p {
+  max-width: 520px;
+  margin: 0;
+  color: #c5c6bc;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.franchise-welcome-mark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 88px;
+  height: 88px;
+
+  border: 1px solid rgba(182, 227, 106, 0.6);
+  border-radius: 50%;
+
+  color: var(--franchise-accent);
+  font-size: 26px;
+  font-weight: 850;
+  letter-spacing: -0.08em;
+}
+
+.franchise-section {
+  margin-bottom: 34px;
+}
+
+.franchise-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.franchise-section-heading h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.franchise-section-heading p {
+  margin: 7px 0 0;
+  color: var(--franchise-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.franchise-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.franchise-stat-card {
+  min-width: 0;
+  min-height: 205px;
+  padding: 20px;
+
+  border: 1px solid var(--franchise-border);
+  border-radius: 10px;
+
+  background: var(--franchise-surface);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.franchise-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(25, 26, 20, 0.055);
+}
+
+.franchise-stat-card-highlight {
+  border-color: #d5e5b9;
+  background: #f0f5e7;
+}
+
+.franchise-stat-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.franchise-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+  background: #f0f0e9;
+  color: #46473f;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.franchise-stat-card-highlight .franchise-stat-icon {
+  background: #dfecc8;
+}
+
+.franchise-stat-caption {
+  color: #898a80;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: right;
+}
+
+.franchise-stat-label {
+  margin: 0 0 8px;
+  color: #65665d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.franchise-stat-value {
+  overflow-wrap: anywhere;
+  color: var(--franchise-ink);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.franchise-stat-money {
+  font-size: clamp(19px, 1.8vw, 25px);
+  letter-spacing: -0.035em;
+}
+
+.franchise-stat-description {
+  margin: 10px 0 0;
+  color: var(--franchise-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.franchise-wallet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.franchise-wallet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+
+  min-width: 0;
+  min-height: 150px;
+  padding: 22px;
+
+  border: 1px solid var(--franchise-border);
+  border-radius: 10px;
+  background: var(--franchise-surface);
+}
+
+.franchise-wallet-card > span {
+  color: var(--franchise-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.franchise-wallet-card > strong {
+  overflow-wrap: anywhere;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.franchise-wallet-card > p {
+  margin: 0;
+  color: var(--franchise-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.franchise-wallet-card-available {
+  border-color: #d5e5b9;
+  background: #f0f5e7;
+}
+
+.franchise-alert {
+  padding: 15px 17px;
+  margin-bottom: 16px;
+
+  border: 1px solid var(--franchise-border);
+  border-radius: 8px;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.franchise-alert strong {
+  display: block;
+  font-size: 13px;
+}
+
+.franchise-alert p {
+  margin: 5px 0 0;
+}
+
+.franchise-alert-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: var(--franchise-danger);
+}
+
+.franchise-alert-warning {
+  border-color: #f0d8a7;
+  background: #fff9eb;
+  color: #865a0c;
+}
+
+.franchise-alert-neutral {
+  border-color: #dcdcd4;
+  background: #efefe9;
+  color: #4f5048;
+}
+
+.franchise-alert button {
+  min-height: 34px;
+  padding: 0 12px;
+  margin-top: 12px;
+
+  border: 1px solid #e4a8a3;
+  border-radius: 6px;
+
+  background: #fff;
+  color: var(--franchise-danger);
+
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.franchise-dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding-top: 20px;
+  margin-top: 8px;
+
+  border-top: 1px solid var(--franchise-border);
+
+  color: #92938a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 1200px) {
+  .franchise-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .franchise-dashboard {
+    padding: 20px 16px;
+  }
+
+  .franchise-dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .franchise-refresh-button {
+    align-self: flex-start;
+  }
+
+  .franchise-welcome {
+    min-height: 170px;
+    padding: 25px 22px;
+  }
+
+  .franchise-welcome-mark {
+    width: 58px;
+    height: 58px;
+    font-size: 19px;
+  }
+
+  .franchise-stat-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .franchise-stat-card {
+    min-height: 175px;
+  }
+
+  .franchise-wallet-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .franchise-wallet-card {
+    min-height: 130px;
+  }
+
+  .franchise-dashboard-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

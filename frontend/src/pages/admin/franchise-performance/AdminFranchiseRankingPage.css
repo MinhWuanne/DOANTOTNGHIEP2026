@@ -1,0 +1,819 @@
+
+.afr-ranking-page {
+  --rank-text: #182230;
+  --rank-muted: #758195;
+  --rank-border: #e6ebf2;
+  --rank-bg: #f6f8fc;
+  --rank-primary: #4f46e5;
+  --rank-green: #0f9f79;
+  color: var(--rank-text);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 28px;
+}
+
+.afr-ranking-page *,
+.afr-ranking-page *::before,
+.afr-ranking-page *::after {
+  box-sizing: border-box;
+}
+
+.afr-ranking-page .admin-card {
+  min-width: 0;
+  border: 1px solid var(--rank-border);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgb(24 34 48 / 3%);
+}
+
+.afr-ranking-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.afr-ranking-eyebrow {
+  margin: 0 0 8px;
+  color: var(--rank-primary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.afr-ranking-description {
+  max-width: 680px;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+
+.afr-ranking-refresh,
+.afr-ranking-export {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #dfe4ed;
+  border-radius: 11px;
+  background: #fff;
+  color: #273449;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+
+.afr-ranking-refresh:hover,
+.afr-ranking-export:hover {
+  border-color: #c7d2fe;
+  background: #f5f6ff;
+}
+
+.afr-ranking-refresh:active,
+.afr-ranking-export:active {
+  transform: translateY(1px);
+}
+
+.afr-ranking-refresh:disabled,
+.afr-ranking-export:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.afr-ranking-filter {
+  padding: 22px;
+}
+
+.afr-ranking-section-heading,
+.afr-ranking-table-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.afr-ranking-section-heading h2,
+.afr-ranking-table-heading h2 {
+  margin: 0;
+  color: var(--rank-text);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -.3px;
+}
+
+.afr-ranking-section-heading p,
+.afr-ranking-table-heading p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.afr-ranking-periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.afr-ranking-period {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid #e2e7f0;
+  border-radius: 9px;
+  background: #fff;
+  color: #5d687b;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.afr-ranking-period:hover {
+  border-color: #bfc7ff;
+  color: var(--rank-primary);
+}
+
+.afr-ranking-period.is-active {
+  border-color: var(--rank-primary);
+  background: #eef0ff;
+  color: #4338ca;
+  box-shadow: inset 0 0 0 1px rgb(79 70 229 / 8%);
+}
+
+.afr-ranking-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.2fr) repeat(2, minmax(160px, 1fr)) auto;
+  align-items: end;
+  gap: 14px;
+}
+
+.afr-ranking-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.afr-ranking-field > span {
+  color: #536075;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.afr-ranking-field input,
+.afr-ranking-field select {
+  width: 100%;
+  min-width: 0;
+  height: 43px;
+  padding: 0 12px;
+  border: 1px solid #dfe5ee;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #263247;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.afr-ranking-field input:focus,
+.afr-ranking-field select:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgb(99 102 241 / 12%);
+}
+
+.afr-ranking-reset {
+  height: 43px;
+  padding: 0 15px;
+  border: 1px solid #dfe5ee;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #465267;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.afr-ranking-reset:hover {
+  background: #eef2f7;
+}
+
+.afr-ranking-filter-note {
+  margin: 17px 0 0;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.afr-ranking-filter-note strong {
+  color: #344158;
+  font-weight: 750;
+}
+
+.afr-ranking-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.afr-ranking-page .afr-ranking-metric {
+  position: relative;
+  overflow: hidden;
+  min-height: 164px;
+  padding: 20px;
+}
+
+.afr-ranking-metric::after {
+  position: absolute;
+  right: -22px;
+  bottom: -40px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #f6f7fb;
+  content: "";
+  pointer-events: none;
+}
+
+.afr-ranking-metric-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.afr-ranking-metric-icon.is-blue {
+  background: #e9efff;
+  color: #3867dc;
+}
+
+.afr-ranking-metric-icon.is-violet {
+  background: #f0eaff;
+  color: #7c3aed;
+}
+
+.afr-ranking-metric-icon.is-green {
+  background: #e2f8ef;
+  color: #0d966d;
+}
+
+.afr-ranking-metric-icon.is-orange {
+  background: #fff1df;
+  color: #d97706;
+}
+
+.afr-ranking-metric > span {
+  display: block;
+  color: #6e7a8e;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.afr-ranking-page .afr-ranking-metric > strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  overflow-wrap: anywhere;
+  margin-top: 8px;
+  color: #182230;
+  font-size: clamp(22px, 2vw, 29px);
+  font-weight: 850;
+  letter-spacing: -.7px;
+  font-variant-numeric: tabular-nums;
+}
+
+.afr-ranking-page .afr-ranking-metric > strong.afr-ranking-currency {
+  font-size: clamp(15px, 1.35vw, 20px);
+  letter-spacing: -.3px;
+}
+
+.afr-ranking-metric > p {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 0;
+  font-size: 11px;
+}
+
+.afr-ranking-podium-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.afr-ranking-podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.afr-ranking-podium-card {
+  display: flex;
+  min-width: 0;
+  min-height: 205px;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 16px;
+  border: 1px solid #e6eaf1;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #fff, #fafbfe);
+  text-align: center;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.afr-ranking-podium-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgb(24 34 48 / 7%);
+}
+
+.afr-ranking-podium-card.rank-1 {
+  border-color: #f1d28c;
+  background: linear-gradient(160deg, #fffaf0, #fff);
+}
+
+.afr-ranking-podium-card.rank-2 {
+  border-color: #d9e1ec;
+}
+
+.afr-ranking-podium-card.rank-3 {
+  border-color: #e9d1bd;
+}
+
+.afr-ranking-podium-medal {
+  display: grid;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 12px;
+  place-items: center;
+  border-radius: 15px;
+  background: #edf0f6;
+  color: #64748b;
+  font-size: 19px;
+  font-weight: 850;
+}
+
+.rank-1 .afr-ranking-podium-medal {
+  background: #ffedbd;
+  color: #a16207;
+}
+
+.rank-2 .afr-ranking-podium-medal {
+  background: #e8edf4;
+  color: #52647b;
+}
+
+.rank-3 .afr-ranking-podium-medal {
+  background: #f5e5d8;
+  color: #9a5b32;
+}
+
+.afr-ranking-podium-label {
+  color: #758195;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.afr-ranking-podium-name {
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  margin-top: 8px;
+  color: #202b3d;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.afr-ranking-podium-code {
+  margin-top: 5px;
+  color: #8a95a7;
+  font-size: 11px;
+}
+
+.afr-ranking-podium-value {
+  margin-top: auto;
+  padding-top: 18px;
+  color: #263247;
+  font-size: 17px;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+
+.afr-ranking-table-card {
+  overflow: hidden;
+  padding: 22px;
+}
+
+.afr-ranking-table-heading {
+  margin-bottom: 20px;
+}
+
+.afr-ranking-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.afr-ranking-search {
+  display: flex;
+  width: min(100%, 430px);
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid #e0e6ef;
+  border-radius: 11px;
+  background: #fff;
+  color: #8390a4;
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.afr-ranking-search:focus-within {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgb(99 102 241 / 10%);
+}
+
+.afr-ranking-search > span {
+  font-size: 23px;
+  line-height: 1;
+}
+
+.afr-ranking-search input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #263247;
+  font: inherit;
+  font-size: 12px;
+}
+
+.afr-ranking-search input::placeholder {
+  color: #9aa4b4;
+}
+
+.afr-ranking-search button {
+  border: 0;
+  background: transparent;
+  color: #718096;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.afr-ranking-count {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.afr-ranking-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e7ebf2;
+  border-radius: 13px;
+}
+
+.afr-ranking-table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}
+
+.afr-ranking-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 15px 16px;
+  border-bottom: 1px solid #e7ebf2;
+  background: #f7f9fc;
+  color: #657187;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .45px;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.afr-ranking-table tbody td {
+  padding: 15px 16px;
+  border-bottom: 1px solid #eff2f6;
+  color: #354158;
+  white-space: nowrap;
+}
+
+.afr-ranking-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.afr-ranking-table tbody tr {
+  transition: background .15s;
+}
+
+.afr-ranking-table tbody tr:hover {
+  background: #f8faff;
+}
+
+.afr-ranking-table .afr-ranking-number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.afr-ranking-emphasis {
+  color: #273bb5 !important;
+  font-weight: 800;
+}
+
+.afr-ranking-franchise {
+  display: flex;
+  min-width: 150px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.afr-ranking-franchise strong {
+  color: #263247;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.afr-ranking-franchise span {
+  font-size: 11px;
+}
+
+.afr-ranking-badge {
+  display: inline-flex;
+  min-width: 36px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5eaf1;
+  border-radius: 9px;
+  background: #f7f9fc;
+  color: #59677b;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.afr-ranking-top-1 {
+  border-color: #f3d58a;
+  background: #fff4d6;
+  color: #98640a;
+}
+
+.afr-ranking-top-2 {
+  border-color: #d9e0e9;
+  background: #edf1f6;
+  color: #52647a;
+}
+
+.afr-ranking-top-3 {
+  border-color: #ebd1bd;
+  background: #f8e9dc;
+  color: #965a31;
+}
+
+.afr-ranking-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.afr-ranking-pagination > span {
+  font-size: 12px;
+}
+
+.afr-ranking-pagination > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.afr-ranking-secondary {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid #dfe5ee;
+  border-radius: 9px;
+  background: #fff;
+  color: #465267;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.afr-ranking-secondary:hover:not(:disabled) {
+  border-color: #c7d2fe;
+  background: #f5f6ff;
+}
+
+.afr-ranking-secondary:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.afr-ranking-state {
+  display: flex;
+  min-height: 210px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 30px;
+  color: #64748b;
+  text-align: center;
+}
+
+.afr-ranking-state h3 {
+  margin: 0;
+  color: #263247;
+  font-size: 16px;
+}
+
+.afr-ranking-state p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.afr-ranking-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: afr-ranking-spin .75s linear infinite;
+}
+
+@keyframes afr-ranking-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.afr-ranking-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid #fecaca;
+  border-radius: 13px;
+  background: #fff7f7;
+  color: #b42318;
+  font-size: 12px;
+}
+
+.afr-ranking-error strong {
+  font-size: 13px;
+}
+
+.afr-ranking-error p {
+  margin: 5px 0 0;
+  line-height: 1.6;
+}
+
+.afr-ranking-disclaimer {
+  margin: -6px 0 0;
+  color: #8a95a8;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 1100px) {
+  .afr-ranking-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .afr-ranking-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .afr-ranking-reset {
+    min-height: 43px;
+  }
+}
+
+@media (max-width: 700px) {
+  .afr-ranking-page {
+    gap: 16px;
+  }
+
+  .afr-ranking-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .afr-ranking-refresh {
+    align-self: flex-start;
+  }
+
+  .afr-ranking-filter,
+  .afr-ranking-table-card {
+    padding: 16px;
+    border-radius: 15px;
+  }
+
+  .afr-ranking-filter-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .afr-ranking-periods {
+    gap: 7px;
+  }
+
+  .afr-ranking-period {
+    flex: 1 1 auto;
+    padding: 0 10px;
+  }
+
+  .afr-ranking-metrics {
+    gap: 10px;
+  }
+
+  .afr-ranking-page .afr-ranking-metric {
+    min-height: 150px;
+    padding: 15px;
+  }
+
+  .afr-ranking-metric-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 12px;
+  }
+
+  .afr-ranking-page .afr-ranking-metric > strong {
+    font-size: 22px;
+  }
+
+  .afr-ranking-page .afr-ranking-metric > strong.afr-ranking-currency {
+    font-size: 15px;
+  }
+
+  .afr-ranking-podium {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .afr-ranking-podium-card {
+    min-height: 170px;
+  }
+
+  .afr-ranking-table-heading,
+  .afr-ranking-search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .afr-ranking-export,
+  .afr-ranking-search {
+    width: 100%;
+  }
+
+  .afr-ranking-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .afr-ranking-pagination > div {
+    width: 100%;
+  }
+
+  .afr-ranking-pagination button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .afr-ranking-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .afr-ranking-page .afr-ranking-metric {
+    min-height: auto;
+  }
+
+  .afr-ranking-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .afr-ranking-page *,
+  .afr-ranking-page *::before,
+  .afr-ranking-page *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
