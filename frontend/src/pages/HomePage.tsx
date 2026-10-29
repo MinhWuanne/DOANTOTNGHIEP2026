@@ -1,4 +1,4 @@
-﻿
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -25,36 +25,36 @@ const heroSlides = [
     title: "DENIM FOR",
     highlight: "EVERY DAY.",
     description:
-      "Nhá»¯ng thiáº¿t káº¿ denim dá»… phá»‘i Ä‘á»“, Ä‘á»“ng hÃ nh cÃ¹ng phong cÃ¡ch riÃªng cá»§a báº¡n.",
+      "Những thiết kế denim dễ phối đồ, đồng hành cùng phong cách riêng của bạn.",
     image:
       "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=2000&q=90",
-    imageAlt: "Bá»™ sÆ°u táº­p quáº§n denim xanh",
+    imageAlt: "Bộ sưu tập quần denim xanh",
     label: "EVERYDAY DENIM",
-    cta: "KHÃM PHÃ Sáº¢N PHáº¨M",
+    cta: "KHÁM PHÁ SẢN PHẨM",
   },
   {
     eyebrow: "FIND YOUR OWN STYLE",
     title: "YOUR STYLE.",
     highlight: "YOUR RULES.",
     description:
-      "Tá»± tin lá»±a chá»n. Thoáº£i mÃ¡i thá»ƒ hiá»‡n. Táº¡o nÃªn phong cÃ¡ch cá»§a riÃªng mÃ¬nh.",
+      "Tự tin lựa chọn. Thoải mái thể hiện. Tạo nên phong cách của riêng mình.",
     image:
       "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=2000&q=90",
-    imageAlt: "Chiáº¿n dá»‹ch thá»i trang phong cÃ¡ch hiá»‡n Ä‘áº¡i",
+    imageAlt: "Chiến dịch thời trang phong cách hiện đại",
     label: "OWN YOUR STYLE",
-    cta: "TÃŒM PHONG CÃCH Cá»¦A Báº N",
+    cta: "TÌM PHONG CÁCH CỦA BẠN",
   },
   {
     eyebrow: "TIMELESS DENIM ESSENTIALS",
     title: "MADE FOR",
     highlight: "YOUR LIFE.",
     description:
-      "Tá»« nhá»¯ng ngÃ y báº­n rá»™n Ä‘áº¿n nhá»¯ng cuá»™c háº¹n ngáº«u há»©ng, denim luÃ´n lÃ  lá»±a chá»n dá»… dÃ ng.",
+      "Từ những ngày bận rộn đến những cuộc hẹn ngẫu hứng, denim luôn là lựa chọn dễ dàng.",
     image:
       "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=2000&q=90",
-    imageAlt: "Phong cÃ¡ch trang phá»¥c denim thÆ°á»ng ngÃ y",
+    imageAlt: "Phong cách trang phục denim thường ngày",
     label: "THE DENIM EDIT",
-    cta: "XEM Bá»˜ SÆ¯U Táº¬P",
+    cta: "XEM BỘ SƯU TẬP",
   },
 ];
 
@@ -149,7 +149,7 @@ function ProductImage({
       <div
         className="home-product-image-placeholder"
         role="img"
-        aria-label={`Sáº£n pháº©m ${product.name} chÆ°a cÃ³ hÃ¬nh áº£nh`}
+        aria-label={`Sản phẩm ${product.name} chưa có hình ảnh`}
       >
         <span className="home-placeholder-brand">ICON</span>
         <span className="home-placeholder-name">DENIM</span>
@@ -197,7 +197,7 @@ function HomePage() {
         console.error("Load categories failed:", error);
 
         if (!cancelled) {
-          setCategoriesError("KhÃ´ng thá»ƒ táº£i danh má»¥c sáº£n pháº©m.");
+          setCategoriesError("Không thể tải danh mục sản phẩm.");
         }
       } finally {
         if (!cancelled) {
@@ -218,7 +218,7 @@ function HomePage() {
         console.error("Load products failed:", error);
 
         if (!cancelled) {
-          setProductsError("KhÃ´ng thá»ƒ táº£i sáº£n pháº©m.");
+          setProductsError("Không thể tải sản phẩm.");
         }
       } finally {
         if (!cancelled) {
@@ -264,7 +264,7 @@ function HomePage() {
         {/* Campaign Hero Carousel */}
         <section
           className="home-hero"
-          aria-label="Chiáº¿n dá»‹ch thá»i trang IconDenim"
+          aria-label="Chiến dịch thời trang IconDenim"
         >
           <div className="home-hero-media">
             {heroSlides.map((slide, index) => (
@@ -310,7 +310,7 @@ function HomePage() {
                 {String(activeSlide + 1).padStart(2, "0")} /{" "}
                 {currentSlide.label}
               </span>
-              <span>ICONDENIM â€” EVERYDAY STYLE</span>
+              <span>ICONDENIM — EVERYDAY STYLE</span>
             </div>
           </div>
 
@@ -319,14 +319,14 @@ function HomePage() {
               type="button"
               className="home-hero-arrow home-hero-previous"
               onClick={showPreviousSlide}
-              aria-label="Chiáº¿n dá»‹ch trÆ°á»›c"
+              aria-label="Chiến dịch trước"
             >
               <StorefrontIcon name="arrow" />
             </button>
 
             <div
               className="home-hero-dots"
-              aria-label="Chá»n chiáº¿n dá»‹ch"
+              aria-label="Chọn chiến dịch"
             >
               {heroSlides.map((slide, index) => (
                 <button
@@ -335,7 +335,7 @@ function HomePage() {
                   className={`home-hero-dot ${index === activeSlide ? "is-active" : ""
                     }`}
                   onClick={() => setActiveSlide(index)}
-                  aria-label={`Xem chiáº¿n dá»‹ch ${index + 1}`}
+                  aria-label={`Xem chiến dịch ${index + 1}`}
                   aria-current={index === activeSlide ? "true" : undefined}
                 />
               ))}
@@ -345,7 +345,7 @@ function HomePage() {
               type="button"
               className="home-hero-arrow home-hero-next"
               onClick={showNextSlide}
-              aria-label="Chiáº¿n dá»‹ch tiáº¿p theo"
+              aria-label="Chiến dịch tiếp theo"
             >
               <StorefrontIcon name="arrow" />
             </button>
@@ -359,15 +359,15 @@ function HomePage() {
         {/* Shopping Benefits */}
         <section
           className="home-benefits"
-          aria-label="Äiá»ƒm ná»•i báº­t cá»§a IconDenim"
+          aria-label="Điểm nổi bật của IconDenim"
         >
           <div className="home-benefit">
             <span className="home-benefit-icon" aria-hidden="true">
               <StorefrontIcon name="arrow" />
             </span>
             <div>
-              <h2>Dá»„ DÃ€NG Lá»°A CHá»ŒN</h2>
-              <p>KhÃ¡m phÃ¡ sáº£n pháº©m theo phong cÃ¡ch</p>
+              <h2>DỄ DÀNG LỰA CHỌN</h2>
+              <p>Khám phá sản phẩm theo phong cách</p>
             </div>
           </div>
 
@@ -376,8 +376,8 @@ function HomePage() {
               <StorefrontIcon name="bag" />
             </span>
             <div>
-              <h2>THÃ”NG TIN RÃ• RÃ€NG</h2>
-              <p>GiÃ¡ vÃ  tÃ¬nh tráº¡ng hÃ ng theo dá»¯ liá»‡u hiá»‡n cÃ³</p>
+              <h2>THÔNG TIN RÕ RÀNG</h2>
+              <p>Giá và tình trạng hàng theo dữ liệu hiện có</p>
             </div>
           </div>
 
@@ -386,8 +386,8 @@ function HomePage() {
               <StorefrontIcon name="arrow" />
             </span>
             <div>
-              <h2>KHÃM PHÃ NHANH</h2>
-              <p>Äi tháº³ng Ä‘áº¿n sáº£n pháº©m báº¡n quan tÃ¢m</p>
+              <h2>KHÁM PHÁ NHANH</h2>
+              <p>Đi thẳng đến sản phẩm bạn quan tâm</p>
             </div>
           </div>
         </section>
@@ -397,14 +397,14 @@ function HomePage() {
           <div className="home-section-heading">
             <div>
               <p className="home-eyebrow">SHOP BY CATEGORY</p>
-              <h2>KHÃM PHÃ DANH Má»¤C</h2>
+              <h2>KHÁM PHÁ DANH MỤC</h2>
               <p className="home-section-description">
-                TÃ¬m lá»±a chá»n phÃ¹ há»£p vá»›i phong cÃ¡ch háº±ng ngÃ y cá»§a báº¡n.
+                Tìm lựa chọn phù hợp với phong cách hằng ngày của bạn.
               </p>
             </div>
 
             <Link to="/products" className="home-text-link">
-              Táº¤T Cáº¢ Sáº¢N PHáº¨M
+              TẤT CẢ SẢN PHẨM
               <StorefrontIcon name="arrow" />
             </Link>
           </div>
@@ -414,7 +414,7 @@ function HomePage() {
             <button
               type="button"
               className="home-category-nav home-category-nav-prev"
-              aria-label="Danh má»¥c trÆ°á»›c"
+              aria-label="Danh mục trước"
               onClick={() => {
                 const track = document.querySelector(
                   ".home-category-track",
@@ -435,7 +435,7 @@ function HomePage() {
               <div className="home-category-track">
                 {categoriesLoading ? (
                   <p className="home-state-message">
-                    Äang táº£i danh má»¥c...
+                    Đang tải danh mục...
                   </p>
                 ) : categoriesError ? (
                   <p className="home-state-message" role="alert">
@@ -443,7 +443,7 @@ function HomePage() {
                   </p>
                 ) : categories.length === 0 ? (
                   <p className="home-state-message">
-                    ChÆ°a cÃ³ danh má»¥c sáº£n pháº©m.
+                    Chưa có danh mục sản phẩm.
                   </p>
                 ) : (
                   categories
@@ -481,11 +481,11 @@ function HomePage() {
 
                           <p>
                             {category.description ||
-                              "KhÃ¡m phÃ¡ cÃ¡c sáº£n pháº©m trong danh má»¥c."}
+                              "Khám phá các sản phẩm trong danh mục."}
                           </p>
 
                           <span className="home-category-cta">
-                            XEM DANH Má»¤C
+                            XEM DANH MỤC
                             <StorefrontIcon name="arrow" />
                           </span>
                         </div>
@@ -498,7 +498,7 @@ function HomePage() {
             <button
               type="button"
               className="home-category-nav home-category-nav-next"
-              aria-label="Danh má»¥c tiáº¿p theo"
+              aria-label="Danh mục tiếp theo"
               onClick={() => {
                 const track = document.querySelector(
                   ".home-category-track",
@@ -524,14 +524,14 @@ function HomePage() {
             <div className="home-section-heading">
               <div>
                 <p className="home-eyebrow">THE PRODUCT EDIT</p>
-                <h2>ÄÆ¯á»¢C CHá»ŒN CHO Báº N</h2>
+                <h2>ĐƯỢC CHỌN CHO BẠN</h2>
                 <p className="home-section-description">
-                  KhÃ¡m phÃ¡ cÃ¡c sáº£n pháº©m Ä‘ang cÃ³ trong cá»­a hÃ ng.
+                  Khám phá các sản phẩm đang có trong cửa hàng.
                 </p>
               </div>
 
               <Link to="/products" className="home-text-link">
-                XEM Táº¤T Cáº¢
+                XEM TẤT CẢ
                 <StorefrontIcon name="arrow" />
               </Link>
             </div>
@@ -539,7 +539,7 @@ function HomePage() {
             <div className="home-product-grid">
               {productsLoading ? (
                 <p className="home-state-message">
-                  Äang táº£i sáº£n pháº©m...
+                  Đang tải sản phẩm...
                 </p>
               ) : productsError ? (
                 <p className="home-state-message" role="alert">
@@ -547,7 +547,7 @@ function HomePage() {
                 </p>
               ) : products.length === 0 ? (
                 <p className="home-state-message">
-                  Hiá»‡n chÆ°a cÃ³ sáº£n pháº©m Ä‘á»ƒ hiá»ƒn thá»‹.
+                  Hiện chưa có sản phẩm để hiển thị.
                 </p>
               ) : (
                 products.slice(0, 4).map((product) => {
@@ -566,7 +566,7 @@ function HomePage() {
                           <ProductImage product={product} />
 
                           <span className="home-product-view">
-                            XEM CHI TIáº¾T
+                            XEM CHI TIẾT
                             <StorefrontIcon name="arrow" />
                           </span>
                         </div>
@@ -580,7 +580,7 @@ function HomePage() {
 
                           <p className="home-product-price">
                             {price === null
-                              ? "Táº¡m háº¿t hÃ ng"
+                              ? "Tạm hết hàng"
                               : formatPrice(price)}
                           </p>
                         </div>
@@ -598,7 +598,7 @@ function HomePage() {
                 to="/products"
                 className="home-button home-button-outline"
               >
-                KHÃM PHÃ Táº¤T Cáº¢ Sáº¢N PHáº¨M
+                KHÁM PHÁ TẤT CẢ SẢN PHẨM
                 <StorefrontIcon name="arrow" />
               </Link>
             </div>
@@ -610,7 +610,7 @@ function HomePage() {
           <div className="home-brand-image">
             <img
               src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1400&q=90"
-              alt="Phong cÃ¡ch thá»i trang thÆ°á»ng ngÃ y"
+              alt="Phong cách thời trang thường ngày"
               loading="lazy"
             />
           </div>
@@ -619,27 +619,27 @@ function HomePage() {
             <p className="home-eyebrow">MORE THAN DENIM</p>
 
             <h2>
-              Máº¶C CHáº¤T RIÃŠNG.
+              MẶC CHẤT RIÊNG.
               <br />
-              Sá»NG CHáº¤T MÃŒNH.
+              SỐNG CHẤT MÌNH.
             </h2>
 
             <p>
-              IconDenim dÃ nh cho nhá»¯ng ngÆ°á»i tá»± tin vá»›i lá»±a chá»n cá»§a mÃ¬nh.
-              KhÃ¡m phÃ¡ nhá»¯ng thiáº¿t káº¿ phÃ¹ há»£p vá»›i nhá»‹p sá»‘ng vÃ  phong cÃ¡ch
-              riÃªng cá»§a báº¡n.
+              IconDenim dành cho những người tự tin với lựa chọn của mình.
+              Khám phá những thiết kế phù hợp với nhịp sống và phong cách
+              riêng của bạn.
             </p>
 
             <Link
               to="/products"
               className="home-button home-button-light"
             >
-              TÃŒM Sáº¢N PHáº¨M Cá»¦A Báº N
+              TÌM SẢN PHẨM CỦA BẠN
               <StorefrontIcon name="arrow" />
             </Link>
 
             <span className="home-brand-signature">
-              ICONDENIM â€” YOUR EVERYDAY STYLE
+              ICONDENIM — YOUR EVERYDAY STYLE
             </span>
           </div>
         </section>
@@ -654,7 +654,7 @@ function HomePage() {
             <div className="home-franchise-media">
               <img
                 src="https://images.unsplash.com/photo-1758599543157-bc1a94fec33c?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
-                alt="Äá»‘i tÃ¡c báº¯t tay há»£p tÃ¡c kinh doanh"
+                alt="Đối tác bắt tay hợp tác kinh doanh"
                 loading="lazy"
               />
 
@@ -676,17 +676,17 @@ function HomePage() {
               </p>
 
               <h2 id="home-franchise-title">
-                CÃ™NG NHAU
+                CÙNG NHAU
                 <br />
-                <span>Má»ž Rá»˜NG</span>
+                <span>MỞ RỘNG</span>
                 <br />
-                HÃ€NH TRÃŒNH.
+                HÀNH TRÌNH.
               </h2>
 
               <p className="home-franchise-description">
-                Má»™t thÆ°Æ¡ng hiá»‡u phÃ¡t triá»ƒn máº¡nh máº½ hÆ¡n khi cÃ³ nhá»¯ng
-                Ä‘á»‘i tÃ¡c cÃ¹ng chung táº§m nhÃ¬n. KhÃ¡m phÃ¡ cÆ¡ há»™i Ä‘á»“ng hÃ nh
-                cÃ¹ng IconDenim vÃ  phÃ¡t triá»ƒn máº¡ng lÆ°á»›i kinh doanh cá»§a báº¡n.
+                Một thương hiệu phát triển mạnh mẽ hơn khi có những
+                đối tác cùng chung tầm nhìn. Khám phá cơ hội đồng hành
+                cùng IconDenim và phát triển mạng lưới kinh doanh của bạn.
               </p>
 
               <div className="home-franchise-divider" />
@@ -695,9 +695,9 @@ function HomePage() {
                 <div className="home-franchise-benefit">
                   <span className="home-franchise-number">01</span>
                   <div>
-                    <h3>THEO DÃ•I HIá»†U QUáº¢</h3>
+                    <h3>THEO DÕI HIỆU QUẢ</h3>
                     <p>
-                      Theo dÃµi hoáº¡t Ä‘á»™ng vÃ  káº¿t quáº£ kinh doanh trÃªn há»‡ thá»‘ng.
+                      Theo dõi hoạt động và kết quả kinh doanh trên hệ thống.
                     </p>
                   </div>
                 </div>
@@ -705,9 +705,9 @@ function HomePage() {
                 <div className="home-franchise-benefit">
                   <span className="home-franchise-number">02</span>
                   <div>
-                    <h3>PHÃT TRIá»‚N Máº NG LÆ¯á»šI</h3>
+                    <h3>PHÁT TRIỂN MẠNG LƯỚI</h3>
                     <p>
-                      Quáº£n lÃ½ máº¡ng lÆ°á»›i giá»›i thiá»‡u vÃ  theo dÃµi hoa há»“ng.
+                      Quản lý mạng lưới giới thiệu và theo dõi hoa hồng.
                     </p>
                   </div>
                 </div>
@@ -715,9 +715,9 @@ function HomePage() {
                 <div className="home-franchise-benefit">
                   <span className="home-franchise-number">03</span>
                   <div>
-                    <h3>Äá»’NG HÃ€NH CÃ™NG THÆ¯Æ NG HIá»†U</h3>
+                    <h3>ĐỒNG HÀNH CÙNG THƯƠNG HIỆU</h3>
                     <p>
-                      CÃ¹ng IconDenim má»Ÿ rá»™ng káº¿t ná»‘i vÃ  cÆ¡ há»™i phÃ¡t triá»ƒn.
+                      Cùng IconDenim mở rộng kết nối và cơ hội phát triển.
                     </p>
                   </div>
                 </div>
@@ -727,12 +727,12 @@ function HomePage() {
                 to="/franchise/login"
                 className="home-button home-button-dark home-franchise-cta"
               >
-                DÃ€NH CHO Äá»I TÃC
+                DÀNH CHO ĐỐI TÁC
                 <StorefrontIcon name="arrow" />
               </Link>
 
               <p className="home-franchise-note">
-                ICONDENIM â€” BUILD YOUR NEXT CHAPTER
+                ICONDENIM — BUILD YOUR NEXT CHAPTER
               </p>
             </div>
           </div>
@@ -742,16 +742,16 @@ function HomePage() {
         {/* Final Shopping CTA */}
         <section className="home-newsletter">
           <p className="home-eyebrow">YOUR STYLE STARTS HERE</p>
-          <h2>Sáº´N SÃ€NG KHÃM PHÃ?</h2>
+          <h2>SẴN SÀNG KHÁM PHÁ?</h2>
           <p>
-            TÃ¬m kiáº¿m sáº£n pháº©m yÃªu thÃ­ch vÃ  chá»n phong cÃ¡ch dÃ nh cho báº¡n.
+            Tìm kiếm sản phẩm yêu thích và chọn phong cách dành cho bạn.
           </p>
 
           <Link
             to="/products"
             className="home-button home-button-dark"
           >
-            MUA Sáº®M NGAY
+            MUA SẮM NGAY
             <StorefrontIcon name="arrow" />
           </Link>
         </section>
