@@ -162,7 +162,7 @@ function ProductsPage() {
         setError(
           err instanceof Error
             ? err.message
-            : "KhÃ´ng thá»ƒ táº£i dá»¯ liá»‡u sáº£n pháº©m.",
+            : "Không thể tải dữ liệu sản phẩm.",
         );
 
       } finally {
@@ -342,9 +342,9 @@ function ProductsPage() {
       <main>
         <section className="products-intro">
           <div className="products-breadcrumb">
-            <Link to="/">TRANG CHá»¦</Link>
+            <Link to="/">TRANG CHỦ</Link>
             <span>/</span>
-            <span>Sáº¢N PHáº¨M</span>
+            <span>SẢN PHẨM</span>
           </div>
 
           <p className="products-eyebrow">
@@ -354,12 +354,12 @@ function ProductsPage() {
             {selectedCategoryData
               ? selectedCategoryData.name.toLocaleUpperCase("vi")
               : saleOnly
-                ? "Sáº¢N PHáº¨M Æ¯U ÄÃƒI"
-                : "KHÃM PHÃ Sáº¢N PHáº¨M"}
+                ? "SẢN PHẨM ƯU ĐÃI"
+                : "KHÁM PHÁ SẢN PHẨM"}
           </h1>
           <p className="products-intro-description">
-            TÃ¬m kiáº¿m nhá»¯ng thiáº¿t káº¿ phÃ¹ há»£p vá»›i phong cÃ¡ch
-            vÃ  nhá»‹p sá»‘ng má»—i ngÃ y cá»§a báº¡n.
+            Tìm kiếm những thiết kế phù hợp với phong cách
+            và nhịp sống mỗi ngày của bạn.
           </p>
         </section>
 
@@ -372,7 +372,7 @@ function ProductsPage() {
                   }`}
                 onClick={() => updateFilter("category", "")}
               >
-                Táº¤T Cáº¢
+                TẤT CẢ
               </button>
               {categories.map((category) => (
                 <button
@@ -399,12 +399,12 @@ function ProductsPage() {
                 }
 
               >
-                Æ¯U ÄÃƒI
+                ƯU ĐÃI
               </button>
             </div>
 
             <label className="products-sort">
-              <span>Sáº®P Xáº¾P</span>
+              <span>SẮP XẾP</span>
               <select
                 value={sortOption}
                 onChange={(event) =>
@@ -412,9 +412,9 @@ function ProductsPage() {
                 }
 
               >
-                <option value="default">Máº·c Ä‘á»‹nh</option>
-                <option value="price-asc">GiÃ¡ tÄƒng dáº§n</option>
-                <option value="price-desc">GiÃ¡ giáº£m dáº§n</option>
+                <option value="default">Mặc định</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
               </select>
             </label>
           </div>
@@ -430,24 +430,24 @@ function ProductsPage() {
                 setSearchValue(event.target.value)
               }
 
-              placeholder="TÃ¬m tÃªn sáº£n pháº©m, mÃ u sáº¯c, mÃ£ sáº£n pháº©m..."
-              aria-label="TÃ¬m kiáº¿m sáº£n pháº©m"
+              placeholder="Tìm tên sản phẩm, màu sắc, mã sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
             />
             <button type="submit">
               <StorefrontIcon name="search" />
-              <span>TÃŒM KIáº¾M</span>
+              <span>TÌM KIẾM</span>
             </button>
           </form>
           <div className="products-result-heading">
             <p>
               {loading
-                ? "ÄANG Táº¢I Sáº¢N PHáº¨M..."
+                ? "ĐANG TẢI SẢN PHẨM..."
                 : filteredProducts.length > 0
-                  ? `HIá»‚N THá»Š ${(page - 1) * PRODUCTS_PER_PAGE + 1}â€“${Math.min(
+                  ? `HIỂN THỊ ${(page - 1) * PRODUCTS_PER_PAGE + 1}–${Math.min(
                     page * PRODUCTS_PER_PAGE,
                     filteredProducts.length,
-                  )} / ${filteredProducts.length} Sáº¢N PHáº¨M`
-                  : "0 Sáº¢N PHáº¨M"}
+                  )} / ${filteredProducts.length} SẢN PHẨM`
+                  : "0 SẢN PHẨM"}
             </p>
             {(selectedCategory || saleOnly || searchKeyword) && (
               <button
@@ -455,48 +455,48 @@ function ProductsPage() {
                 className="products-clear-filters"
                 onClick={clearFilters}
               >
-                XÃ“A Bá»˜ Lá»ŒC
+                XÓA BỘ LỌC
               </button>
             )}
           </div>
 
           {hasUnrecognizedCategory && (
             <p className="products-notice">
-              Danh má»¥c nÃ y chÆ°a cÃ³ trong dá»¯ liá»‡u hiá»‡n táº¡i.
-              Vui lÃ²ng chá»n Ão, Quáº§n hoáº·c Táº¥t cáº£.
+              Danh mục này chưa có trong dữ liệu hiện tại.
+              Vui lòng chọn Áo, Quần hoặc Tất cả.
             </p>
           )}
           {loading && (
             <div className="products-state">
               <div className="products-loading-spinner" />
-              <p>Äang táº£i bá»™ sÆ°u táº­p...</p>
+              <p>Đang tải bộ sưu tập...</p>
             </div>
 
           )}
           {!loading && error && (
             <div className="products-state products-state-error">
-              <h2>KHÃ”NG THá»‚ Táº¢I Sáº¢N PHáº¨M</h2>
+              <h2>KHÔNG THỂ TẢI SẢN PHẨM</h2>
               <p>{error}</p>
               <button
                 type="button"
                 onClick={() => window.location.reload()}
               >
-                THá»¬ Láº I
+                THỬ LẠI
               </button>
             </div>
 
           )}
           {!loading && !error && filteredProducts.length === 0 && (
             <div className="products-state">
-              <h2>CHÆ¯A TÃŒM THáº¤Y Sáº¢N PHáº¨M</h2>
+              <h2>CHƯA TÌM THẤY SẢN PHẨM</h2>
               <p>
-                HÃ£y thá»­ tá»« khÃ³a khÃ¡c hoáº·c thay Ä‘á»•i bá»™ lá»c.
+                Hãy thử từ khóa khác hoặc thay đổi bộ lọc.
               </p>
               <button
                 type="button"
                 onClick={clearFilters}
               >
-                XEM Táº¤T Cáº¢ Sáº¢N PHáº¨M
+                XEM TẤT CẢ SẢN PHẨM
               </button>
             </div>
 
@@ -548,7 +548,7 @@ function ProductsPage() {
                             </span>
                           )}
                           <span className="products-card-view">
-                            KHÃM PHÃ
+                            KHÁM PHÁ
                             <StorefrontIcon name="arrow" />
                           </span>
                         </div>
@@ -565,7 +565,7 @@ function ProductsPage() {
                               </span>
                             ) : (
                               <span className="products-card-price">
-                                LiÃªn há»‡
+                                Liên hệ
                               </span>
                             )}
                             {compareAtPrice !== null && (
@@ -587,15 +587,15 @@ function ProductsPage() {
               {totalPages > 1 && (
                 <nav
                   className="products-pagination"
-                  aria-label="PhÃ¢n trang sáº£n pháº©m"
+                  aria-label="Phân trang sản phẩm"
                 >
                   <button
                     type="button"
                     disabled={page === 1}
                     onClick={() => setPage((current) => current - 1)}
-                    aria-label="Trang trÆ°á»›c"
+                    aria-label="Trang trước"
                   >
-                    â†
+                    ←
                   </button>
 
                   {Array.from(
@@ -623,9 +623,9 @@ function ProductsPage() {
                     type="button"
                     disabled={page === totalPages}
                     onClick={() => setPage((current) => current + 1)}
-                    aria-label="Trang tiáº¿p theo"
+                    aria-label="Trang tiếp theo"
                   >
-                    â†’
+                    →
                   </button>
                 </nav>
               )}

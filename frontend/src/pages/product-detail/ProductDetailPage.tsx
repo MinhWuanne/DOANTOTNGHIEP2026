@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
     async function loadProduct() {
       if (!slug) {
         setProduct(null);
-        setError("KhÃ´ng tÃ¬m tháº¥y Ä‘Æ°á»ng dáº«n sáº£n pháº©m.");
+        setError("Không tìm thấy đường dẫn sản phẩm.");
         setLoading(false);
         return;
       }
@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
       } catch {
         if (!cancelled) {
           setError(
-            "KhÃ´ng thá»ƒ táº£i thÃ´ng tin sáº£n pháº©m. Vui lÃ²ng thá»­ láº¡i.",
+            "Không thể tải thông tin sản phẩm. Vui lòng thử lại.",
           );
         }
       } finally {
@@ -198,7 +198,7 @@ export default function ProductDetailPage() {
     if (role !== "MEMBER") {
       setCartMessageType("error");
       setCartMessage(
-        "Chá»‰ tÃ i khoáº£n thÃ nh viÃªn má»›i cÃ³ thá»ƒ mua hÃ ng.",
+        "Chỉ tài khoản thành viên mới có thể mua hàng.",
       );
       return;
     }
@@ -215,7 +215,7 @@ export default function ProductDetailPage() {
 
       if (!memberAccount) {
         throw new Error(
-          "KhÃ´ng tÃ¬m tháº¥y tÃ i khoáº£n thÃ nh viÃªn.",
+          "Không tìm thấy tài khoản thành viên.",
         );
       }
 
@@ -225,7 +225,7 @@ export default function ProductDetailPage() {
       });
 
       setCartMessageType("success");
-      setCartMessage("ÄÃ£ thÃªm sáº£n pháº©m vÃ o giá» hÃ ng.");
+      setCartMessage("Đã thêm sản phẩm vào giỏ hàng.");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "";
@@ -241,28 +241,28 @@ export default function ProductDetailPage() {
 
       if (message === "INVALID_CART_ITEM_QUANTITY") {
         setCartMessage(
-          "Sá»‘ lÆ°á»£ng sáº£n pháº©m khÃ´ng há»£p lá»‡. Vui lÃ²ng thá»­ láº¡i.",
+          "Số lượng sản phẩm không hợp lệ. Vui lòng thử lại.",
         );
       } else if (message === "PRODUCT_VARIANT_NOT_ACTIVE") {
         setCartMessage(
-          "PhiÃªn báº£n sáº£n pháº©m hiá»‡n khÃ´ng cÃ²n kháº£ dá»¥ng.",
+          "Phiên bản sản phẩm hiện không còn khả dụng.",
         );
       } else if (message === "PRODUCT_NOT_ACTIVE") {
         setCartMessage(
-          "Sáº£n pháº©m hiá»‡n khÃ´ng cÃ²n Ä‘Æ°á»£c kinh doanh.",
+          "Sản phẩm hiện không còn được kinh doanh.",
         );
       } else if (message === "ACCOUNT_NOT_ACTIVE") {
         setCartMessage(
-          "TÃ i khoáº£n thÃ nh viÃªn hiá»‡n khÃ´ng hoáº¡t Ä‘á»™ng.",
+          "Tài khoản thành viên hiện không hoạt động.",
         );
       } else if (message === "MEMBER_ACCOUNT_REQUIRED") {
         setCartMessage(
-          "TÃ i khoáº£n hiá»‡n táº¡i khÃ´ng thá»ƒ sá»­ dá»¥ng giá» hÃ ng thÃ nh viÃªn.",
+          "Tài khoản hiện tại không thể sử dụng giỏ hàng thành viên.",
         );
       } else {
         setCartMessage(
           message ||
-          "KhÃ´ng thá»ƒ thÃªm sáº£n pháº©m vÃ o giá» hÃ ng. Vui lÃ²ng thá»­ láº¡i.",
+          "Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
         );
       }
     } finally {
@@ -276,9 +276,9 @@ export default function ProductDetailPage() {
 
       <main className="product-detail-main">
         <div className="product-detail-breadcrumb">
-          <Link to="/">Trang chá»§</Link>
+          <Link to="/">Trang chủ</Link>
           <span>/</span>
-          <Link to="/products">Sáº£n pháº©m</Link>
+          <Link to="/products">Sản phẩm</Link>
 
           {product && (
             <>
@@ -296,20 +296,20 @@ export default function ProductDetailPage() {
             role="status"
           >
             <span className="product-detail-spinner" />
-            <p>Äang táº£i thÃ´ng tin sáº£n pháº©m...</p>
+            <p>Đang tải thông tin sản phẩm...</p>
           </div>
         )}
 
         {!loading && error && (
           <div className="product-detail-state">
-            <h2>KhÃ´ng thá»ƒ hiá»ƒn thá»‹ sáº£n pháº©m</h2>
+            <h2>Không thể hiển thị sản phẩm</h2>
             <p>{error}</p>
 
             <Link
               className="product-detail-back-button"
               to="/products"
             >
-              Quay láº¡i danh sÃ¡ch sáº£n pháº©m
+              Quay lại danh sách sản phẩm
             </Link>
           </div>
         )}
@@ -318,7 +318,7 @@ export default function ProductDetailPage() {
           <div className="product-detail-layout">
             <section
               className="product-detail-gallery"
-              aria-label="HÃ¬nh áº£nh sáº£n pháº©m"
+              aria-label="Hình ảnh sản phẩm"
             >
               <div className="product-detail-main-image">
                 {images.length > 0 ? (
@@ -336,7 +336,7 @@ export default function ProductDetailPage() {
                 ) : (
                   <div className="product-detail-image-placeholder">
                     <span>ICON DENIM</span>
-                    <p>HÃ¬nh áº£nh sáº£n pháº©m Ä‘ang Ä‘Æ°á»£c cáº­p nháº­t</p>
+                    <p>Hình ảnh sản phẩm đang được cập nhật</p>
                   </div>
                 )}
 
@@ -358,12 +358,12 @@ export default function ProductDetailPage() {
                         : ""
                         }`}
                       onClick={() => setSelectedImageIndex(index)}
-                      aria-label={`Xem áº£nh ${index + 1}`}
+                      aria-label={`Xem ảnh ${index + 1}`}
                       aria-pressed={selectedImageIndex === index}
                     >
                       <img
                         src={getImageUrl(image.url)}
-                        alt={`${product.name} - áº£nh ${index + 1}`}
+                        alt={`${product.name} - ảnh ${index + 1}`}
                       />
                     </button>
                   ))}
@@ -381,8 +381,8 @@ export default function ProductDetailPage() {
               </h1>
 
               <p className="product-detail-sku">
-                MÃ£ sáº£n pháº©m:{" "}
-                {selectedVariant?.sku ?? "Äang cáº­p nháº­t"}
+                Mã sản phẩm:{" "}
+                {selectedVariant?.sku ?? "Đang cập nhật"}
               </p>
 
               <div className="product-detail-price">
@@ -394,14 +394,14 @@ export default function ProductDetailPage() {
                       <>
                         <del>{formatPrice(compareAtPrice!)}</del>
                         <span className="product-detail-saving">
-                          Tiáº¿t kiá»‡m{" "}
+                          Tiết kiệm{" "}
                           {formatPrice(compareAtPrice! - price)}
                         </span>
                       </>
                     )}
                   </>
                 ) : (
-                  <strong>LiÃªn há»‡</strong>
+                  <strong>Liên hệ</strong>
                 )}
               </div>
 
@@ -409,7 +409,7 @@ export default function ProductDetailPage() {
 
               <div className="product-detail-variant-section">
                 <div className="product-detail-section-heading">
-                  <h2>PhiÃªn báº£n sáº£n pháº©m</h2>
+                  <h2>Phiên bản sản phẩm</h2>
 
                   {selectedVariant && (
                     <span>{getVariantLabel(selectedVariant)}</span>
@@ -440,13 +440,13 @@ export default function ProductDetailPage() {
                           aria-pressed={isSelected}
                           title={
                             quantity === 0
-                              ? `${getVariantLabel(variant)} - Háº¿t hÃ ng`
+                              ? `${getVariantLabel(variant)} - Hết hàng`
                               : getVariantLabel(variant)
                           }
                         >
                           <span>{getVariantLabel(variant)}</span>
                           {quantity === 0 && (
-                            <small>Háº¿t hÃ ng</small>
+                            <small>Hết hàng</small>
                           )}
                         </button>
                       );
@@ -454,7 +454,7 @@ export default function ProductDetailPage() {
                   </div>
                 ) : (
                   <p className="product-detail-no-variants">
-                    Sáº£n pháº©m hiá»‡n chÆ°a cÃ³ phiÃªn báº£n kháº£ dá»¥ng.
+                    Sản phẩm hiện chưa có phiên bản khả dụng.
                   </p>
                 )}
               </div>
@@ -468,13 +468,13 @@ export default function ProductDetailPage() {
                   }
                 >
                   {availableQuantity > 0
-                    ? "CÃ²n hÃ ng"
-                    : "Háº¿t hÃ ng"}
+                    ? "Còn hàng"
+                    : "Hết hàng"}
                 </span>
 
                 {availableQuantity > 0 && (
                   <span>
-                    {availableQuantity} sáº£n pháº©m cÃ³ thá»ƒ bÃ¡n
+                    {availableQuantity} sản phẩm có thể bán
                   </span>
                 )}
               </div>
@@ -492,12 +492,12 @@ export default function ProductDetailPage() {
                 }}
               >
                 {!selectedVariant
-                  ? "ChÆ°a cÃ³ phiÃªn báº£n"
+                  ? "Chưa có phiên bản"
                   : availableQuantity <= 0
-                    ? "Táº¡m háº¿t hÃ ng"
+                    ? "Tạm hết hàng"
                     : isAddingToCart
-                      ? "Äang thÃªm..."
-                      : "ThÃªm vÃ o giá» hÃ ng"}
+                      ? "Đang thêm..."
+                      : "Thêm vào giỏ hàng"}
               </button>
 
               {cartMessage && (
@@ -520,21 +520,21 @@ export default function ProductDetailPage() {
                     âœ“
                   </span>
                   <div>
-                    <strong>Sáº£n pháº©m chÃ­nh hÃ£ng IconDenim</strong>
+                    <strong>Sản phẩm chính hãng IconDenim</strong>
                     <p>
-                      ThÃ´ng tin sáº£n pháº©m Ä‘Æ°á»£c láº¥y trá»±c tiáº¿p tá»« há»‡ thá»‘ng.
+                      Thông tin sản phẩm được lấy trực tiếp từ hệ thống.
                     </p>
                   </div>
                 </div>
 
                 <div>
                   <span className="product-detail-benefit-icon">
-                    â†»
+                    ↻
                   </span>
                   <div>
-                    <strong>Há»— trá»£ Ä‘á»•i tráº£</strong>
+                    <strong>Hỗ trợ đổi trả</strong>
                     <p>
-                      Ãp dá»¥ng theo chÃ­nh sÃ¡ch Ä‘á»•i tráº£ cá»§a cá»­a hÃ ng.
+                      Áp dụng theo chính sách đổi trả của cửa hàng.
                     </p>
                   </div>
                 </div>
@@ -542,7 +542,7 @@ export default function ProductDetailPage() {
 
               {product.description && (
                 <div className="product-detail-description">
-                  <h2>MÃ´ táº£ sáº£n pháº©m</h2>
+                  <h2>Mô tả sản phẩm</h2>
                   <p>{product.description}</p>
                 </div>
               )}

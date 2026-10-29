@@ -64,7 +64,7 @@ async function parseResponse<T>(
             body &&
             typeof body.error === "string"
                 ? body.error
-                : "KhÃ´ng thá»ƒ thá»±c hiá»‡n yÃªu cáº§u.";
+                : "Không thể thực hiện yêu cầu.";
 
         throw new Error(message);
     }
@@ -76,7 +76,7 @@ async function parseResponse<T>(
         throw new Error(
             typeof body.error === "string"
                 ? body.error
-                : "KhÃ´ng thá»ƒ thá»±c hiá»‡n yÃªu cáº§u.",
+                : "Không thể thực hiện yêu cầu.",
         );
     }
 
@@ -141,7 +141,7 @@ export async function getAdminInventoryIssueById(
 
     if (!data) {
         throw new Error(
-            "KhÃ´ng tÃ¬m tháº¥y phiáº¿u xuáº¥t.",
+            "Không tìm thấy phiếu xuất.",
         );
     }
 

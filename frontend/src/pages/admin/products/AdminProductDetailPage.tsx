@@ -46,14 +46,14 @@ function formatDate(value: string) {
 
 function getProductStatusLabel(status: AdminProduct["status"]) {
     return status === "ACTIVE"
-        ? "Äang hoáº¡t Ä‘á»™ng"
-        : "Ngá»«ng hoáº¡t Ä‘á»™ng";
+        ? "Đang hoạt động"
+        : "Ngừng hoạt động";
 }
 
 function getVariantStatusLabel(status: AdminProductVariant["status"]) {
     return status === "ACTIVE"
-        ? "Äang hoáº¡t Ä‘á»™ng"
-        : "Ngá»«ng hoáº¡t Ä‘á»™ng";
+        ? "Đang hoạt động"
+        : "Ngừng hoạt động";
 }
 
 function AdminProductDetailPage() {
@@ -162,7 +162,7 @@ function AdminProductDetailPage() {
 
     async function loadData() {
         if (!id) {
-            setError("KhÃ´ng tÃ¬m tháº¥y mÃ£ sáº£n pháº©m.");
+            setError("Không tìm thấy mã sản phẩm.");
             setLoading(false);
             return;
         }
@@ -197,7 +197,7 @@ function AdminProductDetailPage() {
             setError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ táº£i thÃ´ng tin sáº£n pháº©m.",
+                    : "Không thể tải thông tin sản phẩm.",
             );
         } finally {
             setLoading(false);
@@ -250,13 +250,13 @@ function AdminProductDetailPage() {
         ];
 
         if (!allowedTypes.includes(file.type)) {
-            setImageError("Chá»‰ cháº¥p nháº­n áº£nh JPEG, PNG hoáº·c WebP.");
+            setImageError("Chỉ chấp nhận ảnh JPEG, PNG hoặc WebP.");
             setImageSuccess("");
             return;
         }
 
         if (file.size > 5 * 1024 * 1024) {
-            setImageError("Dung lÆ°á»£ng áº£nh khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 5 MB.");
+            setImageError("Dung lượng ảnh không được vượt quá 5 MB.");
             setImageSuccess("");
             return;
         }
@@ -280,12 +280,12 @@ function AdminProductDetailPage() {
 
             await refreshProductImages();
 
-            setImageSuccess("Táº£i áº£nh lÃªn thÃ nh cÃ´ng.");
+            setImageSuccess("Tải ảnh lên thành công.");
         } catch (err) {
             setImageError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ táº£i áº£nh lÃªn.",
+                    : "Không thể tải ảnh lên.",
             );
         } finally {
             setUploadingImage(false);
@@ -316,12 +316,12 @@ function AdminProductDetailPage() {
 
             await refreshProductImages();
 
-            setImageSuccess("ÄÃ£ cáº­p nháº­t áº£nh chÃ­nh.");
+            setImageSuccess("Đã cập nhật ảnh chính.");
         } catch (err) {
             setImageError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ Ä‘áº·t áº£nh chÃ­nh.",
+                    : "Không thể đặt ảnh chính.",
             );
         } finally {
             setImageActionId(null);
@@ -334,7 +334,7 @@ function AdminProductDetailPage() {
         }
 
         const confirmed = window.confirm(
-            "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a áº£nh nÃ y khÃ´ng?",
+            "Bạn có chắc chắn muốn xóa ảnh này không?",
         );
 
         if (!confirmed) {
@@ -360,12 +360,12 @@ function AdminProductDetailPage() {
 
             await refreshProductImages();
 
-            setImageSuccess("ÄÃ£ xÃ³a áº£nh sáº£n pháº©m.");
+            setImageSuccess("Đã xóa ảnh sản phẩm.");
         } catch (err) {
             setImageError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ xÃ³a áº£nh.",
+                    : "Không thể xóa ảnh.",
             );
         } finally {
             setImageActionId(null);
@@ -378,14 +378,14 @@ function AdminProductDetailPage() {
 
     const categoryName = useMemo(() => {
         if (!product) {
-            return "KhÃ´ng xÃ¡c Ä‘á»‹nh";
+            return "Không xác định";
         }
 
         const category = categories.find(
             (item) => item.id === product.categoryId,
         );
 
-        return category?.name ?? "KhÃ´ng xÃ¡c Ä‘á»‹nh";
+        return category?.name ?? "Không xác định";
     }, [categories, product]);
 
     // ========================================
@@ -420,7 +420,7 @@ function AdminProductDetailPage() {
 
     async function handleUpdateProduct() {
         if (!id) {
-            setEditError("KhÃ´ng tÃ¬m tháº¥y mÃ£ sáº£n pháº©m.");
+            setEditError("Không tìm thấy mã sản phẩm.");
             return;
         }
 
@@ -429,12 +429,12 @@ function AdminProductDetailPage() {
         const trimmedDescription = editDescription.trim();
 
         if (!trimmedName) {
-            setEditError("Vui lÃ²ng nháº­p tÃªn sáº£n pháº©m.");
+            setEditError("Vui lòng nhập tên sản phẩm.");
             return;
         }
 
         if (!trimmedSlug) {
-            setEditError("Vui lÃ²ng nháº­p slug sáº£n pháº©m.");
+            setEditError("Vui lòng nhập slug sản phẩm.");
             return;
         }
 
@@ -457,7 +457,7 @@ function AdminProductDetailPage() {
                 status: editStatus,
             });
 
-            setEditSuccess("Cáº­p nháº­t sáº£n pháº©m thÃ nh cÃ´ng.");
+            setEditSuccess("Cập nhật sản phẩm thành công.");
 
             await loadData();
 
@@ -469,7 +469,7 @@ function AdminProductDetailPage() {
             setEditError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ cáº­p nháº­t sáº£n pháº©m.",
+                    : "Không thể cập nhật sản phẩm.",
             );
         } finally {
             setEditing(false);
@@ -505,7 +505,7 @@ function AdminProductDetailPage() {
 
     async function handleCreateVariant() {
         if (!id) {
-            setVariantCreateError("KhÃ´ng tÃ¬m tháº¥y mÃ£ sáº£n pháº©m.");
+            setVariantCreateError("Không tìm thấy mã sản phẩm.");
             return;
         }
 
@@ -516,17 +516,17 @@ function AdminProductDetailPage() {
             variantCompareAtPrice.trim();
 
         if (!trimmedName) {
-            setVariantCreateError("Vui lÃ²ng nháº­p tÃªn máº«u mÃ£.");
+            setVariantCreateError("Vui lòng nhập tên mẫu mã.");
             return;
         }
 
         if (!trimmedSku) {
-            setVariantCreateError("Vui lÃ²ng nháº­p SKU.");
+            setVariantCreateError("Vui lòng nhập SKU.");
             return;
         }
 
         if (!trimmedPrice) {
-            setVariantCreateError("Vui lÃ²ng nháº­p giÃ¡ sáº£n pháº©m.");
+            setVariantCreateError("Vui lòng nhập giá sản phẩm.");
             return;
         }
 
@@ -534,7 +534,7 @@ function AdminProductDetailPage() {
 
         if (!Number.isFinite(price) || price <= 0) {
             setVariantCreateError(
-                "GiÃ¡ sáº£n pháº©m pháº£i lÃ  sá»‘ lá»›n hÆ¡n 0.",
+                "Giá sản phẩm phải là số lớn hơn 0.",
             );
             return;
         }
@@ -549,14 +549,14 @@ function AdminProductDetailPage() {
                 compareAtPrice < 0
             ) {
                 setVariantCreateError(
-                    "GiÃ¡ so sÃ¡nh pháº£i lÃ  sá»‘ lá»›n hÆ¡n hoáº·c báº±ng 0.",
+                    "Giá so sánh phải là số lớn hơn hoặc bằng 0.",
                 );
                 return;
             }
 
             if (compareAtPrice < price) {
                 setVariantCreateError(
-                    "GiÃ¡ so sÃ¡nh pháº£i lá»›n hÆ¡n hoáº·c báº±ng giÃ¡ bÃ¡n.",
+                    "Giá so sánh phải lớn hơn hoặc bằng giá bán.",
                 );
                 return;
             }
@@ -586,7 +586,7 @@ function AdminProductDetailPage() {
             });
 
             setVariantCreateSuccess(
-                "ThÃªm máº«u mÃ£ thÃ nh cÃ´ng.",
+                "Thêm mẫu mã thành công.",
             );
 
             await loadData();
@@ -599,7 +599,7 @@ function AdminProductDetailPage() {
             setVariantCreateError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ thÃªm máº«u mÃ£.",
+                    : "Không thể thêm mẫu mã.",
             );
         } finally {
             setCreatingVariant(false);
@@ -644,7 +644,7 @@ function AdminProductDetailPage() {
 
     async function handleUpdateVariant() {
         if (!editingVariantId) {
-            setVariantEditError("KhÃ´ng tÃ¬m tháº¥y mÃ£ máº«u mÃ£.");
+            setVariantEditError("Không tìm thấy mã mẫu mã.");
             return;
         }
 
@@ -657,17 +657,17 @@ function AdminProductDetailPage() {
         ).trim();
 
         if (!trimmedName) {
-            setVariantEditError("Vui lÃ²ng nháº­p tÃªn máº«u mÃ£.");
+            setVariantEditError("Vui lòng nhập tên mẫu mã.");
             return;
         }
 
         if (!trimmedSku) {
-            setVariantEditError("Vui lÃ²ng nháº­p SKU.");
+            setVariantEditError("Vui lòng nhập SKU.");
             return;
         }
 
         if (!trimmedPrice) {
-            setVariantEditError("Vui lÃ²ng nháº­p giÃ¡ sáº£n pháº©m.");
+            setVariantEditError("Vui lòng nhập giá sản phẩm.");
             return;
         }
 
@@ -675,7 +675,7 @@ function AdminProductDetailPage() {
 
         if (!Number.isFinite(price) || price <= 0) {
             setVariantEditError(
-                "GiÃ¡ sáº£n pháº©m pháº£i lÃ  sá»‘ lá»›n hÆ¡n 0.",
+                "Giá sản phẩm phải là số lớn hơn 0.",
             );
             return;
         }
@@ -690,14 +690,14 @@ function AdminProductDetailPage() {
                 compareAtPrice < 0
             ) {
                 setVariantEditError(
-                    "GiÃ¡ so sÃ¡nh pháº£i lÃ  sá»‘ lá»›n hÆ¡n hoáº·c báº±ng 0.",
+                    "Giá so sánh phải là số lớn hơn hoặc bằng 0.",
                 );
                 return;
             }
 
             if (compareAtPrice < price) {
                 setVariantEditError(
-                    "GiÃ¡ so sÃ¡nh pháº£i lá»›n hÆ¡n hoáº·c báº±ng giÃ¡ bÃ¡n.",
+                    "Giá so sánh phải lớn hơn hoặc bằng giá bán.",
                 );
                 return;
             }
@@ -729,7 +729,7 @@ function AdminProductDetailPage() {
                 },
             );
 
-            setVariantEditSuccess("Cáº­p nháº­t máº«u mÃ£ thÃ nh cÃ´ng.");
+            setVariantEditSuccess("Cập nhật mẫu mã thành công.");
 
             await loadData();
 
@@ -742,7 +742,7 @@ function AdminProductDetailPage() {
             setVariantEditError(
                 err instanceof Error
                     ? err.message
-                    : "KhÃ´ng thá»ƒ cáº­p nháº­t máº«u mÃ£.",
+                    : "Không thể cập nhật mẫu mã.",
             );
         } finally {
             setUpdatingVariant(false);
@@ -759,7 +759,7 @@ function AdminProductDetailPage() {
                 <div className="product-detail-state">
                     <div className="product-detail-spinner" />
 
-                    <p>Äang táº£i thÃ´ng tin sáº£n pháº©m...</p>
+                    <p>Đang tải thông tin sản phẩm...</p>
                 </div>
             </section>
         );
@@ -793,7 +793,7 @@ function AdminProductDetailPage() {
                             <path d="m12 19-7-7 7-7" />
                         </svg>
 
-                        Quay láº¡i danh sÃ¡ch
+                        Quay lại danh sách
                     </button>
                 </div>
 
@@ -805,11 +805,11 @@ function AdminProductDetailPage() {
                         !
                     </div>
 
-                    <h2>KhÃ´ng thá»ƒ táº£i sáº£n pháº©m</h2>
+                    <h2>Không thể tải sản phẩm</h2>
 
                     <p>
                         {error ||
-                            "KhÃ´ng tÃ¬m tháº¥y thÃ´ng tin sáº£n pháº©m."}
+                            "Không tìm thấy thông tin sản phẩm."}
                     </p>
 
                     <button
@@ -817,7 +817,7 @@ function AdminProductDetailPage() {
                         className="product-detail-secondary-button"
                         onClick={() => void loadData()}
                     >
-                        Thá»­ láº¡i
+                        Thử lại
                     </button>
                 </div>
             </section>
@@ -847,7 +847,7 @@ function AdminProductDetailPage() {
                         <path d="m12 19-7-7 7-7" />
                     </svg>
 
-                    Quay láº¡i danh sÃ¡ch
+                    Quay lại danh sách
                 </button>
             </div>
 
@@ -862,8 +862,8 @@ function AdminProductDetailPage() {
                     </h1>
 
                     <p className="product-detail-description">
-                        Chi tiáº¿t sáº£n pháº©m vÃ  cÃ¡c máº«u mÃ£ Ä‘ang Ä‘Æ°á»£c
-                        quáº£n lÃ½.
+                        Chi tiết sản phẩm và các mẫu mã đang được
+                        quản lý.
                     </p>
                 </div>
 
@@ -884,7 +884,7 @@ function AdminProductDetailPage() {
                         className="product-detail-secondary-button"
                         onClick={openEditProduct}
                     >
-                        Chá»‰nh sá»­a
+                        Chỉnh sửa
                     </button>
                 </div>
             </div>
@@ -903,10 +903,10 @@ function AdminProductDetailPage() {
                                     PRODUCT IMAGES
                                 </div>
 
-                                <h2>HÃ¬nh áº£nh sáº£n pháº©m</h2>
+                                <h2>Hình ảnh sản phẩm</h2>
 
                                 <p>
-                                    {images.length} hÃ¬nh áº£nh
+                                    {images.length} hình ảnh
                                 </p>
                             </div>
 
@@ -917,8 +917,8 @@ function AdminProductDetailPage() {
                                 <span aria-hidden="true">+</span>
 
                                 {uploadingImage
-                                    ? "Äang táº£i áº£nh..."
-                                    : "Táº£i áº£nh lÃªn"}
+                                    ? "Đang tải ảnh..."
+                                    : "Tải ảnh lên"}
 
                                 <input
                                     type="file"
@@ -933,7 +933,7 @@ function AdminProductDetailPage() {
                         </div>
 
                         <p className="product-detail-image-help">
-                            Há»— trá»£ JPEG, PNG, WebP. Dung lÆ°á»£ng tá»‘i Ä‘a 5 MB má»—i áº£nh.
+                            Hỗ trợ JPEG, PNG, WebP. Dung lượng tối đa 5 MB mỗi ảnh.
                         </p>
 
                         {imageError && (
@@ -950,7 +950,7 @@ function AdminProductDetailPage() {
 
                         {loadingImages ? (
                             <div className="product-detail-image-empty">
-                                Äang táº£i danh sÃ¡ch áº£nh...
+                                Đang tải danh sách ảnh...
                             </div>
                         ) : images.length === 0 ? (
                             <div className="product-detail-image-empty">
@@ -980,10 +980,10 @@ function AdminProductDetailPage() {
                                     </svg>
                                 </div>
 
-                                <h3>ChÆ°a cÃ³ hÃ¬nh áº£nh</h3>
+                                <h3>Chưa có hình ảnh</h3>
 
                                 <p>
-                                    Táº£i áº£nh lÃªn Ä‘á»ƒ hiá»ƒn thá»‹ hÃ¬nh áº£nh sáº£n pháº©m.
+                                    Tải ảnh lên để hiển thị hình ảnh sản phẩm.
                                 </p>
                             </div>
                         ) : (
@@ -991,7 +991,7 @@ function AdminProductDetailPage() {
                                 <button
                                     type="button"
                                     className="product-detail-image-nav"
-                                    aria-label="Xem áº£nh trÆ°á»›c"
+                                    aria-label="Xem ảnh trước"
                                     onClick={() =>
                                         scrollProductImages("left")
                                     }
@@ -1014,13 +1014,13 @@ function AdminProductDetailPage() {
                                             <div className="product-detail-image-preview">
                                                 <img
                                                     src={getApiAssetUrl(image.url)}
-                                                    alt={`${product.name} - áº£nh ${image.id}`}
+                                                    alt={`${product.name} - ảnh ${image.id}`}
                                                     loading="lazy"
                                                 />
 
                                                 {image.isPrimary && (
                                                     <span className="product-detail-image-primary-badge">
-                                                        áº¢nh chÃ­nh
+                                                        Ảnh chính
                                                     </span>
                                                 )}
                                             </div>
@@ -1041,8 +1041,8 @@ function AdminProductDetailPage() {
                                                         }
                                                     >
                                                         {imageActionId === image.id
-                                                            ? "Äang xá»­ lÃ½..."
-                                                            : "Äáº·t lÃ m áº£nh chÃ­nh"}
+                                                            ? "Đang xử lý..."
+                                                            : "Đặt làm ảnh chính"}
                                                     </button>
                                                 )}
 
@@ -1059,7 +1059,7 @@ function AdminProductDetailPage() {
                                                         uploadingImage
                                                     }
                                                 >
-                                                    XÃ³a áº£nh
+                                                    Xóa ảnh
                                                 </button>
                                             </div>
                                         </article>
@@ -1069,7 +1069,7 @@ function AdminProductDetailPage() {
                                 <button
                                     type="button"
                                     className="product-detail-image-nav"
-                                    aria-label="Xem áº£nh tiáº¿p theo"
+                                    aria-label="Xem ảnh tiếp theo"
                                     onClick={() =>
                                         scrollProductImages("right")
                                     }
@@ -1093,14 +1093,14 @@ function AdminProductDetailPage() {
                                     INFORMATION
                                 </div>
 
-                                <h2>ThÃ´ng tin sáº£n pháº©m</h2>
+                                <h2>Thông tin sản phẩm</h2>
                             </div>
                         </div>
 
                         <div className="product-detail-info-grid">
                             <div className="product-detail-info-item">
                                 <span className="product-detail-info-label">
-                                    TÃªn sáº£n pháº©m
+                                    Tên sản phẩm
                                 </span>
 
                                 <span className="product-detail-info-value">
@@ -1110,7 +1110,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-info-item">
                                 <span className="product-detail-info-label">
-                                    ID sáº£n pháº©m
+                                    ID sản phẩm
                                 </span>
 
                                 <span className="product-detail-info-value product-detail-monospace">
@@ -1130,7 +1130,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-info-item">
                                 <span className="product-detail-info-label">
-                                    Danh má»¥c
+                                    Danh mục
                                 </span>
 
                                 <span className="product-detail-info-value">
@@ -1140,7 +1140,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-info-item">
                                 <span className="product-detail-info-label">
-                                    NgÃ y táº¡o
+                                    Ngày tạo
                                 </span>
 
                                 <span className="product-detail-info-value">
@@ -1150,7 +1150,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-info-item">
                                 <span className="product-detail-info-label">
-                                    Cáº­p nháº­t láº§n cuá»‘i
+                                    Cập nhật lần cuối
                                 </span>
 
                                 <span className="product-detail-info-value">
@@ -1161,14 +1161,14 @@ function AdminProductDetailPage() {
 
                         <div className="product-detail-description-block">
                             <span className="product-detail-info-label">
-                                MÃ´ táº£
+                                Mô tả
                             </span>
 
                             {product.description ? (
                                 <p>{product.description}</p>
                             ) : (
                                 <p className="product-detail-description-empty">
-                                    ChÆ°a cÃ³ mÃ´ táº£ cho sáº£n pháº©m nÃ y.
+                                    Chưa có mô tả cho sản phẩm này.
                                 </p>
                             )}
                         </div>
@@ -1185,9 +1185,9 @@ function AdminProductDetailPage() {
                                     VARIANTS
                                 </div>
 
-                                <h2>Máº«u mÃ£ sáº£n pháº©m</h2>
+                                <h2>Mẫu mã sản phẩm</h2>
 
-                                <p>{variants.length} máº«u mÃ£</p>
+                                <p>{variants.length} mẫu mã</p>
                             </div>
 
                             <button
@@ -1197,7 +1197,7 @@ function AdminProductDetailPage() {
                             >
                                 <span aria-hidden="true">+</span>
 
-                                ThÃªm máº«u mÃ£
+                                Thêm mẫu mã
                             </button>
                         </div>
 
@@ -1223,11 +1223,11 @@ function AdminProductDetailPage() {
                                     </svg>
                                 </div>
 
-                                <h3>ChÆ°a cÃ³ máº«u mÃ£</h3>
+                                <h3>Chưa có mẫu mã</h3>
 
                                 <p>
-                                    Sáº£n pháº©m nÃ y hiá»‡n chÆ°a cÃ³ máº«u mÃ£
-                                    nÃ o.
+                                    Sản phẩm này hiện chưa có mẫu mã
+                                    nào.
                                 </p>
                             </div>
                         ) : (
@@ -1236,12 +1236,12 @@ function AdminProductDetailPage() {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>TÃªn máº«u mÃ£</th>
+                                            <th>Tên mẫu mã</th>
                                             <th>SKU</th>
-                                            <th>GiÃ¡</th>
-                                            <th>GiÃ¡ so sÃ¡nh</th>
-                                            <th>Tráº¡ng thÃ¡i</th>
-                                            <th>Thao tÃ¡c</th>
+                                            <th>Giá</th>
+                                            <th>Giá so sánh</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
 
@@ -1282,7 +1282,7 @@ function AdminProductDetailPage() {
                                                         </span>
                                                     ) : (
                                                         <span className="product-detail-no-value">
-                                                            â€”
+                                                            —
                                                         </span>
                                                     )}
                                                 </td>
@@ -1313,7 +1313,7 @@ function AdminProductDetailPage() {
                                                             )
                                                         }
                                                     >
-                                                        Sá»­a
+                                                        Sửa
                                                     </button>
                                                 </td>
                                             </tr>
@@ -1335,29 +1335,29 @@ function AdminProductDetailPage() {
                             SUMMARY
                         </div>
 
-                        <h2>Tá»•ng quan</h2>
+                        <h2>Tổng quan</h2>
 
                         <div className="product-detail-summary-list">
                             <div>
-                                <span>Sáº£n pháº©m</span>
+                                <span>Sản phẩm</span>
 
                                 <strong>{product.name}</strong>
                             </div>
 
                             <div>
-                                <span>Danh má»¥c</span>
+                                <span>Danh mục</span>
 
                                 <strong>{categoryName}</strong>
                             </div>
 
                             <div>
-                                <span>Máº«u mÃ£</span>
+                                <span>Mẫu mã</span>
 
                                 <strong>{variants.length}</strong>
                             </div>
 
                             <div>
-                                <span>Tráº¡ng thÃ¡i</span>
+                                <span>Trạng thái</span>
 
                                 <strong>
                                     {getProductStatusLabel(
@@ -1397,12 +1397,12 @@ function AdminProductDetailPage() {
                                 </div>
 
                                 <h2 id="edit-product-title">
-                                    Chá»‰nh sá»­a sáº£n pháº©m
+                                    Chỉnh sửa sản phẩm
                                 </h2>
 
                                 <p>
-                                    Cáº­p nháº­t thÃ´ng tin cÆ¡ báº£n cá»§a sáº£n
-                                    pháº©m.
+                                    Cập nhật thông tin cơ bản của sản
+                                    phẩm.
                                 </p>
                             </div>
 
@@ -1411,7 +1411,7 @@ function AdminProductDetailPage() {
                                 className="product-detail-modal-close"
                                 onClick={closeEditProduct}
                                 disabled={editing}
-                                aria-label="ÄÃ³ng"
+                                aria-label="Đóng"
                             >
                                 <svg
                                     viewBox="0 0 24 24"
@@ -1442,7 +1442,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-product-name">
-                                    TÃªn sáº£n pháº©m
+                                    Tên sản phẩm
                                 </label>
 
                                 <input
@@ -1474,14 +1474,14 @@ function AdminProductDetailPage() {
                                 />
 
                                 <span className="product-detail-field-help">
-                                    Slug dÃ¹ng cho Ä‘á»‹nh danh URL cá»§a
-                                    sáº£n pháº©m.
+                                    Slug dùng cho định danh URL của
+                                    sản phẩm.
                                 </span>
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-product-description">
-                                    MÃ´ táº£
+                                    Mô tả
                                 </label>
 
                                 <textarea
@@ -1500,7 +1500,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-product-status">
-                                    Tráº¡ng thÃ¡i
+                                    Trạng thái
                                 </label>
 
                                 <select
@@ -1516,25 +1516,25 @@ function AdminProductDetailPage() {
                                     disabled={editing}
                                 >
                                     <option value="ACTIVE">
-                                        Äang hoáº¡t Ä‘á»™ng
+                                        Đang hoạt động
                                     </option>
 
                                     <option value="INACTIVE">
-                                        Ngá»«ng hoáº¡t Ä‘á»™ng
+                                        Ngừng hoạt động
                                     </option>
                                 </select>
                             </div>
 
                             <div className="product-detail-readonly-field">
                                 <span className="product-detail-readonly-label">
-                                    Danh má»¥c
+                                    Danh mục
                                 </span>
 
                                 <strong>{categoryName}</strong>
 
                                 <span>
-                                    Danh má»¥c khÃ´ng Ä‘Æ°á»£c thay Ä‘á»•i táº¡i
-                                    mÃ n hÃ¬nh nÃ y.
+                                    Danh mục không được thay đổi tại
+                                    màn hình này.
                                 </span>
                             </div>
                         </div>
@@ -1546,7 +1546,7 @@ function AdminProductDetailPage() {
                                 onClick={closeEditProduct}
                                 disabled={editing}
                             >
-                                Há»§y
+                                Hủy
                             </button>
 
                             <button
@@ -1558,8 +1558,8 @@ function AdminProductDetailPage() {
                                 disabled={editing}
                             >
                                 {editing
-                                    ? "Äang lÆ°u..."
-                                    : "LÆ°u thay Ä‘á»•i"}
+                                    ? "Đang lưu..."
+                                    : "Lưu thay đổi"}
                             </button>
                         </div>
                     </div>
@@ -1593,12 +1593,12 @@ function AdminProductDetailPage() {
                                 </div>
 
                                 <h2 id="create-variant-title">
-                                    ThÃªm máº«u mÃ£
+                                    Thêm mẫu mã
                                 </h2>
 
                                 <p>
-                                    Táº¡o má»™t máº«u mÃ£ má»›i cho sáº£n pháº©m
-                                    nÃ y.
+                                    Tạo một mẫu mã mới cho sản phẩm
+                                    này.
                                 </p>
                             </div>
 
@@ -1607,7 +1607,7 @@ function AdminProductDetailPage() {
                                 className="product-detail-modal-close"
                                 onClick={closeCreateVariant}
                                 disabled={creatingVariant}
-                                aria-label="ÄÃ³ng"
+                                aria-label="Đóng"
                             >
                                 <svg
                                     viewBox="0 0 24 24"
@@ -1638,7 +1638,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="create-variant-name">
-                                    TÃªn máº«u mÃ£
+                                    Tên mẫu mã
                                 </label>
 
                                 <input
@@ -1652,7 +1652,7 @@ function AdminProductDetailPage() {
                                         )
                                     }
                                     disabled={creatingVariant}
-                                    placeholder="VÃ­ dá»¥: Ão thun Ä‘en - M"
+                                    placeholder="Ví dụ: Áo thun đen - M"
                                 />
                             </div>
 
@@ -1672,18 +1672,18 @@ function AdminProductDetailPage() {
                                         )
                                     }
                                     disabled={creatingVariant}
-                                    placeholder="VÃ­ dá»¥: ATDEN-M"
+                                    placeholder="Ví dụ: ATDEN-M"
                                 />
 
                                 <span className="product-detail-field-help">
-                                    SKU lÃ  mÃ£ Ä‘á»‹nh danh riÃªng cá»§a máº«u
-                                    mÃ£.
+                                    SKU là mã định danh riêng của mẫu
+                                    mã.
                                 </span>
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="create-variant-price">
-                                    GiÃ¡ bÃ¡n
+                                    Giá bán
                                 </label>
 
                                 <input
@@ -1699,13 +1699,13 @@ function AdminProductDetailPage() {
                                         )
                                     }
                                     disabled={creatingVariant}
-                                    placeholder="VÃ­ dá»¥: 299000"
+                                    placeholder="Ví dụ: 299000"
                                 />
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="create-variant-compare-price">
-                                    GiÃ¡ so sÃ¡nh
+                                    Giá so sánh
                                 </label>
 
                                 <input
@@ -1721,18 +1721,18 @@ function AdminProductDetailPage() {
                                         )
                                     }
                                     disabled={creatingVariant}
-                                    placeholder="KhÃ´ng báº¯t buá»™c"
+                                    placeholder="Không bắt buộc"
                                 />
 
                                 <span className="product-detail-field-help">
-                                    Náº¿u nháº­p, giÃ¡ so sÃ¡nh pháº£i lá»›n hÆ¡n
-                                    hoáº·c báº±ng giÃ¡ bÃ¡n.
+                                    Nếu nhập, giá so sánh phải lớn hơn
+                                    hoặc bằng giá bán.
                                 </span>
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="create-variant-status">
-                                    Tráº¡ng thÃ¡i
+                                    Trạng thái
                                 </label>
 
                                 <select
@@ -1748,25 +1748,25 @@ function AdminProductDetailPage() {
                                     disabled={creatingVariant}
                                 >
                                     <option value="ACTIVE">
-                                        Äang hoáº¡t Ä‘á»™ng
+                                        Đang hoạt động
                                     </option>
 
                                     <option value="INACTIVE">
-                                        Ngá»«ng hoáº¡t Ä‘á»™ng
+                                        Ngừng hoạt động
                                     </option>
                                 </select>
                             </div>
 
                             <div className="product-detail-readonly-field">
                                 <span className="product-detail-readonly-label">
-                                    Sáº£n pháº©m
+                                    Sản phẩm
                                 </span>
 
                                 <strong>{product.name}</strong>
 
                                 <span>
-                                    Máº«u mÃ£ sáº½ Ä‘Æ°á»£c táº¡o trá»±c tiáº¿p cho
-                                    sáº£n pháº©m nÃ y.
+                                    Mẫu mã sẽ được tạo trực tiếp cho
+                                    sản phẩm này.
                                 </span>
                             </div>
                         </div>
@@ -1778,7 +1778,7 @@ function AdminProductDetailPage() {
                                 onClick={closeCreateVariant}
                                 disabled={creatingVariant}
                             >
-                                Há»§y
+                                Hủy
                             </button>
 
                             <button
@@ -1790,8 +1790,8 @@ function AdminProductDetailPage() {
                                 disabled={creatingVariant}
                             >
                                 {creatingVariant
-                                    ? "Äang táº¡o..."
-                                    : "Táº¡o máº«u mÃ£"}
+                                    ? "Đang tạo..."
+                                    : "Tạo mẫu mã"}
                             </button>
                         </div>
                     </div>
@@ -1825,12 +1825,12 @@ function AdminProductDetailPage() {
                                 </div>
 
                                 <h2 id="edit-variant-title">
-                                    Chá»‰nh sá»­a máº«u mÃ£
+                                    Chỉnh sửa mẫu mã
                                 </h2>
 
                                 <p>
-                                    Cáº­p nháº­t thÃ´ng tin cá»§a máº«u mÃ£ sáº£n
-                                    pháº©m.
+                                    Cập nhật thông tin của mẫu mã sản
+                                    phẩm.
                                 </p>
                             </div>
 
@@ -1839,7 +1839,7 @@ function AdminProductDetailPage() {
                                 className="product-detail-modal-close"
                                 onClick={closeEditVariant}
                                 disabled={updatingVariant}
-                                aria-label="ÄÃ³ng"
+                                aria-label="Đóng"
                             >
                                 <svg
                                     viewBox="0 0 24 24"
@@ -1870,7 +1870,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-variant-name">
-                                    TÃªn máº«u mÃ£
+                                    Tên mẫu mã
                                 </label>
 
                                 <input
@@ -1906,14 +1906,14 @@ function AdminProductDetailPage() {
                                 />
 
                                 <span className="product-detail-field-help">
-                                    SKU lÃ  mÃ£ Ä‘á»‹nh danh riÃªng cá»§a máº«u
-                                    mÃ£.
+                                    SKU là mã định danh riêng của mẫu
+                                    mã.
                                 </span>
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-variant-price">
-                                    GiÃ¡ bÃ¡n
+                                    Giá bán
                                 </label>
 
                                 <input
@@ -1934,7 +1934,7 @@ function AdminProductDetailPage() {
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-variant-compare-price">
-                                    GiÃ¡ so sÃ¡nh
+                                    Giá so sánh
                                 </label>
 
                                 <input
@@ -1953,14 +1953,14 @@ function AdminProductDetailPage() {
                                 />
 
                                 <span className="product-detail-field-help">
-                                    Náº¿u nháº­p, giÃ¡ so sÃ¡nh pháº£i lá»›n hÆ¡n
-                                    hoáº·c báº±ng giÃ¡ bÃ¡n.
+                                    Nếu nhập, giá so sánh phải lớn hơn
+                                    hoặc bằng giá bán.
                                 </span>
                             </div>
 
                             <div className="product-detail-form-group">
                                 <label htmlFor="edit-variant-status">
-                                    Tráº¡ng thÃ¡i
+                                    Trạng thái
                                 </label>
 
                                 <select
@@ -1976,26 +1976,26 @@ function AdminProductDetailPage() {
                                     disabled={updatingVariant}
                                 >
                                     <option value="ACTIVE">
-                                        Äang hoáº¡t Ä‘á»™ng
+                                        Đang hoạt động
                                     </option>
 
                                     <option value="INACTIVE">
-                                        Ngá»«ng hoáº¡t Ä‘á»™ng
+                                        Ngừng hoạt động
                                     </option>
                                 </select>
                             </div>
 
                             <div className="product-detail-readonly-field">
                                 <span className="product-detail-readonly-label">
-                                    Sáº£n pháº©m
+                                    Sản phẩm
                                 </span>
 
                                 <strong>{product.name}</strong>
 
                                 <span>
-                                    Máº«u mÃ£ váº«n thuá»™c sáº£n pháº©m hiá»‡n táº¡i
-                                    vÃ  khÃ´ng thá»ƒ chuyá»ƒn sang sáº£n pháº©m
-                                    khÃ¡c.
+                                    Mẫu mã vẫn thuộc sản phẩm hiện tại
+                                    và không thể chuyển sang sản phẩm
+                                    khác.
                                 </span>
                             </div>
                         </div>
@@ -2007,7 +2007,7 @@ function AdminProductDetailPage() {
                                 onClick={closeEditVariant}
                                 disabled={updatingVariant}
                             >
-                                Há»§y
+                                Hủy
                             </button>
 
                             <button
@@ -2019,8 +2019,8 @@ function AdminProductDetailPage() {
                                 disabled={updatingVariant}
                             >
                                 {updatingVariant
-                                    ? "Äang lÆ°u..."
-                                    : "LÆ°u thay Ä‘á»•i"}
+                                    ? "Đang lưu..."
+                                    : "Lưu thay đổi"}
                             </button>
                         </div>
                     </div>

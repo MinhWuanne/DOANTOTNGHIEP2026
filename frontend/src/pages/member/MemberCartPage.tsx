@@ -50,25 +50,25 @@ function getCartErrorMessage(error: unknown) {
 
     const messages: Record<string, string> = {
         AUTHORIZATION_REQUIRED:
-            "PhiÃªn Ä‘Äƒng nháº­p khÃ´ng há»£p lá»‡. Vui lÃ²ng Ä‘Äƒng nháº­p láº¡i.",
+            "Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.",
         MEMBER_ACCOUNT_REQUIRED:
-            "Chá»‰ tÃ i khoáº£n thÃ nh viÃªn má»›i cÃ³ thá»ƒ sá»­ dá»¥ng giá» hÃ ng.",
+            "Chỉ tài khoản thành viên mới có thể sử dụng giỏ hàng.",
         ACCOUNT_NOT_ACTIVE:
-            "TÃ i khoáº£n hiá»‡n khÃ´ng thá»ƒ thá»±c hiá»‡n thao tÃ¡c nÃ y.",
+            "Tài khoản hiện không thể thực hiện thao tác này.",
         INVALID_CART_ITEM_QUANTITY:
-            "Sá»‘ lÆ°á»£ng sáº£n pháº©m khÃ´ng há»£p lá»‡.",
+            "Số lượng sản phẩm không hợp lệ.",
         PRODUCT_VARIANT_NOT_ACTIVE:
-            "PhÃ¢n loáº¡i sáº£n pháº©m hiá»‡n khÃ´ng cÃ²n Ä‘Æ°á»£c kinh doanh.",
+            "Phân loại sản phẩm hiện không còn được kinh doanh.",
         PRODUCT_NOT_ACTIVE:
-            "Sáº£n pháº©m hiá»‡n khÃ´ng cÃ²n Ä‘Æ°á»£c kinh doanh.",
+            "Sản phẩm hiện không còn được kinh doanh.",
         CART_ITEM_NOT_FOUND:
-            "Sáº£n pháº©m khÃ´ng cÃ²n trong giá» hÃ ng. Vui lÃ²ng táº£i láº¡i trang.",
+            "Sản phẩm không còn trong giỏ hàng. Vui lòng tải lại trang.",
     };
 
     return (
         messages[code] ||
         code ||
-        "ÄÃ£ xáº£y ra lá»—i. Vui lÃ²ng thá»­ láº¡i."
+        "Đã xảy ra lỗi. Vui lòng thử lại."
     );
 }
 
@@ -149,7 +149,7 @@ export default function MemberCartPage() {
             nextQuantity > item.quantity &&
             nextQuantity > getAvailableQuantity(item)
         ) {
-            setPageError("Sá»‘ lÆ°á»£ng yÃªu cáº§u vÆ°á»£t quÃ¡ sá»‘ lÆ°á»£ng hÃ ng cÃ³ thá»ƒ bÃ¡n.");
+            setPageError("Số lượng yêu cầu vượt quá số lượng hàng có thể bán.");
             return;
         }
 
@@ -230,7 +230,7 @@ export default function MemberCartPage() {
                 };
             });
 
-            setPageMessage("ÄÃ£ xÃ³a sáº£n pháº©m khá»i giá» hÃ ng.");
+            setPageMessage("Đã xóa sản phẩm khỏi giỏ hàng.");
         } catch (error) {
             setPageError(getCartErrorMessage(error));
         } finally {
@@ -249,7 +249,7 @@ export default function MemberCartPage() {
         }
 
         const confirmed = window.confirm(
-            "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a toÃ n bá»™ sáº£n pháº©m trong giá» hÃ ng?",
+            "Bạn có chắc chắn muốn xóa toàn bộ sản phẩm trong giỏ hàng?",
         );
 
         if (!confirmed) {
@@ -269,7 +269,7 @@ export default function MemberCartPage() {
                     : currentCart,
             );
 
-            setPageMessage("ÄÃ£ xÃ³a toÃ n bá»™ giá» hÃ ng.");
+            setPageMessage("Đã xóa toàn bộ giỏ hàng.");
         } catch (error) {
             setPageError(getCartErrorMessage(error));
         } finally {
@@ -294,9 +294,9 @@ export default function MemberCartPage() {
         <main className="member-cart-page">
             <div className="member-cart-main">
                 <nav className="member-cart-breadcrumb" aria-label="Breadcrumb">
-                    <Link to="/">Trang chá»§</Link>
+                    <Link to="/">Trang chủ</Link>
                     <span aria-hidden="true">/</span>
-                    <span>Giá» hÃ ng</span>
+                    <span>Giỏ hàng</span>
                 </nav>
 
                 <div className="member-cart-heading">
@@ -304,15 +304,15 @@ export default function MemberCartPage() {
                         <p className="member-cart-eyebrow">
                             ICON DENIM / YOUR SELECTION
                         </p>
-                        <h1>Giá» hÃ ng cá»§a báº¡n</h1>
+                        <h1>Giỏ hàng của bạn</h1>
                         <p>
-                            Kiá»ƒm tra sáº£n pháº©m vÃ  sá»‘ lÆ°á»£ng trÆ°á»›c khi tiáº¿p tá»¥c mua sáº¯m.
+                            Kiểm tra sản phẩm và số lượng trước khi tiếp tục mua sắm.
                         </p>
                     </div>
 
                     {!isLoading && items.length > 0 && (
                         <span className="member-cart-item-count">
-                            {totalQuantity} sáº£n pháº©m
+                            {totalQuantity} sản phẩm
                         </span>
                     )}
                 </div>
@@ -324,7 +324,7 @@ export default function MemberCartPage() {
                             type="button"
                             onClick={() => window.location.reload()}
                         >
-                            Táº£i láº¡i trang
+                            Tải lại trang
                         </button>
                     </div>
                 )}
@@ -342,17 +342,17 @@ export default function MemberCartPage() {
                 {isLoading ? (
                     <div className="member-cart-state" role="status">
                         <span className="member-cart-spinner" aria-hidden="true" />
-                        <p>Äang táº£i giá» hÃ ng...</p>
+                        <p>Đang tải giỏ hàng...</p>
                     </div>
                 ) : pageError && !cart ? (
                     <div className="member-cart-state">
                         <div className="member-cart-empty-icon" aria-hidden="true">
                             !
                         </div>
-                        <h2>ChÆ°a thá»ƒ táº£i giá» hÃ ng</h2>
-                        <p>Vui lÃ²ng kiá»ƒm tra phiÃªn Ä‘Äƒng nháº­p rá»“i thá»­ láº¡i.</p>
+                        <h2>Chưa thể tải giỏ hàng</h2>
+                        <p>Vui lòng kiểm tra phiên đăng nhập rồi thử lại.</p>
                         <Link className="member-cart-primary-button" to="/login">
-                            ÄÄƒng nháº­p
+                            Đăng nhập
                         </Link>
                     </div>
                 ) : items.length === 0 ? (
@@ -360,23 +360,23 @@ export default function MemberCartPage() {
                         <div className="member-cart-empty-icon" aria-hidden="true">
                             â™§
                         </div>
-                        <h2>Giá» hÃ ng Ä‘ang trá»‘ng</h2>
+                        <h2>Giỏ hàng đang trống</h2>
                         <p>
-                            HÃ£y khÃ¡m phÃ¡ bá»™ sÆ°u táº­p IconDenim vÃ  chá»n sáº£n pháº©m báº¡n yÃªu
-                            thÃ­ch.
+                            Hãy khám phá bộ sưu tập IconDenim và chọn sản phẩm bạn yêu
+                            thích.
                         </p>
                         <Link
                             className="member-cart-primary-button"
                             to="/products"
                         >
-                            Tiáº¿p tá»¥c mua sáº¯m
+                            Tiếp tục mua sắm
                         </Link>
                     </div>
                 ) : (
                     <div className="member-cart-layout">
-                        <section className="member-cart-list" aria-label="Sáº£n pháº©m trong giá» hÃ ng">
+                        <section className="member-cart-list" aria-label="Sản phẩm trong giỏ hàng">
                             <div className="member-cart-list-heading">
-                                <h2>Sáº£n pháº©m Ä‘Ã£ chá»n</h2>
+                                <h2>Sản phẩm đã chọn</h2>
 
                                 <button
                                     type="button"
@@ -384,7 +384,7 @@ export default function MemberCartPage() {
                                     onClick={() => void handleClearCart()}
                                     disabled={isClearing || busyItemId !== null}
                                 >
-                                    {isClearing ? "Äang xÃ³a..." : "XÃ³a táº¥t cáº£"}
+                                    {isClearing ? "Đang xóa..." : "Xóa tất cả"}
                                 </button>
                             </div>
 
@@ -435,7 +435,7 @@ export default function MemberCartPage() {
                                             </Link>
 
                                             <p className="member-cart-variant">
-                                                PhÃ¢n loáº¡i: {variant.name || variant.sku}
+                                                Phân loại: {variant.name || variant.sku}
                                             </p>
 
                                             <p className="member-cart-sku">
@@ -448,26 +448,26 @@ export default function MemberCartPage() {
 
                                             {availableQuantity === 0 && (
                                                 <p className="member-cart-stock-warning">
-                                                    Hiá»‡n khÃ´ng cÃ²n hÃ ng kháº£ dá»¥ng.
+                                                    Hiện không còn hàng khả dụng.
                                                 </p>
                                             )}
 
                                             {availableQuantity > 0 &&
                                                 item.quantity > availableQuantity && (
                                                     <p className="member-cart-stock-warning">
-                                                        Sá»‘ lÆ°á»£ng trong giá» vÆ°á»£t quÃ¡ lÆ°á»£ng hÃ ng hiá»‡n cÃ³.
-                                                        Vui lÃ²ng Ä‘iá»u chá»‰nh trÆ°á»›c khi Ä‘áº·t hÃ ng.
+                                                        Số lượng trong giỏ vượt quá lượng hàng hiện có.
+                                                        Vui lòng điều chỉnh trước khi đặt hàng.
                                                     </p>
                                                 )}
 
                                             <div className="member-cart-item-actions">
                                                 <div
                                                     className="member-cart-quantity"
-                                                    aria-label={`Sá»‘ lÆ°á»£ng ${product.name}`}
+                                                    aria-label={`Số lượng ${product.name}`}
                                                 >
                                                     <button
                                                         type="button"
-                                                        aria-label="Giáº£m sá»‘ lÆ°á»£ng"
+                                                        aria-label="Giảm số lượng"
                                                         onClick={() =>
                                                             void handleUpdateQuantity(
                                                                 item,
@@ -485,7 +485,7 @@ export default function MemberCartPage() {
 
                                                     <button
                                                         type="button"
-                                                        aria-label="TÄƒng sá»‘ lÆ°á»£ng"
+                                                        aria-label="Tăng số lượng"
                                                         onClick={() =>
                                                             void handleUpdateQuantity(
                                                                 item,
@@ -508,7 +508,7 @@ export default function MemberCartPage() {
                                                     onClick={() => void handleRemoveItem(item)}
                                                     disabled={isBusy}
                                                 >
-                                                    {isBusy ? "Äang xá»­ lÃ½..." : "XÃ³a"}
+                                                    {isBusy ? "Đang xử lý..." : "Xóa"}
                                                 </button>
                                             </div>
                                         </div>
@@ -521,36 +521,36 @@ export default function MemberCartPage() {
                             })}
 
                             <div className="member-cart-continue">
-                                <Link to="/products">â† Tiáº¿p tá»¥c mua sáº¯m</Link>
+                                <Link to="/products">← Tiếp tục mua sắm</Link>
                             </div>
                         </section>
 
                         <aside className="member-cart-summary">
-                            <h2>TÃ³m táº¯t Ä‘Æ¡n hÃ ng</h2>
+                            <h2>Tóm tắt đơn hàng</h2>
 
                             <div className="member-cart-summary-row">
-                                <span>Sá»‘ lÆ°á»£ng sáº£n pháº©m</span>
+                                <span>Số lượng sản phẩm</span>
                                 <span>{totalQuantity}</span>
                             </div>
 
                             <div className="member-cart-summary-row">
-                                <span>Táº¡m tÃ­nh</span>
+                                <span>Tạm tính</span>
                                 <strong>{formatCurrency(subtotal)}</strong>
                             </div>
 
                             <div className="member-cart-summary-row member-cart-shipping-row">
-                                <span>PhÃ­ váº­n chuyá»ƒn</span>
-                                <span>TÃ­nh khi thanh toÃ¡n</span>
+                                <span>Phí vận chuyển</span>
+                                <span>Tính khi thanh toán</span>
                             </div>
 
                             <div className="member-cart-summary-total">
-                                <span>Tá»•ng táº¡m tÃ­nh</span>
+                                <span>Tổng tạm tính</span>
                                 <strong>{formatCurrency(subtotal)}</strong>
                             </div>
 
                             <p className="member-cart-summary-note">
-                                PhÃ­ váº­n chuyá»ƒn vÃ  cÃ¡c khoáº£n giáº£m giÃ¡ sáº½ Ä‘Æ°á»£c xÃ¡c Ä‘á»‹nh á»Ÿ
-                                bÆ°á»›c thanh toÃ¡n.
+                                Phí vận chuyển và các khoản giảm giá sẽ được xác định ở
+                                bước thanh toán.
                             </p>
 
                             <button
@@ -559,11 +559,11 @@ export default function MemberCartPage() {
                                 disabled={isLoading || items.length === 0 || !accountId}
                                 onClick={() => navigate("/member/checkout")}
                             >
-                                TIáº¾P Tá»¤C THANH TOÃN
+                                TIẾP TỤC THANH TOÁN
                             </button>
 
                             <p className="member-cart-checkout-note">
-                                Kiá»ƒm tra Ä‘á»‹a chá»‰ nháº­n hÃ ng vÃ  phÆ°Æ¡ng thá»©c thanh toÃ¡n á»Ÿ bÆ°á»›c tiáº¿p theo.
+                                Kiểm tra địa chỉ nhận hàng và phương thức thanh toán ở bước tiếp theo.
                             </p>
                         </aside>
                     </div>
