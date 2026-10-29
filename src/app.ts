@@ -62,7 +62,10 @@ const app = Fastify({
 });
 
 await app.register(cors, {
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://doantotnghiep-2026.vercel.app",
+  ],
   methods: [
     "GET",
     "POST",
