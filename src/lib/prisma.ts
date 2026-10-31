@@ -2,6 +2,11 @@
 import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "../generated/prisma/client.js";
+import fs from "node:fs";
+import path from "node:path";
+
+const caPath = path.resolve(process.cwd(), "certs/aiven-ca.pem");
+const ca = fs.readFileSync(caPath, "utf8");
 
 const adapter = new PrismaMariaDb({
   host: process.env.DB_HOST ?? "localhost",
@@ -10,7 +15,10 @@ const adapter = new PrismaMariaDb({
   password: process.env.DB_PASSWORD ?? "",
   database: process.env.DB_NAME ?? "ecommerce_platform",
   connectionLimit: 5,
-  ssl: true,
+  ssl: {
+    ca,
+    rejectUnauthorized: true,
+  },
 });
 
 export const prisma = new PrismaClient({
