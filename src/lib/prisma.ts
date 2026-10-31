@@ -1,4 +1,5 @@
-﻿import "dotenv/config";
+﻿
+import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "../generated/prisma/client.js";
 
@@ -9,6 +10,7 @@ const adapter = new PrismaMariaDb({
   password: process.env.DB_PASSWORD ?? "",
   database: process.env.DB_NAME ?? "ecommerce_platform",
   connectionLimit: 5,
+  ssl: true,
 });
 
 export const prisma = new PrismaClient({
