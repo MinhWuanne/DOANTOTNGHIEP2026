@@ -10,6 +10,7 @@ import {
   WalletTransactionType,
   OrderStatus,
   PaymentStatus,
+  ReturnStatus,
 } from "../../generated/prisma/enums.js";
 
 import { PrismaClient } from "../../generated/prisma/client.js";
@@ -464,94 +465,143 @@ export class CommissionService {
       failed,
     };
   }
+
   async payCommission(id: bigint | number) {
-    const commissionId = BigInt(id);
+  const commissionId = BigInt(id);
 
-    const commission = await prisma.commissionTransaction.findUnique({
-      where: {
-        id: commissionId,
-      },
-      select: {
-        id: true,
-        status: true,
-        orderId: true,
-        accountId: true,
-        amount: true,
-      },
-    });
+  const commission = await prisma.commissionTransaction.findUnique({
+    where: {
+      id: commissionId,
+    },
+    select: {
+      id: true,
+      status: true,
+      orderId: true,
+      accountId: true,
+      amount: true,
+    },
+  });
 
-    if (!commission) {
+  if (!commission) {
+    throw new Error("COMMISSION_NOT_FOUND");
+  }
+
+  if (commission.status !== CommissionStatus.APPROVED) {
+    throw new Error("INVALID_COMMISSION_STATUS_TRANSITION");
+  }
+
+  return prisma.$transaction(async (tx) => {
+    // --------------------------------------------------------
+    // Khóa đơn hàng để đồng bộ với luồng tạo và duyệt trả hàng.
+    // --------------------------------------------------------
+    await tx.$queryRaw`
+      SELECT id
+      FROM orders
+      WHERE id = ${commission.orderId}
+      FOR UPDATE
+    `;
+
+    // --------------------------------------------------------
+    // Đọc lại Commission bên trong transaction.
+    // --------------------------------------------------------
+    const currentCommission =
+      await tx.commissionTransaction.findUnique({
+        where: {
+          id: commissionId,
+        },
+        select: {
+          id: true,
+          status: true,
+          orderId: true,
+          accountId: true,
+          amount: true,
+        },
+      });
+
+    if (!currentCommission) {
       throw new Error("COMMISSION_NOT_FOUND");
     }
 
-    if (commission.status !== CommissionStatus.APPROVED) {
+    if (currentCommission.status !== CommissionStatus.APPROVED) {
       throw new Error("INVALID_COMMISSION_STATUS_TRANSITION");
     }
 
-    return prisma.$transaction(async (tx) => {
-      // --------------------------------------------------------
-      // Kiểm tra lại trạng thái trong transaction.
-      //
-      // updateMany + status = APPROVED giúp tránh việc cùng một
-      // Commission bị pay hai lần trong các request đồng thời.
-      // --------------------------------------------------------
-      const updated = await tx.commissionTransaction.updateMany({
-        where: {
-          id: commissionId,
-          status: CommissionStatus.APPROVED,
-        },
-        data: {
-          status: CommissionStatus.PAID,
-        },
-      });
-
-      if (updated.count !== 1) {
-        throw new Error("INVALID_COMMISSION_STATUS_TRANSITION");
-      }
-
-      // --------------------------------------------------------
-      // Cộng tiền vào Wallet của người NHẬN commission.
-      //
-      // Không phải Wallet của buyer.
-      // commission.accountId = direct referrer.
-      // --------------------------------------------------------
-      await walletService.creditInTransaction(
-        tx,
-        commission.accountId,
-        commission.amount,
-        WalletTransactionType.COMMISSION,
-        `Commission payment for commission #${commission.id.toString()}`,
-      );
-
-      // --------------------------------------------------------
-      // Trả về Commission sau khi đã PAID.
-      // --------------------------------------------------------
-      return tx.commissionTransaction.findUniqueOrThrow({
-        where: {
-          id: commissionId,
-        },
-        include: {
-          order: true,
-          account: {
-            select: {
-              id: true,
-              personId: true,
-              platform: true,
-              email: true,
-              phone: true,
-              status: true,
-              createdAt: true,
-              updatedAt: true,
-              person: true,
-              memberProfile: true,
-              franchiseProfile: true,
-            },
-          },
-          rule: true,
-        },
-      });
+    // --------------------------------------------------------
+    // Không thanh toán hoa hồng khi yêu cầu trả hàng đang chờ.
+    // --------------------------------------------------------
+    const pendingReturn = await tx.returnRequest.findFirst({
+      where: {
+        orderId: currentCommission.orderId,
+        status: ReturnStatus.PENDING,
+      },
+      select: {
+        id: true,
+      },
     });
-  }
+
+    if (pendingReturn) {
+      throw new Error("COMMISSION_RETURN_REQUEST_PENDING");
+    }
+
+    // --------------------------------------------------------
+    // Chuyển Commission từ APPROVED sang PAID.
+    // updateMany giúp tránh thanh toán hai lần.
+    // --------------------------------------------------------
+    const updated = await tx.commissionTransaction.updateMany({
+      where: {
+        id: commissionId,
+        status: CommissionStatus.APPROVED,
+      },
+      data: {
+        status: CommissionStatus.PAID,
+      },
+    });
+
+    if (updated.count !== 1) {
+      throw new Error("INVALID_COMMISSION_STATUS_TRANSITION");
+    }
+
+    // --------------------------------------------------------
+    // Cộng tiền vào Wallet của người NHẬN commission.
+    // commission.accountId = direct referrer.
+    // --------------------------------------------------------
+    await walletService.creditInTransaction(
+      tx,
+      currentCommission.accountId,
+      currentCommission.amount,
+      WalletTransactionType.COMMISSION,
+      `Commission payment for commission #${currentCommission.id.toString()}`,
+    );
+
+    // --------------------------------------------------------
+    // Trả về Commission sau khi đã PAID.
+    // --------------------------------------------------------
+    return tx.commissionTransaction.findUniqueOrThrow({
+      where: {
+        id: commissionId,
+      },
+      include: {
+        order: true,
+        account: {
+          select: {
+            id: true,
+            personId: true,
+            platform: true,
+            email: true,
+            phone: true,
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+            person: true,
+            memberProfile: true,
+            franchiseProfile: true,
+          },
+        },
+        rule: true,
+      },
+    });
+  });
+}
 
   // ============================================================
   // GET FRANCHISE COMMISSIONS

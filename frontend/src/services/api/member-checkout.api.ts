@@ -140,6 +140,10 @@ export interface MemberOrder {
   totalAmount: string | number;
   createdAt: string;
   items: MemberOrderItem[];
+
+  commissionTransactions?: {
+    status: string;
+  } | null;
 }
 
 export async function getMyMemberOrders(): Promise<MemberOrder[]> {

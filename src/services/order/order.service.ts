@@ -818,83 +818,88 @@ export class OrderService {
             variant: true,
           },
         },
+        commissionTransactions: {
+          select: {
+            status: true,
+          },
+        },
       },
     });
-  }
+}
 
 
   async getOrderById(
-    id: bigint | number,
-  ) {
-    return prisma.order.findUnique({
-      where: {
-        id: BigInt(id),
+  id: bigint | number,
+) {
+  return prisma.order.findUnique({
+    where: {
+      id: BigInt(id),
+    },
+    include: {
+      account: {
+        select: {
+          id: true,
+          personId: true,
+          platform: true,
+          email: true,
+          phone: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true,
+          person: true,
+          memberProfile: true,
+          franchiseProfile: true,
+        },
       },
-      include: {
-        account: {
-          select: {
-            id: true,
-            personId: true,
-            platform: true,
-            email: true,
-            phone: true,
-            status: true,
-            createdAt: true,
-            updatedAt: true,
-            person: true,
-            memberProfile: true,
-            franchiseProfile: true,
-          },
+      address: true,
+      items: {
+        include: {
+          variant: true,
         },
-        address: true,
-        items: {
-          include: {
-            variant: true,
-          },
+      },
+      commissionTransactions: true,
+    },
+  });
+}
+
+  private async generateOrderNumber(): Promise < string > {
+  const now = new Date();
+  const year = now.getFullYear();
+  const prefix = `ORD-${year}-`;
+
+  const latestOrder =
+    await prisma.order.findFirst({
+      where: {
+        orderNumber: {
+          startsWith: prefix,
         },
-        commissionTransactions: true,
+      },
+      orderBy: {
+        id: "desc",
+      },
+      select: {
+        orderNumber: true,
       },
     });
-  }
 
-  private async generateOrderNumber(): Promise<string> {
-    const now = new Date();
-    const year = now.getFullYear();
-    const prefix = `ORD-${year}-`;
+  let nextNumber = 1;
 
-    const latestOrder =
-      await prisma.order.findFirst({
-        where: {
-          orderNumber: {
-            startsWith: prefix,
-          },
-        },
-        orderBy: {
-          id: "desc",
-        },
-        select: {
-          orderNumber: true,
-        },
-      });
+  if(latestOrder) {
+    const match =
+      latestOrder.orderNumber.match(
+        /^ORD-\d{4}-(\d+)$/,
+      );
 
-    let nextNumber = 1;
-
-    if (latestOrder) {
-      const match =
-        latestOrder.orderNumber.match(
-          /^ORD-\d{4}-(\d+)$/,
-        );
-
-      if (match) {
-        nextNumber =
-          Number(match[1]) + 1;
-      }
+    if (match) {
+      nextNumber =
+        Number(match[1]) + 1;
     }
+  }
 
     return `${prefix}${nextNumber
-      .toString()
-      .padStart(4, "0")}`;
-  }
+    .toString()
+    .padStart(4, "0")}`;
+}
 }
 
 export const orderService =

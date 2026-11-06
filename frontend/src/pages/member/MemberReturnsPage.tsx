@@ -71,7 +71,8 @@ function getStatusClass(status: MemberReturnStatus): string {
 function isPotentiallyEligible(order: MemberOrder): boolean {
     return (
         order.status === "DELIVERED" &&
-        order.paymentStatus === "PAID"
+        order.paymentStatus === "PAID" &&
+        order.commissionTransactions?.status !== "PAID"
     );
 }
 
@@ -243,8 +244,9 @@ export default function MemberReturnsPage() {
                         <p className="member-returns-muted">Đang tải đơn hàng...</p>
                     ) : eligibleOrders.length === 0 ? (
                         <p className="member-returns-muted">
-                            Hiện không có đơn hàng phù hợp để tạo yêu cầu mới. Đơn hàng đã có
-                            yêu cầu trả hàng sẽ không xuất hiện ở đây.
+                            Hiện không có đơn hàng phù hợp để tạo yêu cầu trả hàng.
+                            Chỉ đơn đã giao, đã thanh toán, chưa được thanh toán hoa hồng
+                            và chưa có yêu cầu trả hàng mới đủ điều kiện.
                         </p>
                     ) : (
                         <div className="member-returns-form">

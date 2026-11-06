@@ -37,71 +37,95 @@ export class ReturnService {
     const orderIdBigInt = BigInt(orderId);
     const accountIdBigInt = BigInt(accountId);
 
-    const order = await prisma.order.findUnique({
-      where: {
-        id: orderIdBigInt,
-      },
-      select: {
-        id: true,
-        accountId: true,
-        platform: true,
-        status: true,
-        paymentStatus: true,
-        deliveredAt: true,
-        totalAmount: true,
-        returnRequest: {
-          select: {
-            id: true,
-            status: true,
+    return prisma.$transaction(async (tx) => {
+      // Khóa đơn hàng để đồng bộ với luồng thanh toán hoa hồng.
+      await tx.$queryRaw`
+      SELECT id
+      FROM orders
+      WHERE id = ${orderIdBigInt}
+      FOR UPDATE
+    `;
+
+      const order = await tx.order.findUnique({
+        where: {
+          id: orderIdBigInt,
+        },
+        select: {
+          id: true,
+          accountId: true,
+          platform: true,
+          status: true,
+          paymentStatus: true,
+          deliveredAt: true,
+          totalAmount: true,
+          returnRequest: {
+            select: {
+              id: true,
+              status: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (!order) {
-      throw new Error("ORDER_NOT_FOUND");
-    }
+      if (!order) {
+        throw new Error("ORDER_NOT_FOUND");
+      }
 
-    if (order.accountId !== accountIdBigInt) {
-      throw new Error("ORDER_ACCESS_FORBIDDEN");
-    }
+      if (order.accountId !== accountIdBigInt) {
+        throw new Error("ORDER_ACCESS_FORBIDDEN");
+      }
 
-    if (order.platform !== AccountPlatform.MEMBER) {
-      throw new Error("MEMBER_ACCOUNT_REQUIRED");
-    }
+      if (order.platform !== AccountPlatform.MEMBER) {
+        throw new Error("MEMBER_ACCOUNT_REQUIRED");
+      }
 
-    if (order.status !== OrderStatus.DELIVERED) {
-      throw new Error("RETURN_REQUIRES_DELIVERED_ORDER");
-    }
+      if (order.status !== OrderStatus.DELIVERED) {
+        throw new Error("RETURN_REQUIRES_DELIVERED_ORDER");
+      }
 
-    if (!order.deliveredAt) {
-      throw new Error("ORDER_DELIVERED_AT_REQUIRED");
-    }
+      if (!order.deliveredAt) {
+        throw new Error("ORDER_DELIVERED_AT_REQUIRED");
+      }
 
-    if (order.paymentStatus !== PaymentStatus.PAID) {
-      throw new Error("RETURN_REQUIRES_PAID_ORDER");
-    }
+      if (order.paymentStatus !== PaymentStatus.PAID) {
+        throw new Error("RETURN_REQUIRES_PAID_ORDER");
+      }
 
-    if (order.returnRequest) {
-      throw new Error("RETURN_REQUEST_ALREADY_EXISTS");
-    }
+      if (order.returnRequest) {
+        throw new Error("RETURN_REQUEST_ALREADY_EXISTS");
+      }
 
-    const now = Date.now();
-    const deliveredAt = order.deliveredAt.getTime();
+      // Không cho trả hàng nếu hoa hồng của đơn đã được thanh toán.
+      const commission = await tx.commissionTransaction.findUnique({
+        where: {
+          orderId: order.id,
+        },
+        select: {
+          status: true,
+        },
+      });
 
-    if (now - deliveredAt >= RETURN_WINDOW_MS) {
-      throw new Error("RETURN_WINDOW_EXPIRED");
-    }
+      if (commission?.status === CommissionStatus.PAID) {
+        throw new Error("RETURN_COMMISSION_ALREADY_PAID");
+      }
 
-    return prisma.returnRequest.create({
-      data: {
-        orderId: order.id,
-        status: ReturnStatus.PENDING,
-        note,
-      },
-      include: {
-        order: true,
-      },
+      const now = Date.now();
+      const deliveredAt = order.deliveredAt.getTime();
+
+      if (now - deliveredAt >= RETURN_WINDOW_MS) {
+        throw new Error("RETURN_WINDOW_EXPIRED");
+      }
+
+      return tx.returnRequest.create({
+        data: {
+          orderId: order.id,
+          status: ReturnStatus.PENDING,
+          note,
+        },
+        include: {
+          order: true,
+        },
+      });
     });
   }
 
@@ -387,7 +411,17 @@ export class ReturnService {
 
     return prisma.$transaction(async (tx) => {
       // --------------------------------------------------------
-      // 1. Lock/check ReturnRequest state.
+      // 1. Khóa đơn hàng để đồng bộ với luồng thanh toán hoa hồng.
+      // --------------------------------------------------------
+      await tx.$queryRaw`
+    SELECT id
+    FROM orders
+    WHERE id = ${request.orderId}
+    FOR UPDATE
+  `;
+
+      // --------------------------------------------------------
+      // 2. Lock/check ReturnRequest state.
       // --------------------------------------------------------
       const approved = await tx.returnRequest.updateMany({
         where: {
